@@ -20,7 +20,9 @@ import {
   Globe,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { registerWaitlistUser } from './lib/supabase';
+import { registerWaitlistUser, supabase } from './lib/supabase';
+import { calculateWaveMetrics } from './lib/waveMetrics';
+import { TopAnnouncementBar } from './components/TopAnnouncementBar';
 
 // 6-Hour Rolling Sandbox Window
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
@@ -220,6 +222,47 @@ export default function App() {
   const [verifyError, setVerifyError] = useState(null);
   const [verifyResult, setVerifyResult] = useState(null);
 
+  // Live Waitlist Total Count from Supabase
+  const [totalCount, setTotalCount] = useState(0);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchWaitlistCount() {
+      try {
+        if (!supabase) {
+          if (isMounted) setTotalCount(0);
+          return;
+        }
+
+        const { count, error } = await supabase
+          .from('waitlist')
+          .select('*', { count: 'exact', head: true });
+
+        if (error) {
+          console.error('[GhostLead] Waitlist count error:', error);
+          if (isMounted) setTotalCount(0);
+          return;
+        }
+
+        if (isMounted) {
+          setTotalCount(typeof count === 'number' ? count : 0);
+        }
+      } catch (err) {
+        console.error('[GhostLead] Failed to fetch waitlist count:', err);
+        if (isMounted) setTotalCount(0);
+      }
+    }
+
+    fetchWaitlistCount();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const waveMetrics = calculateWaveMetrics(totalCount);
+
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalHeadline, setModalHeadline] = useState("Lock Your Wave 1 Early-Bird Slot");
@@ -261,7 +304,10 @@ export default function App() {
 
   const openModal = (tier = 'Pro', customHeadline = null) => {
     setSelectedTier(tier);
-    setModalHeadline(customHeadline || "Lock Your Wave 1 Early-Bird Slot");
+    const defaultHeadline = waveMetrics.isClosed
+      ? "Join Public Launch Waitlist"
+      : `Lock Your ${waveMetrics.waveName} Early-Bird Slot`;
+    setModalHeadline(customHeadline || defaultHeadline);
     setIsLimitGateModal(false);
     setIsSubmitted(false);
     setIsSubmitting(false);
@@ -272,7 +318,7 @@ export default function App() {
 
   const setIsWaitlistOpen = (open) => {
     if (open) {
-      openModal('Pro', 'Claim Wave 1 Extension Access');
+      openModal('Pro', waveMetrics.isClosed ? 'Join Public Launch Waitlist' : `Claim ${waveMetrics.waveName} Extension Access`);
     } else {
       setIsModalOpen(false);
     }
@@ -424,8 +470,10 @@ export default function App() {
     setIsSubmitting(false);
 
     if (result.success) {
+      setTotalCount((prev) => prev + 1);
       const randomTokenNum = Math.floor(10 + Math.random() * 80);
-      setReservationToken(`#GL-W1-0${randomTokenNum}`);
+      const waveTag = waveMetrics.isClosed ? 'WL' : (waveMetrics.waveName || 'W1').replace(/\s+/g, '');
+      setReservationToken(`#GL-${waveTag}-0${randomTokenNum}`);
       setIsDuplicate(Boolean(result.isDuplicate));
       setIsSubmitted(true);
       triggerConfettiCelebration();
@@ -447,30 +495,10 @@ export default function App() {
       {/* ========================================================= */}
       {/* 1. TOP SCARCITY BAR (COMPACT STICKY)                      */}
       {/* ========================================================= */}
-      <aside 
-        aria-label="Early-Bird Announcement" 
-        className="sticky top-0 z-50 bg-amber-50 border-b border-amber-200/80 px-3 py-1.5 sm:py-2 text-xs text-amber-950 font-medium text-center transform-gpu will-change-transform"
-      >
-        <div className="max-w-4xl mx-auto flex items-center justify-center gap-2">
-          <span className="relative flex h-2 w-2 flex-shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500 shadow-xs shadow-amber-500/50" />
-          </span>
-          <span>
-            🔥 <strong className="font-semibold text-amber-900">Wave 1 Early-Bird:</strong> Only{' '}
-            <span className="font-bold text-amber-900 bg-amber-100 px-1.5 py-0.2 rounded border border-amber-300 inline-block">
-              7 / 30
-            </span>{' '}
-            Lifetime Slots Remaining. Next Wave price jumps by up to $50!
-          </span>
-          <button
-            onClick={() => openModal('Pro')}
-            className="ml-2 font-bold text-indigo-700 hover:text-indigo-900 underline underline-offset-2 transition-colors cursor-pointer hidden md:inline-flex items-center gap-1"
-          >
-            Claim Slot <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      </aside>
+      <TopAnnouncementBar 
+        waveMetrics={waveMetrics} 
+        onOpenModal={openModal} 
+      />
 
       {/* ========================================================= */}
       {/* 2. FLOATING NAVIGATION BAR (COMPACT & SLIM)               */}
@@ -488,7 +516,7 @@ export default function App() {
                 GhostLead
               </span>
               <span className="text-[9px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full border border-slate-200/60">
-                Wave 1
+                {waveMetrics.isClosed ? 'Waitlist' : waveMetrics.waveName}
               </span>
             </div>
           </a>
@@ -512,7 +540,7 @@ export default function App() {
             onClick={() => openModal('Pro')}
             className="transform-gpu will-change-transform inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs rounded-full font-semibold bg-slate-950 text-white hover:bg-slate-800 shadow-xs transition-all cursor-pointer flex-shrink-0 active:scale-98"
           >
-            <span>Claim Slot</span>
+            <span>{waveMetrics.isClosed ? 'Join Waitlist' : 'Claim Slot'}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
 
@@ -679,7 +707,7 @@ export default function App() {
                   onClick={openLimitGateModal}
                   className="font-bold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer hover:underline inline-flex items-center gap-0.5"
                 >
-                  Need unlimited? Claim Wave 1 Slot →
+                  Need unlimited? {waveMetrics.isClosed ? 'Join Launch Waitlist' : `Claim ${waveMetrics.waveName} Slot`} →
                 </button>
               </div>
             )}
@@ -875,7 +903,7 @@ export default function App() {
                         onClick={() => setIsWaitlistOpen(true)}
                         className="w-full md:w-auto flex-shrink-0 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-indigo-600/25 active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
                       >
-                        <span>Claim Wave 1 Extension Access</span>
+                        <span>{waveMetrics.isClosed ? 'Join Extension Waitlist' : `Claim ${waveMetrics.waveName} Extension Access`}</span>
                         <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
                       </button>
                     </div>
@@ -940,7 +968,7 @@ export default function App() {
                   onClick={openLimitGateModal}
                   className="w-full sm:w-auto flex-shrink-0 font-bold px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl shadow-sm text-xs transition-all active:scale-95 cursor-pointer"
                 >
-                  Claim Wave 1 Deal →
+                  {waveMetrics.isClosed ? 'Join Waitlist →' : `Claim ${waveMetrics.waveName} Deal →`}
                 </button>
               </div>
             )}
@@ -1147,74 +1175,193 @@ export default function App() {
 
         {/* Visual Wave Tracker Indicator */}
         <div className="mb-12 max-w-4xl mx-auto">
+          {waveMetrics.isClosed && (
+            <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-300 text-amber-950 flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
+              <div className="flex items-center gap-2">
+                <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                <span className="text-xs sm:text-sm font-semibold">
+                  {waveMetrics.soldOutMessage}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => openModal('Pro', 'Join Public Launch Waitlist')}
+                className="px-4 py-2 bg-slate-950 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer flex-shrink-0 whitespace-nowrap"
+              >
+                Join Launch Waitlist
+              </button>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             
-            {/* Wave 1 - Active */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-indigo-50/70 border-2 border-indigo-600 shadow-sm relative transform-gpu will-change-transform">
+            {/* Wave 1 */}
+            <div className={`p-4 sm:p-5 rounded-2xl transition-all transform-gpu will-change-transform ${
+              totalCount < 30
+                ? 'bg-indigo-50/70 border-2 border-indigo-600 shadow-sm relative'
+                : 'bg-white border border-slate-200/80 opacity-90'
+            }`}>
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-extrabold text-indigo-700 uppercase tracking-wider flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-                  Wave 1: Active Now
+                <span className={`text-[11px] font-extrabold uppercase tracking-wider flex items-center gap-1.5 ${
+                  totalCount < 30 ? 'text-indigo-700' : 'text-slate-500'
+                }`}>
+                  {totalCount < 30 ? (
+                    <>
+                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+                      Wave 1: Active Now
+                    </>
+                  ) : (
+                    'Wave 1: Completed'
+                  )}
                 </span>
-                <span className="text-[10px] font-bold bg-indigo-600 text-white px-2 py-0.5 rounded-full">
-                  Current Lowest Rate
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                  totalCount < 30 ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600 border border-slate-200'
+                }`}>
+                  {totalCount < 30 ? 'Current Lowest Rate' : 'Sold Out'}
                 </span>
               </div>
               <div className="font-extrabold text-slate-950 text-base sm:text-lg mt-2">
                 Wave 1: Early-Bird
               </div>
               <div className="text-xs text-slate-600 mt-1">
-                Only <strong className="text-indigo-700">7 / 30</strong> slots remaining in this release.
+                {totalCount < 30 ? (
+                  <>Only <strong className="text-indigo-700">{30 - totalCount} / 30</strong> slots remaining in this release.</>
+                ) : (
+                  <>All <strong className="text-slate-900">30 / 30</strong> slots claimed in this phase.</>
+                )}
               </div>
               <div className="mt-3 w-full bg-indigo-200/60 h-2 rounded-full overflow-hidden">
-                <div className="bg-indigo-600 h-full w-[76.6%]" />
+                <div 
+                  className="bg-indigo-600 h-full transition-all duration-500" 
+                  style={{ width: `${Math.min(100, Math.round((Math.min(30, totalCount) / 30) * 100))}%` }} 
+                />
               </div>
               <div className="text-[10px] font-semibold text-slate-500 text-right mt-1">
-                76% Claimed
+                {Math.min(100, Math.round((Math.min(30, totalCount) / 30) * 100))}% Claimed
               </div>
             </div>
 
-            {/* Wave 2 - Upcoming */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 opacity-80">
+            {/* Wave 2 */}
+            <div className={`p-4 sm:p-5 rounded-2xl transition-all transform-gpu will-change-transform ${
+              totalCount >= 30 && totalCount < 100
+                ? 'bg-indigo-50/70 border-2 border-indigo-600 shadow-sm relative'
+                : 'bg-white border border-slate-200/80 opacity-80'
+            }`}>
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                  Wave 2: Upcoming
+                <span className={`text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 ${
+                  totalCount >= 30 && totalCount < 100 ? 'text-indigo-700 font-extrabold' : 'text-slate-500'
+                }`}>
+                  {totalCount >= 30 && totalCount < 100 ? (
+                    <>
+                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+                      Wave 2: Active Now
+                    </>
+                  ) : totalCount >= 100 ? (
+                    'Wave 2: Completed'
+                  ) : (
+                    'Wave 2: Upcoming'
+                  )}
                 </span>
-                <span className="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                  +$20 to +$50 jump
+                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                  totalCount >= 30 && totalCount < 100
+                    ? 'bg-indigo-600 text-white font-bold'
+                    : totalCount >= 100
+                      ? 'bg-slate-100 text-slate-600 border border-slate-200'
+                      : 'text-amber-700 bg-amber-50 border border-amber-200'
+                }`}>
+                  {totalCount >= 30 && totalCount < 100
+                    ? 'Active Wave'
+                    : totalCount >= 100
+                      ? 'Sold Out'
+                      : '+$20 to +$50 jump'}
                 </span>
               </div>
               <div className="font-extrabold text-slate-900 text-base sm:text-lg mt-2">
                 Wave 2: Standard
               </div>
               <div className="text-xs text-slate-500 mt-1">
-                70 Total Slots • Unlocks immediately once Wave 1 ends.
+                {totalCount < 30 ? (
+                  '70 Total Slots • Unlocks immediately once Wave 1 ends.'
+                ) : totalCount >= 100 ? (
+                  'All 70 / 70 slots claimed in this phase.'
+                ) : (
+                  <>Only <strong className="text-indigo-700">{100 - totalCount} / 70</strong> slots remaining.</>
+                )}
               </div>
-              <div className="mt-3 w-full bg-slate-200 h-2 rounded-full" />
+              <div className="mt-3 w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div 
+                  className="bg-indigo-600 h-full transition-all duration-500" 
+                  style={{ 
+                    width: `${totalCount < 30 ? 0 : Math.min(100, Math.round(((Math.min(100, totalCount) - 30) / 70) * 100))}%` 
+                  }} 
+                />
+              </div>
               <div className="text-[10px] font-semibold text-slate-400 text-right mt-1">
-                Pending Activation
+                {totalCount < 30
+                  ? 'Pending Activation'
+                  : totalCount >= 100
+                    ? '100% Claimed'
+                    : `${Math.round(((totalCount - 30) / 70) * 100)}% Claimed`}
               </div>
             </div>
 
-            {/* Wave 3 - Final Phase */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 opacity-60">
+            {/* Wave 3 */}
+            <div className={`p-4 sm:p-5 rounded-2xl transition-all transform-gpu will-change-transform ${
+              totalCount >= 100 && totalCount < 150
+                ? 'bg-indigo-50/70 border-2 border-indigo-600 shadow-sm relative'
+                : 'bg-white border border-slate-200/80 opacity-60'
+            }`}>
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                  Wave 3: Final Phase
+                <span className={`text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 ${
+                  totalCount >= 100 && totalCount < 150 ? 'text-indigo-700 font-extrabold' : 'text-slate-400'
+                }`}>
+                  {totalCount >= 100 && totalCount < 150 ? (
+                    <>
+                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+                      Wave 3: Active Now
+                    </>
+                  ) : totalCount >= 150 ? (
+                    'Wave 3: Completed'
+                  ) : (
+                    'Wave 3: Final Phase'
+                  )}
                 </span>
-                <span className="text-[10px] font-semibold text-slate-500 bg-slate-200 px-2 py-0.5 rounded-full">
-                  Lockdown Rate
+                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                  totalCount >= 100 && totalCount < 150
+                    ? 'bg-indigo-600 text-white font-bold'
+                    : totalCount >= 150
+                      ? 'bg-slate-100 text-slate-600 border border-slate-200'
+                      : 'text-slate-500 bg-slate-200'
+                }`}>
+                  {totalCount >= 150 ? 'Sold Out' : 'Lockdown Rate'}
                 </span>
               </div>
               <div className="font-extrabold text-slate-700 text-base sm:text-lg mt-2">
                 Wave 3: Final Lockdown
               </div>
               <div className="text-xs text-slate-500 mt-1">
-                50 Slots • Permanent maximum LTD before SaaS transition.
+                {totalCount < 100 ? (
+                  '50 Slots • Permanent maximum LTD before SaaS transition.'
+                ) : totalCount >= 150 ? (
+                  'All 50 / 50 slots claimed.'
+                ) : (
+                  <>Only <strong className="text-indigo-700">{150 - totalCount} / 50</strong> slots remaining.</>
+                )}
               </div>
-              <div className="mt-3 w-full bg-slate-200 h-2 rounded-full" />
+              <div className="mt-3 w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div 
+                  className="bg-indigo-600 h-full transition-all duration-500" 
+                  style={{ 
+                    width: `${totalCount < 100 ? 0 : Math.min(100, Math.round(((Math.min(150, totalCount) - 100) / 50) * 100))}%` 
+                  }} 
+                />
+              </div>
               <div className="text-[10px] font-semibold text-slate-400 text-right mt-1">
-                Locked
+                {totalCount < 100
+                  ? 'Locked'
+                  : totalCount >= 150
+                    ? '100% Claimed'
+                    : `${Math.round(((totalCount - 100) / 50) * 100)}% Claimed`}
               </div>
             </div>
 
@@ -1403,7 +1550,7 @@ export default function App() {
             Every verified email is checked directly against active recipient mailboxes in real time so your sender reputation stays safe.
           </p>
           <div className="mt-3 pt-3 border-t border-slate-200/60 inline-flex items-center justify-center text-[11px] font-semibold text-slate-500">
-            <span>🔒 No Credit Card Required Today • Instant Wave 1 Slot Reservation</span>
+            <span>🔒 No Credit Card Required Today • Instant {waveMetrics.isClosed ? 'Waitlist Registration' : `${waveMetrics.waveName} Slot Reservation`}</span>
           </div>
         </div>
 
@@ -1424,7 +1571,7 @@ export default function App() {
           <div className="flex flex-wrap items-center justify-center gap-6">
             <a href="#sandbox" className="hover:text-slate-950 transition-colors">Sandbox</a>
             <a href="#features" className="hover:text-slate-950 transition-colors">Features</a>
-            <a href="#pricing" className="hover:text-slate-950 transition-colors">Wave 1 Matrix</a>
+            <a href="#pricing" className="hover:text-slate-950 transition-colors">{waveMetrics.isClosed ? 'Pricing Matrix' : `${waveMetrics.waveName} Matrix`}</a>
             <span className="text-slate-300 hidden sm:inline">|</span>
             <span className="text-slate-400 font-medium">99.4% Deliverability Guaranteed</span>
           </div>
@@ -1490,8 +1637,10 @@ export default function App() {
                   
                   <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
                     {isLimitGateModal
-                      ? "Lock your Wave 1 early-bird lifetime rate today before slots close to get unlimited verification."
-                      : "Reserve your Wave 1 early-bird rate before this tier locks. Zero upfront payment today."}
+                      ? `Lock your ${waveMetrics.isClosed ? 'standard launch waitlist rate' : `${waveMetrics.waveName} early-bird lifetime rate`} today before slots close to get unlimited verification.`
+                      : waveMetrics.isClosed
+                        ? waveMetrics.soldOutMessage
+                        : `Reserve your ${waveMetrics.waveName} early-bird rate before this tier locks. Zero upfront payment today.`}
                   </p>
 
                   {/* Plan Selection Pills */}
@@ -1557,9 +1706,14 @@ export default function App() {
                           <RefreshCw className="w-4 h-4 animate-spin flex-shrink-0" />
                           <span>Securing Your Slot...</span>
                         </span>
+                      ) : waveMetrics.isClosed ? (
+                        <>
+                          <span>Join Launch Waitlist</span>
+                          <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                        </>
                       ) : (
                         <>
-                          <span>Claim Wave 1 Slot (${PLANS[selectedTier].price})</span>
+                          <span>Claim {waveMetrics.waveName} Slot (${PLANS[selectedTier].price})</span>
                           <ArrowRight className="w-4 h-4 flex-shrink-0" />
                         </>
                       )}
@@ -1593,11 +1747,11 @@ export default function App() {
                   
                   {isDuplicate ? (
                     <p className="mt-2 text-xs sm:text-sm text-amber-800 bg-amber-50 border border-amber-200 px-3 py-2 rounded-xl leading-relaxed max-w-sm mx-auto">
-                      Good news! This email is already on the Wave 1 early-bird waitlist. We have verified your spot and refreshed your priority token.
+                      Good news! This email is already on the {waveMetrics.isClosed ? 'standard launch' : `${waveMetrics.waveName} early-bird`} waitlist. We have verified your spot and refreshed your priority token.
                     </p>
                   ) : (
                     <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm mx-auto">
-                      We will notify you 2 hours prior to public launch to lock your early-bird rate.
+                      We will notify you 2 hours prior to public launch to lock your {waveMetrics.isClosed ? 'launch spot' : 'early-bird rate'}.
                     </p>
                   )}
 
@@ -1611,8 +1765,8 @@ export default function App() {
                       <span className="font-mono font-semibold text-slate-950 break-all">{emailInput}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Wave 1 Discount:</span>
-                      <span className="font-bold text-emerald-600">Locked In</span>
+                      <span className="text-slate-500">{waveMetrics.isClosed ? 'Waitlist Status:' : `${waveMetrics.waveName} Discount:`}</span>
+                      <span className="font-bold text-emerald-600">{waveMetrics.isClosed ? 'Standard Waitlist Confirmed' : 'Locked In'}</span>
                     </div>
                   </div>
 
