@@ -11,7 +11,6 @@ import {
   Lock,
   Download,
   X,
-  Copy,
   AlertCircle,
   RefreshCw,
   Star,
@@ -65,40 +64,39 @@ function GhostIcon({ className = "w-6 h-6" }) {
 }
 
 // Hardware-Accelerated Deliverability Gauge (Zero layout reflow)
-function DeliverabilityGauge({ score = 98, status = 'deliverable', size = 64, isDark = true }) {
+function DeliverabilityGauge({ score = null, status = '', size = 64, isDark = true }) {
   const strokeWidth = 5.5;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
 
-  const normalizedStatus = (status || 'deliverable').toLowerCase();
+  const normalizedStatus = (status || '').toLowerCase();
 
-  let strokeColor = '#10B981';
-  let statusText = 'Deliverable';
-  let labelColor = 'text-emerald-400';
-  let displayScore = 98;
+  let strokeColor = '#64748B';
+  let statusText = status || '';
+  let labelColor = 'text-slate-400';
+  let displayScore = typeof score === 'number' ? Math.round(score) : null;
   let trackStroke = isDark ? '#1E293B' : '#E2E8F0';
 
   if (normalizedStatus === 'undeliverable') {
-    displayScore = 0;
     strokeColor = '#EF4444';
     statusText = 'Invalid';
     labelColor = 'text-rose-400';
     trackStroke = 'rgba(239, 68, 68, 0.25)';
   } else if (normalizedStatus === 'risky') {
-    displayScore = 55;
     strokeColor = '#F59E0B';
     statusText = 'Risky';
     labelColor = 'text-amber-400';
     trackStroke = 'rgba(245, 158, 11, 0.2)';
-  } else {
-    displayScore = typeof score === 'number' && score > 0 ? Math.round(score) : 98;
+  } else if (normalizedStatus === 'deliverable') {
     strokeColor = '#10B981';
     statusText = 'Deliverable';
     labelColor = 'text-emerald-400';
     trackStroke = isDark ? '#1E293B' : '#E2E8F0';
   }
 
-  const strokeDashoffset = circumference - (displayScore / 100) * circumference;
+  const strokeDashoffset = displayScore !== null
+    ? circumference - (Math.min(100, Math.max(0, displayScore)) / 100) * circumference
+    : circumference;
 
   return (
     <div className="relative inline-flex items-center justify-center flex-shrink-0" style={{ width: size, height: size }}>
@@ -111,18 +109,20 @@ function DeliverabilityGauge({ score = 98, status = 'deliverable', size = 64, is
           strokeWidth={strokeWidth}
           fill="none"
         />
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          stroke={strokeColor}
-          strokeWidth={strokeWidth}
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
-          fill="none"
-          className="transition-all duration-500 ease-out"
-        />
+        {displayScore !== null && (
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            strokeDasharray={circumference}
+            strokeDashoffset={strokeDashoffset}
+            strokeLinecap="round"
+            fill="none"
+            className="transition-all duration-500 ease-out"
+          />
+        )}
       </svg>
       <div className="absolute flex flex-col items-center justify-center text-center">
         <span className={`text-sm font-extrabold tracking-tight leading-none ${
@@ -132,11 +132,13 @@ function DeliverabilityGauge({ score = 98, status = 'deliverable', size = 64, is
             ? 'text-amber-400'
             : (isDark ? 'text-white' : 'text-slate-900')
         }`}>
-          {displayScore}%
+          {displayScore !== null ? `${displayScore}%` : '--'}
         </span>
-        <span className={`text-[8px] font-bold uppercase tracking-wider mt-0.5 ${labelColor}`}>
-          {statusText}
-        </span>
+        {statusText && (
+          <span className={`text-[8px] font-bold uppercase tracking-wider mt-0.5 ${labelColor}`}>
+            {statusText}
+          </span>
+        )}
       </div>
     </div>
   );
@@ -208,8 +210,8 @@ const PLANS = {
 
 export default function App() {
   // Sandbox State
-  const [targetName, setTargetName] = useState('Sam Altman');
-  const [domain, setDomain] = useState('openai.com');
+  const [targetName, setTargetName] = useState('Team');
+  const [domain, setDomain] = useState('automexiaai.in');
   // 6-Hour Rolling Reset Window State
   const [lastReset, setLastReset] = useState(() => {
     try {
@@ -296,15 +298,7 @@ export default function App() {
   const [isVerifying, setIsVerifying] = useState(false);
   const [verifyStep, setVerifyStep] = useState(0);
   const [verifyError, setVerifyError] = useState(null);
-  const [verifyResult, setVerifyResult] = useState({
-    email: 's***@openai.com',
-    deliverability: '98%',
-    score: 98,
-    status: 'deliverable',
-    domain: 'openai.com',
-    mxProvider: 'Google Workspace',
-  });
-  const [hasCopied, setHasCopied] = useState(false);
+  const [verifyResult, setVerifyResult] = useState(null);
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -333,13 +327,6 @@ export default function App() {
     } catch {
       // fallback
     }
-  };
-
-  const getDetectedMailServer = (rawDomain) => {
-    const d = rawDomain.toLowerCase();
-    if (d.includes('microsoft')) return 'Microsoft 365 Exchange Online (EOP) Detected';
-    if (d.includes('apple')) return 'Apple Private MX Relay Detected';
-    return 'Google Workspace (ASPSPMX) Detected';
   };
 
   const openLimitGateModal = () => {
@@ -385,88 +372,90 @@ export default function App() {
 
     const startTime = performance.now();
 
+    let res = null;
+    let data = null;
+    let networkError = false;
+
     try {
       const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
-      const res = await fetch(`${backendUrl}/demo/verify`, {
+      res = await fetch(`${backendUrl}/demo/verify`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-       body: JSON.stringify({
+        body: JSON.stringify({
           name: nameToVerify,
           company: domainToVerify.toLowerCase().replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0].trim(),
         }),
       });
+      data = await res.json().catch(() => null);
+    } catch {
+      networkError = true;
+    }
 
-      const elapsed = performance.now() - startTime;
-      const minAnimationRemaining = Math.max(0, 850 - elapsed);
-      if (minAnimationRemaining > 0) {
-        await new Promise((resolve) => setTimeout(resolve, minAnimationRemaining));
+    const elapsed = performance.now() - startTime;
+    const minAnimationRemaining = Math.max(0, 850 - elapsed);
+    if (minAnimationRemaining > 0) {
+      await new Promise((resolve) => setTimeout(resolve, minAnimationRemaining));
+    }
+
+    clearTimeout(stepTimer1);
+    clearTimeout(stepTimer2);
+    setIsVerifying(false);
+    setVerifyStep(0);
+
+    if (networkError) {
+      setVerifyResult(null);
+      setVerifyError('Could not reach the verification service.');
+      return;
+    }
+
+    if (!res || !data || !data.ok) {
+      setVerifyResult(null);
+      const errorCode = data?.error;
+      const serverMessage = data?.message;
+
+      if (errorCode === 'invalid_domain' || errorCode === 'free_mail' || errorCode === 'demo_domain_only') {
+        setVerifyError(serverMessage || errorCode);
+      } else if (serverMessage) {
+        setVerifyError(serverMessage);
+      } else if (res && !res.ok) {
+        setVerifyError('Could not reach the verification service.');
+      } else {
+        setVerifyError('Could not reach the verification service.');
       }
+      return;
+    }
 
-      const data = await res.json().catch(() => null);
+    const newCount = Math.min(5, checksCount + 1);
+    setChecksCount(newCount);
 
-      if (!res.ok || !data || !data.ok) {
-        const errorMsg = data?.message || data?.error || 'Invalid domain. Please enter an active business domain.';
-        throw new Error(errorMsg);
-      }
-
-      const newCount = Math.min(5, checksCount + 1);
-      setChecksCount(newCount);
-
-      // First Check Initialization: If no timestamp exists, set last_reset = Date.now()
-      let activeReset = lastReset;
-      if (!activeReset) {
-        activeReset = Date.now();
-        setLastReset(activeReset);
-        try {
-          localStorage.setItem(LAST_RESET_KEY, activeReset.toString());
-        } catch {
-          // storage fallback
-        }
-      }
-
+    // First Check Initialization: If no timestamp exists, set last_reset = Date.now()
+    let activeReset = lastReset;
+    if (!activeReset) {
+      activeReset = Date.now();
+      setLastReset(activeReset);
       try {
-        localStorage.setItem(CHECKS_COUNT_KEY, newCount.toString());
+        localStorage.setItem(LAST_RESET_KEY, activeReset.toString());
       } catch {
         // storage fallback
       }
+    }
 
-      const probeStatus = (data.status || 'deliverable').toLowerCase();
-      let normalizedScore = 98;
-      if (probeStatus === 'undeliverable') {
-        normalizedScore = 0;
-      } else if (probeStatus === 'risky') {
-        normalizedScore = 55;
-      } else {
-        normalizedScore = typeof data.confidence === 'number' && data.confidence > 0 ? Math.round(data.confidence) : 98;
-      }
-
-      setVerifyResult({
-        email: data.maskedEmail || `${nameToVerify.charAt(0).toLowerCase()}***@${domainToVerify}`,
-        deliverability: `${normalizedScore}%`,
-        score: normalizedScore,
-        status: probeStatus,
-        domain: data.domain || domainToVerify,
-        mxProvider: data.mxProvider || 'Custom MX',
-      });
-      setIsVerifying(false);
-      setVerifyStep(0);
-
-      // Automatic Gate Trigger on 5th Completion: Exactly 800ms after the 5th result appears
-      if (newCount >= 5) {
-        setTimeout(() => {
-          openLimitGateModal();
-          triggerConfettiCelebration();
-        }, 800);
-      }
+    try {
+      localStorage.setItem(CHECKS_COUNT_KEY, newCount.toString());
     } catch {
-      clearTimeout(stepTimer1);
-      clearTimeout(stepTimer2);
-      setIsVerifying(false);
-      setVerifyStep(0);
-      setVerifyResult(null);
-      setVerifyError('Invalid domain. Please enter an active business domain.');
+      // storage fallback
+    }
+
+    setVerifyResult(data);
+
+    // Automatic Gate Trigger on 5th Completion: Exactly 800ms after the 5th result appears
+    if (newCount >= 5) {
+      setTimeout(() => {
+        openLimitGateModal();
+        triggerConfettiCelebration();
+      }, 800);
     }
   };
 
@@ -475,13 +464,6 @@ export default function App() {
     setDomain(domainVal);
     setVerifyError(null);
     handleDemoVerify(null, nameVal, domainVal);
-  };
-
-  const handleCopyEmail = () => {
-    if (!verifyResult) return;
-    navigator.clipboard?.writeText(verifyResult.email);
-    setHasCopied(true);
-    setTimeout(() => setHasCopied(false), 2000);
   };
 
   const handlePreRegisterSubmit = async (e) => {
@@ -605,7 +587,7 @@ export default function App() {
         >
           Stop sending cold emails to dead mailboxes.
           <span className="block mt-1.5 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-600">
-            Find active founder emails with zero bounce risk — verified live against their company mail server.
+            Find active founder emails with business domain verification preview.
           </span>
         </motion.h1>
 
@@ -633,19 +615,19 @@ export default function App() {
               <div>
                 <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 uppercase tracking-wider mb-0.5">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
-                  Live Mailbox Verification Sandbox
+                  Demo: business domain check preview
                 </div>
                 <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
-                  Test any executive name & domain in real-time.
+                  Preview business domain verification in real-time.
                 </h2>
                 <p className="text-xs text-slate-400 mt-0.5">
-                  Witness instant deliverability verification directly against destination mail servers.
+                  Preview domain verification responses directly from the service.
                 </p>
               </div>
 
               {/* Checks Used Pill */}
               <div className="self-start sm:self-center flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full text-xs font-semibold flex-shrink-0">
-                <span className="text-slate-400">Free Checks Used:</span>
+                <span className="text-slate-400">UI Demo Checks:</span>
                 <span className={`font-extrabold px-2 py-0.5 rounded text-xs ${
                   isLimitReached ? 'bg-rose-500 text-white' : 'bg-indigo-600 text-white'
                 }`}>
@@ -658,6 +640,14 @@ export default function App() {
             <div className="pt-3.5 flex items-center gap-2 text-xs relative z-10">
               <span className="text-slate-400 font-medium flex-shrink-0">Quick Presets:</span>
               <div className="flex overflow-x-auto no-scrollbar py-0.5 gap-2 items-center w-full touch-pan-x">
+                <button
+                  type="button"
+                  onClick={() => handlePresetSelect('Team', 'automexiaai.in')}
+                  disabled={isLimitReached || isVerifying}
+                  className="px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 hover:text-white font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
+                >
+                  Team @ automexiaai.in
+                </button>
                 <button
                   type="button"
                   onClick={() => handlePresetSelect('Sam Altman', 'openai.com')}
@@ -673,14 +663,6 @@ export default function App() {
                   className="px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 hover:text-white font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
                 >
                   Brian Chesky @ airbnb.com
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handlePresetSelect('Satya Nadella', 'microsoft.com')}
-                  disabled={isLimitReached || isVerifying}
-                  className="px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 hover:text-white font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
-                >
-                  Satya Nadella @ microsoft.com
                 </button>
               </div>
             </div>
@@ -732,7 +714,7 @@ export default function App() {
                   {isVerifying ? (
                     <span className="flex items-center gap-2">
                       <RefreshCw className="w-4 h-4 animate-spin flex-shrink-0" />
-                      <span>Verifying...</span>
+                      <span>Checking...</span>
                     </span>
                   ) : isLimitReached ? (
                     <>
@@ -742,7 +724,7 @@ export default function App() {
                   ) : (
                     <>
                       <Zap className="w-4 h-4 fill-amber-300 text-amber-300 flex-shrink-0" />
-                      <span>Verify in Real-Time</span>
+                      <span>Preview Domain Check</span>
                     </>
                   )}
                 </button>
@@ -755,7 +737,7 @@ export default function App() {
                 <div className="flex items-center gap-1.5 text-slate-300">
                   <Clock className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0 animate-pulse" />
                   <span>
-                    Free demo checks refresh in <strong className="text-white font-semibold">{countdownHours}h {countdownMinutes}m</strong>
+                    UI demo checks refresh in <strong className="text-white font-semibold">{countdownHours}h {countdownMinutes}m</strong>
                   </span>
                 </div>
                 <span className="text-slate-600 hidden sm:inline">•</span>
@@ -784,8 +766,8 @@ export default function App() {
                     className="transform-gpu will-change-transform space-y-2 p-3.5 sm:p-4 rounded-2xl bg-slate-900/90 border border-slate-800"
                   >
                     <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                      <span>Live Verification Radar</span>
-                      <span className="text-indigo-400 animate-pulse">Running SMTP Handshake...</span>
+                      <span>Verification Radar</span>
+                      <span className="text-indigo-400 animate-pulse">Running domain check...</span>
                     </div>
 
                     {/* Stage 1 */}
@@ -795,15 +777,15 @@ export default function App() {
                       <div className="flex items-center gap-2.5 min-w-0">
                         <span className="text-base flex-shrink-0">🔍</span>
                         <div className="min-w-0">
-                          <div className="font-semibold text-white text-xs">Step 1: Mail Server Ping</div>
+                          <div className="font-semibold text-white text-xs">Step 1: Domain Format Check</div>
                           <div className="text-[11px] text-slate-400 truncate">
-                            {getDetectedMailServer(cleanDomainDisplay)}
+                            Validating format for {cleanDomainDisplay}
                           </div>
                         </div>
                       </div>
                       {verifyStep >= 1 ? (
                         <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-950/70 border border-emerald-800/80 px-2 py-0.5 rounded-full flex-shrink-0">
-                          <Check className="w-3 h-3" /> Detected
+                          <Check className="w-3 h-3" /> Valid
                         </span>
                       ) : (
                         <span className="text-[10px] text-slate-500 uppercase tracking-wider flex-shrink-0">Pending</span>
@@ -817,9 +799,9 @@ export default function App() {
                       <div className="flex items-center gap-2.5 min-w-0">
                         <span className="text-base flex-shrink-0">⚙️</span>
                         <div className="min-w-0">
-                          <div className="font-semibold text-white text-xs">Step 2: Pattern Discovery</div>
+                          <div className="font-semibold text-white text-xs">Step 2: Business Domain Check</div>
                           <div className="text-[11px] text-slate-400 truncate">
-                            Matching corporate mailbox conventions ({`{f}{last}@${cleanDomainDisplay}`})
+                            Checking provider type for {cleanDomainDisplay}
                           </div>
                         </div>
                       </div>
@@ -841,128 +823,82 @@ export default function App() {
                       <div className="flex items-center gap-2.5 min-w-0">
                         <span className="text-base flex-shrink-0">🛡️</span>
                         <div className="min-w-0">
-                          <div className="font-semibold text-white text-xs">Step 3: Direct Handshake Ping</div>
+                          <div className="font-semibold text-white text-xs">Step 3: Verification Service Response</div>
                           <div className="text-[11px] text-slate-400 truncate">
-                            Mailbox exists & active (Zero Bounce Guaranteed)
+                            Retrieving verification status
                           </div>
                         </div>
                       </div>
                       {verifyStep >= 3 ? (
                         <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-950/70 border border-emerald-800/80 px-2 py-0.5 rounded-full flex-shrink-0">
-                          <Check className="w-3 h-3" /> Verified Active
+                          <Check className="w-3 h-3" /> Received
                         </span>
                       ) : (
                         <span className="text-[10px] text-slate-500 uppercase tracking-wider flex-shrink-0">
-                          {verifyStep === 2 ? 'Pinging...' : 'Waiting'}
+                          {verifyStep === 2 ? 'Fetching...' : 'Waiting'}
                         </span>
                       )}
                     </div>
                   </motion.div>
                 )}
 
-                {/* Stage B: Final Verified Result Card */}
-                {!isVerifying && verifyResult && (() => {
-                  const status = (verifyResult.status || 'deliverable').toLowerCase();
-
-                  let badgeText = 'Primary Inbox Ready • 0% Bounce Risk';
-                  let badgeBg = 'bg-emerald-950/80';
-                  let badgeBorder = 'border-emerald-800';
-                  let badgeTextColor = 'text-emerald-400';
-                  let dotColor = 'bg-emerald-400';
-                  let ctaText = 'Lock 99% Deliverability';
-                  let ctaClass = 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-900/30';
-                  let CtaIcon = CheckCircle2;
-
-                  if (status === 'undeliverable') {
-                    badgeText = 'Mailbox Does Not Exist • High Bounce Risk';
-                    badgeBg = 'bg-rose-950/80';
-                    badgeBorder = 'border-rose-800';
-                    badgeTextColor = 'text-rose-400';
-                    dotColor = 'bg-rose-400';
-                    ctaText = 'Prevent Hard Bounces';
-                    ctaClass = 'bg-rose-600 hover:bg-rose-500 text-white shadow-rose-900/30';
-                    CtaIcon = AlertCircle;
-                  } else if (status === 'risky') {
-                    badgeText = 'Unverifiable / Greylisted';
-                    badgeBg = 'bg-amber-950/80';
-                    badgeBorder = 'border-amber-800';
-                    badgeTextColor = 'text-amber-400';
-                    dotColor = 'bg-amber-400';
-                    ctaText = 'Safeguard Sender Score';
-                    ctaClass = 'bg-amber-600 hover:bg-amber-500 text-white shadow-amber-900/30';
-                    CtaIcon = AlertCircle;
-                  }
-
-                  return (
-                    <motion.div 
-                      key="result-card"
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={FAST_TRANSITION}
-                      className="transform-gpu will-change-transform p-4 sm:p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-md flex flex-col justify-between gap-3.5"
-                    >
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                        <div className="flex items-center gap-3.5 w-full sm:w-auto overflow-hidden">
-                          <DeliverabilityGauge 
-                            score={verifyResult.score} 
-                            status={status} 
-                            size={64} 
-                            isDark={true} 
-                          />
-                          
-                          <div className="min-w-0 flex-1">
-                            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                                Deliverability Confidence
-                              </span>
-                              <span className={`inline-flex items-center gap-1 text-[10px] font-bold ${badgeTextColor} ${badgeBg} border ${badgeBorder} px-2 py-0.5 rounded-full`}>
-                                <span className={`h-1.5 w-1.5 rounded-full ${dotColor} animate-ping`} />
-                                {badgeText}
-                              </span>
-                            </div>
-
-                            <div className="mt-1 flex items-center gap-2">
-                              <span className="text-base sm:text-lg font-mono font-bold text-white break-all">
-                                {verifyResult.email}
-                              </span>
-                              <button
-                                type="button"
-                                onClick={handleCopyEmail}
-                                title="Copy Masked Address"
-                                className="p-1 text-slate-400 hover:text-white rounded hover:bg-slate-800 transition-colors flex-shrink-0 cursor-pointer"
-                              >
-                                {hasCopied ? (
-                                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                                ) : (
-                                  <Copy className="w-3.5 h-3.5" />
-                                )}
-                              </button>
-                            </div>
-
-                            <div className="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5">
-                              <span className="text-slate-400">MX Provider:</span>
-                              <strong className="text-slate-200 font-medium">
-                                {verifyResult.mxProvider || 'Custom MX'}
-                              </strong>
-                            </div>
-                          </div>
+                {/* Stage B: Backend Response Result Card */}
+                {!isVerifying && verifyResult && (
+                  <motion.div 
+                    key="result-card"
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={FAST_TRANSITION}
+                    className="transform-gpu will-change-transform p-4 sm:p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-md flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                  >
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      {verifyResult.score != null && verifyResult.mode !== 'demo_stub' ? (
+                        <DeliverabilityGauge 
+                          score={verifyResult.score} 
+                          status={verifyResult.status} 
+                          size={64} 
+                          isDark={true} 
+                        />
+                      ) : (
+                        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 flex-shrink-0">
+                          <BadgeCheck className="w-5 h-5 text-indigo-400" />
                         </div>
-
-                        <div className="w-full sm:w-auto flex-shrink-0">
-                          <button
-                            type="button"
-                            onClick={() => openModal('Pro')}
-                            className={`w-full sm:w-auto px-4 py-2 ${ctaClass} text-xs font-bold rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap`}
-                          >
-                            <CtaIcon className="w-3.5 h-3.5 flex-shrink-0" />
-                            <span>{ctaText}</span>
-                          </button>
+                      )}
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-xs font-semibold text-slate-400">
+                            Domain:
+                          </span>
+                          <span className="text-sm sm:text-base font-mono font-bold text-white truncate">
+                            {verifyResult.domain}
+                          </span>
+                        </div>
+                        <div className="text-xs sm:text-sm text-slate-300 mt-1">
+                          {verifyResult.label || 'Demo result: no live check was performed'}
                         </div>
                       </div>
-                    </motion.div>
-                  );
-                })()}
+                    </div>
+
+                    <div className="w-full sm:w-auto flex-shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => openModal('Pro')}
+                        className="w-full sm:w-auto px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+                      >
+                        <span>Claim Wave 1 Slot</span>
+                        <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Idle Preview Prompt */}
+                {!isVerifying && !verifyResult && !verifyError && (
+                  <div className="text-center py-6 text-slate-500 text-xs">
+                    Enter a domain above to preview the demo verification response.
+                  </div>
+                )}
 
                 {/* Stage C: Graceful Verification Error State */}
                 {!isVerifying && !verifyResult && verifyError && (
@@ -1007,7 +943,7 @@ export default function App() {
                 <div className="flex items-center gap-2">
                   <Lock className="w-4 h-4 text-amber-400 flex-shrink-0" />
                   <span>
-                    Free limit reached. Claim your Lifetime Deal to unlock unlimited checks.
+                    UI demo limit reached. Claim your Lifetime Deal to unlock unlimited checks.
                   </span>
                 </div>
                 <button 
@@ -1549,7 +1485,7 @@ export default function App() {
                   {isLimitGateModal && (
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/90 text-amber-900 text-xs font-bold mb-3 shadow-2xs">
                       <Sparkles className="w-3.5 h-3.5 text-amber-600 flex-shrink-0" />
-                      <span>⚡ Free Checks Limit Reached (5/5)</span>
+                      <span>⚡ UI Demo Limit Reached (5/5)</span>
                     </div>
                   )}
 
