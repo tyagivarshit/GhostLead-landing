@@ -392,9 +392,9 @@ export default function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          fullName: nameToVerify,
-          domain: domainToVerify,
+       body: JSON.stringify({
+          name: nameToVerify,
+          company: domainToVerify.toLowerCase().replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0].trim(),
         }),
       });
 
@@ -404,13 +404,11 @@ export default function App() {
         await new Promise((resolve) => setTimeout(resolve, minAnimationRemaining));
       }
 
-      if (!res.ok) {
-        throw new Error('Invalid domain. Please enter an active business domain.');
-      }
+      const data = await res.json().catch(() => null);
 
-      const data = await res.json();
-      if (!data || !data.ok) {
-        throw new Error('Invalid domain. Please enter an active business domain.');
+      if (!res.ok || !data || !data.ok) {
+        const errorMsg = data?.message || data?.error || 'Invalid domain. Please enter an active business domain.';
+        throw new Error(errorMsg);
       }
 
       const newCount = Math.min(5, checksCount + 1);
