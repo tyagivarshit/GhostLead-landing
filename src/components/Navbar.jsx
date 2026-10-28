@@ -32,10 +32,11 @@ export function GhostIcon({ className = "w-6 h-6" }) {
  *     waveName?: string,
  *     isClosed?: boolean
  *   },
- *   onOpenModal: (tier?: string) => void
+ *   onOpenModal: (tier?: string) => void,
+ *   onOpenPricingModal?: () => void
  * }} props
  */
-export function Navbar({ waveMetrics, onOpenModal }) {
+export function Navbar({ waveMetrics, onOpenModal, onOpenPricingModal }) {
   const isClosed = Boolean(waveMetrics?.isClosed);
   const waveName = waveMetrics?.waveName || 'Wave 1';
   const waveTagText = isClosed ? '[Waitlist]' : `[${waveName}]`;
@@ -87,25 +88,21 @@ export function Navbar({ waveMetrics, onOpenModal }) {
           </a>
           <a 
             href="#pricing" 
-            className="hover:text-slate-950 dark:hover:text-white transition-colors flex items-center gap-1.5"
+            onClick={(e) => {
+              e.preventDefault();
+              if (typeof onOpenPricingModal === 'function') {
+                onOpenPricingModal();
+              }
+            }}
+            className="hover:text-slate-950 dark:hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
           >
             <span>Pricing</span>
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
           </a>
         </nav>
 
-        {/* Right: Status badge & Primary Action CTA */}
-        <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
-          {/* Optional status badge */}
-          <span className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100/80 dark:bg-slate-800/80 text-[11px] font-semibold text-slate-700 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-            </span>
-            <span>⚡ Always-on SMTP check</span>
-          </span>
-
-          {/* Primary Action CTA */}
+        {/* Right: Primary Action CTA */}
+        <div className="flex items-center flex-shrink-0">
           <button 
             type="button"
             onClick={() => onOpenModal('Pro')}

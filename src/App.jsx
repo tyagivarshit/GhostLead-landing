@@ -25,8 +25,9 @@ import { WavesSection } from './components/WavesSection';
 import { Pricing } from './components/Pricing';
 import { getPricingPlans } from './lib/pricingPlans';
 import { Navbar, GhostIcon } from './components/Navbar';
+import { PricingModal } from './components/PricingModal';
 
-export { WavesSection, Pricing, Navbar };
+export { WavesSection, Pricing, Navbar, PricingModal };
 
 // 6-Hour Rolling Sandbox Window
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
@@ -186,6 +187,7 @@ export default function App() {
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
   const [modalHeadline, setModalHeadline] = useState("Lock Your Wave 1 Early-Bird Slot");
   const [isLimitGateModal, setIsLimitGateModal] = useState(false);
   const [selectedTier, setSelectedTier] = useState('Pro');
@@ -419,6 +421,7 @@ export default function App() {
       <Navbar 
         waveMetrics={waveMetrics} 
         onOpenModal={openModal} 
+        onOpenPricingModal={() => setIsPricingModalOpen(true)}
       />
 
       {/* Main Content Flow with Adequate Top Padding Fix (pt-24 sm:pt-28 lg:pt-32) */}
@@ -1290,6 +1293,16 @@ export default function App() {
           </div>
         )}
       </AnimatePresence>
+
+      {/* ========================================================= */}
+      {/* 9. 3D SPRING-BOUNCE PRICING MODAL                         */}
+      {/* ========================================================= */}
+      <PricingModal
+        isOpen={isPricingModalOpen}
+        onClose={() => setIsPricingModalOpen(false)}
+        totalCount={totalCount}
+        onSelectPlan={openModal}
+      />
 
     </div>
   );
