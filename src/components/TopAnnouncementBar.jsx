@@ -34,7 +34,7 @@ export function TopAnnouncementBar({ waveMetrics, onOpenModal }) {
   return (
     <aside 
       aria-label="Early-Bird Announcement" 
-      className={`sticky top-0 z-50 px-3 py-1.5 sm:py-2 text-xs font-medium text-center transform-gpu will-change-transform border-b transition-colors ${
+      className={`relative z-20 px-3 py-1.5 sm:py-2 text-xs font-medium text-center transform-gpu will-change-transform border-b transition-colors ${
         isClosed
           ? 'bg-amber-50/95 border-amber-300/90 text-amber-950'
           : 'bg-amber-50 border-amber-200/80 text-amber-950'

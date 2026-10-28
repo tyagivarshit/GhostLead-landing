@@ -24,8 +24,9 @@ import { TopAnnouncementBar } from './components/TopAnnouncementBar';
 import { WavesSection } from './components/WavesSection';
 import { Pricing } from './components/Pricing';
 import { getPricingPlans } from './lib/pricingPlans';
+import { Navbar, GhostIcon } from './components/Navbar';
 
-export { WavesSection, Pricing };
+export { WavesSection, Pricing, Navbar };
 
 // 6-Hour Rolling Sandbox Window
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
@@ -46,26 +47,6 @@ function ChromeIcon({ className = "w-6 h-6" }) {
       <path d="M21.17 8H12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       <path d="M3.95 6.06L8.45 13.85" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
       <path d="M10.88 21.94L15.38 14.15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-// GhostLead Sleek Mascot Icon
-function GhostIcon({ className = "w-6 h-6" }) {
-  return (
-    <svg 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M9 10h.01" />
-      <path d="M15 10h.01" />
-      <path d="M12 2a8 8 0 0 0-8 8v12l3-2.5 2.5 2.5L12 19.5l2.5 2.5 2.5-2.5 3 2.5V10a8 8 0 0 0-8-8z" />
     </svg>
   );
 }
@@ -433,64 +414,27 @@ export default function App() {
       </div>
 
       {/* ========================================================= */}
-      {/* 1. TOP SCARCITY BAR (COMPACT STICKY)                      */}
+      {/* 1. FLOATING 3D GLASSMORPHIC NAVBAR                        */}
       {/* ========================================================= */}
-      <TopAnnouncementBar 
+      <Navbar 
         waveMetrics={waveMetrics} 
         onOpenModal={openModal} 
       />
 
-      {/* ========================================================= */}
-      {/* 2. FLOATING NAVIGATION BAR (COMPACT & SLIM)               */}
-      {/* ========================================================= */}
-      <div className="sticky top-2 z-40 px-3 sm:px-6 mb-2 sm:mb-3">
-        <header className="max-w-4xl mx-auto rounded-full bg-white/95 border border-slate-200/80 shadow-xs px-4 sm:px-6 h-13 sm:h-14 flex items-center justify-between transform-gpu will-change-transform">
-          
-          {/* Brand Logo */}
-          <a href="#" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-slate-950 to-slate-800 text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform flex-shrink-0">
-              <GhostIcon className="w-4 h-4" />
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-lg font-extrabold tracking-tight text-slate-950">
-                GhostLead
-              </span>
-              <span className="text-[9px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full border border-slate-200/60">
-                {waveMetrics.isClosed ? 'Waitlist' : waveMetrics.waveName}
-              </span>
-            </div>
-          </a>
+      {/* Main Content Flow with Adequate Top Padding Fix (pt-24 sm:pt-28 lg:pt-32) */}
+      <main className="pt-24 sm:pt-28 lg:pt-32">
+        {/* ========================================================= */}
+        {/* 2. TOP SCARCITY BAR (COMPACT)                             */}
+        {/* ========================================================= */}
+        <TopAnnouncementBar 
+          waveMetrics={waveMetrics} 
+          onOpenModal={openModal} 
+        />
 
-          {/* Desktop Navigation Anchor Links */}
-          <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-7 text-xs sm:text-sm font-medium text-slate-600">
-            <a href="#sandbox" className="hover:text-slate-950 transition-colors">
-              Live Sandbox
-            </a>
-            <a href="#features" className="hover:text-slate-950 transition-colors">
-              Features
-            </a>
-            <a href="#pricing" className="hover:text-slate-950 transition-colors flex items-center gap-1.5">
-              <span>Pricing</span>
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            </a>
-          </nav>
-
-          {/* Sleek Dark CTA Button */}
-          <button 
-            onClick={() => openModal('Pro')}
-            className="transform-gpu will-change-transform inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs rounded-full font-semibold bg-slate-950 text-white hover:bg-slate-800 shadow-xs transition-all cursor-pointer flex-shrink-0 active:scale-98"
-          >
-            <span>{waveMetrics.isClosed ? 'Join Waitlist' : 'Claim Slot'}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-
-        </header>
-      </div>
-
-      {/* ========================================================= */}
-      {/* 3. HERO SECTION (TIGHTENED FOLD, HUMAN HIGH-TRUST COPY)   */}
-      {/* ========================================================= */}
-      <section className="pt-4 pb-6 sm:pt-6 sm:pb-8 max-w-4xl mx-auto text-center px-4 transform-gpu will-change-transform">
+        {/* ========================================================= */}
+        {/* 3. HERO SECTION (TIGHTENED FOLD, HUMAN HIGH-TRUST COPY)   */}
+        {/* ========================================================= */}
+        <section className="pt-6 pb-6 sm:pt-8 sm:pb-8 max-w-4xl mx-auto text-center px-4 transform-gpu will-change-transform">
         
         {/* H1 Main Title & Human Sub-headline */}
         <motion.h1 
@@ -518,7 +462,7 @@ export default function App() {
         {/* ========================================================= */}
         {/* 4. INTERACTIVE SANDBOX WIDGET (IMMEDIATELY BELOW WITH MT-6) */}
         {/* ========================================================= */}
-        <div id="sandbox" className="mt-6 text-left">
+        <div id="sandbox" className="mt-6 text-left scroll-mt-24 sm:scroll-mt-28">
           <div className="transform-gpu will-change-transform bg-slate-950 text-white rounded-3xl p-5 sm:p-7 border border-slate-800 shadow-2xl relative overflow-hidden">
             
             {/* Subtle Ambient Console Lighting */}
@@ -921,7 +865,7 @@ export default function App() {
       {/* ========================================================= */}
       {/* 5. FEATURES BENTO GRID (SPACIOUS 3-CARD ROW)              */}
       {/* ========================================================= */}
-      <section id="features" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="features" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 sm:scroll-mt-28">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
@@ -1056,7 +1000,7 @@ export default function App() {
       {/* ========================================================= */}
       {/* 6. LIFETIME DEAL (LTD) WAVES SECTION (CENTERED & CLEAR)    */}
       {/* ========================================================= */}
-      <section id="pricing" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200/60">
+      <section id="pricing" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200/60 scroll-mt-24 sm:scroll-mt-28">
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
@@ -1106,7 +1050,7 @@ export default function App() {
               <ShieldCheck className="w-3.5 h-3.5" />
             </div>
             <h3 className="text-sm sm:text-base font-bold text-slate-900">
-              &lt; 2% Hard Bounce Rate Guarantee
+               0% Hard Bounce Rate Guarantee
             </h3>
           </div>
           <p className="text-xs text-slate-600 leading-relaxed max-w-md mx-auto">
@@ -1118,6 +1062,7 @@ export default function App() {
         </div>
 
       </section>
+      </main>
 
       {/* ========================================================= */}
       {/* 7. FOOTER                                                 */}
