@@ -496,7 +496,7 @@ export default function App() {
       />
 
       {/* Main Content Flow with Adequate Top Padding Fix (pt-24 sm:pt-28 lg:pt-32) */}
-      <main className="pt-24 sm:pt-28 lg:pt-32">
+      <main className={currentView === 'legal' ? '' : 'pt-24 sm:pt-28 lg:pt-32'}>
         <AnimatePresence mode="wait">
           {currentView === 'legal' ? (
             <motion.div

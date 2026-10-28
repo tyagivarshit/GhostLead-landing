@@ -1,222 +1,199 @@
 /**
- * Unified Legal Policy & Terms of Service View.
- * Professional, generic B2B document combining Terms of Service and Privacy Policy.
+ * Apple-Inspired Minimalist Legal Policy View.
+ * Unified Terms of Service and Privacy Policy in an ultra-clean, crisp card aesthetic.
  */
 export function LegalPolicyView() {
   return (
-    <div className="max-w-3xl mx-auto py-24 px-6 text-slate-300 font-sans">
+    <div className="min-h-screen w-full bg-[#fbfbfd] text-[#1d1d1f] pt-32 pb-24 px-4 sm:px-6 flex justify-center antialiased relative bg-[radial-gradient(circle_at_top,_rgba(240,240,245,0.8),_transparent_70%)]">
       
-      {/* Clean Document Container */}
-      <article className="rounded-3xl bg-slate-950/90 border border-slate-800/80 p-8 sm:p-12 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+      {/* Central Legal Container (Apple Glass / Crisp Card) */}
+      <article className="w-full max-w-3xl bg-white/80 backdrop-blur-2xl border border-black/[0.06] rounded-[28px] p-8 sm:p-14 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),0_0_1px_1px_rgba(0,0,0,0.03)] relative">
         
-        {/* Subtle Ambient Glow */}
-        <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-violet-500/10 blur-[100px] rounded-full pointer-events-none" />
-
         {/* Document Header */}
-        <header className="relative z-10 border-b border-slate-800/80 pb-8 mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-800/60 text-indigo-300 text-xs font-semibold mb-3">
-            <span>GhostLead Legal & Compliance</span>
-            <span>•</span>
-            <span>Last updated: October 2026</span>
+        <header className="mb-8">
+          <div className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-black/[0.04] text-[#6e6e73] border border-black/[0.04] mb-5">
+            Legal & Compliance
           </div>
           
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1d1d1f]">
             Terms of Service & Privacy Policy
           </h1>
           
-          <p className="mt-3 text-sm sm:text-base text-slate-400 leading-relaxed">
-            This agreement governs your access to and use of GhostLead services, websites, and associated applications. By accessing or using the Service, you agree to be bound by these unified terms and our data protection standards.
+          <p className="text-xs text-[#86868b] mt-2 font-normal">
+            Effective: October 2026 • GhostLead Platform Terms
+          </p>
+          
+          <p className="text-[14px] leading-relaxed text-[#424245] font-normal mt-4">
+            This agreement sets forth the terms governing your access to and use of GhostLead services, applications, and APIs. By creating an account or utilizing the Service, you agree to these unified terms and our data protection standards.
           </p>
         </header>
 
-        {/* Document Content */}
-        <div className="relative z-10 space-y-12 text-sm sm:text-base leading-relaxed">
+        {/* Section Divider */}
+        <div className="border-b border-black/[0.06] my-8" />
 
-          {/* ========================================================= */}
-          {/* PART I: TERMS OF SERVICE                                  */}
-          {/* ========================================================= */}
-          <section id="terms" className="scroll-mt-32 space-y-8">
-            <div className="border-b border-slate-800/60 pb-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">
-                Part I
-              </span>
-              <h2 className="text-2xl font-bold text-white mt-1">
-                Terms of Service
-              </h2>
-            </div>
+        {/* ========================================================= */}
+        {/* PART I: TERMS OF SERVICE                                  */}
+        {/* ========================================================= */}
+        <section id="terms" className="scroll-mt-36">
+          <h2 className="text-lg sm:text-xl font-semibold text-[#1d1d1f] tracking-tight mb-3">
+            1. Terms of Service
+          </h2>
 
-            {/* 1. Acceptance of Terms */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">1.1</span>
-                <span>Acceptance of Terms</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                By creating an account, acquiring verification credits, or using the GhostLead platform, you enter into a binding agreement with GhostLead. If you are accepting these terms on behalf of an organization, you represent that you have the requisite authority to bind that entity.
-              </p>
-            </div>
+          {/* 1.1 Acceptance */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              1.1 Acceptance of Terms
+            </h3>
+            <p>
+              By accessing the GhostLead platform, acquiring verification tokens, or using any associated features, you enter into a legally binding agreement with GhostLead. If acting on behalf of an enterprise or organization, you warrant that you possess full authorization to bind that entity.
+            </p>
+          </div>
 
-            {/* 2. Service Provision & Description */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">1.2</span>
-                <span>Description of Service</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                GhostLead provides digital email verification and deliverability diagnostic tools designed to help organizations validate prospective email address quality and domain configurations. Services are delivered electronically through web interfaces, browser extensions, and API endpoints.
-              </p>
-            </div>
+          {/* 1.2 Service Description */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              1.2 Description of Service
+            </h3>
+            <p>
+              GhostLead provides digital email verification and deliverability diagnostic utilities designed to assist organizations in evaluating email address validity and domain technical configurations. Services are delivered electronically through web consoles, browser utilities, and programmatic APIs.
+            </p>
+          </div>
 
-            {/* 3. Account Tiers & Token Usage */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">1.3</span>
-                <span>Account Tiers & Credit Usage</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Service access is provisioned through verification credits and account tiers. Token usage, parallel processing capacity, and concurrency are governed strictly by your selected account tier and plan limits. Users agree to operate within the established rate limits and volume parameters allocated to their subscription or lifetime access package.
-              </p>
-            </div>
+          {/* 1.3 Account Tiers & Token Usage */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              1.3 Account Tiers & Fair Usage
+            </h3>
+            <p>
+              Access to verification capabilities is provisioned through credit tokens and account tiers. Token allocations, concurrency slots, and query throughput are governed strictly by your selected plan parameters. Users agree to operate within the established rate limits and volume allocations designated for their account tier.
+            </p>
+          </div>
 
-            {/* 4. Payment & Refund Terms */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">1.4</span>
-                <span>Payment & Refund Policy</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Fees for paid tiers, token packages, and subscription renewals are stated on the platform pricing page. All purchases and token allocations are final and non-refundable unless explicitly mandated by applicable law. In the event of a disputed billing record, customers are encouraged to contact customer support for prompt resolution.
-              </p>
-            </div>
+          {/* 1.4 Payment & Refund Policy */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              1.4 Payment Terms & Refund Policy
+            </h3>
+            <p>
+              All purchases and token allocations are final and non-refundable unless explicitly mandated by applicable law. Service fees are billed according to published rates at the time of purchase.
+            </p>
+          </div>
 
-            {/* 5. Acceptable Use Policy */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">1.5</span>
-                <span>Acceptable Use & Fair Practices</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Customers agree to utilize the Service strictly for lawful and legitimate commercial operations. You may not utilize GhostLead for:
-              </p>
-              <ul className="list-disc pl-5 space-y-1.5 text-slate-400 text-sm">
-                <li>Transmission of unsolicited bulk emails in violation of international anti-spam legislation (such as the CAN-SPAM Act, CASL, or GDPR).</li>
-                <li>Dictionary attacks, directory harvesting, or malicious probing of mail infrastructures.</li>
-                <li>Attempting to circumvent account limits, concurrency slots, or technical access barriers.</li>
-                <li>Reselling or sublicensing the platform without explicit written authorization.</li>
-              </ul>
-              <p className="text-slate-400 text-sm leading-relaxed mt-2">
-                GhostLead reserves the right to restrict or suspend access to accounts that demonstrate abusive or unlawful usage patterns.
-              </p>
-            </div>
+          {/* 1.5 Acceptable Use Policy */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              1.5 Acceptable Use Policy
+            </h3>
+            <p>
+              Customers agree to utilize the platform strictly for legitimate, lawful business communications. You agree not to use the Service for:
+            </p>
+            <ul className="list-disc pl-5 space-y-1.5 text-[#424245]">
+              <li>Transmission of unsolicited bulk emails in violation of applicable anti-spam legislation (such as CAN-SPAM, CASL, or GDPR).</li>
+              <li>Directory harvesting, dictionary attacks, or malicious server scanning.</li>
+              <li>Attempting to bypass concurrency throttles or technical access limitations.</li>
+              <li>Reselling, sublicensing, or distributing the Service without prior written consent.</li>
+            </ul>
+            <p className="mt-2">
+              GhostLead reserves the right to suspend or restrict accounts that violate these acceptable use standards.
+            </p>
+          </div>
 
-            {/* 6. Limitation of Liability */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">1.6</span>
-                <span>Limitation of Liability</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                To the maximum extent permitted by applicable law, GhostLead and its operators shall not be liable for any indirect, incidental, special, or consequential damages, including loss of profits, revenue, or business opportunities. In no circumstance shall GhostLead's cumulative liability exceed the total amount paid by the customer for the Service during the three (3) months immediately preceding the event giving rise to liability.
-              </p>
-            </div>
+          {/* 1.6 Limitation of Liability */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              1.6 Limitation of Liability
+            </h3>
+            <p>
+              To the maximum extent permitted by applicable law, GhostLead and its operators shall not be liable for any indirect, incidental, special, or consequential damages, including loss of profits, revenue, or business data. In no event shall GhostLead's cumulative aggregate liability exceed the total amounts paid by the customer for the Service in the three (3) months immediately preceding the event giving rise to liability.
+            </p>
+          </div>
 
-            {/* 7. Third-Party Trademarks */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">1.7</span>
-                <span>Third-Party Trademarks</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                GhostLead is an independent software provider. Any third-party product names, logos, or trademarks referenced within our service or marketing materials are the property of their respective owners and do not imply endorsement, partnership, or affiliation.
-              </p>
-            </div>
-          </section>
+          {/* 1.7 Third-Party Trademarks */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              1.7 Third-Party Trademarks
+            </h3>
+            <p>
+              GhostLead operates independently. All third-party product names, logos, and trademarks referenced on the site or in product documentation remain the property of their respective holders and do not indicate endorsement or sponsorship.
+            </p>
+          </div>
+        </section>
 
-          {/* ========================================================= */}
-          {/* PART II: PRIVACY POLICY                                   */}
-          {/* ========================================================= */}
-          <section id="privacy" className="scroll-mt-32 space-y-8 pt-6 border-t border-slate-800/80">
-            <div className="border-b border-slate-800/60 pb-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">
-                Part II
-              </span>
-              <h2 className="text-2xl font-bold text-white mt-1">
-                Privacy Policy
-              </h2>
-            </div>
+        {/* Section Divider */}
+        <div className="border-b border-black/[0.06] my-8" />
 
-            {/* 1. Information We Collect */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">2.1</span>
-                <span>Information We Collect</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                We collect personal information necessary to deliver and manage the Service, including:
-              </p>
-              <ul className="list-disc pl-5 space-y-1.5 text-slate-400 text-sm">
-                <li><strong className="text-slate-200">Account Details:</strong> Name, work email address, and account credentials provided during registration.</li>
-                <li><strong className="text-slate-200">Transaction & Billing Records:</strong> Purchase history, plan selections, and payment confirmation metadata handled via secure third-party payment processors.</li>
-                <li><strong className="text-slate-200">Usage Telemetry:</strong> Aggregate query volumes, feature interaction counts, and account credit balance data for operational maintenance.</li>
-              </ul>
-            </div>
+        {/* ========================================================= */}
+        {/* PART II: PRIVACY POLICY                                   */}
+        {/* ========================================================= */}
+        <section id="privacy" className="scroll-mt-36">
+          <h2 className="text-lg sm:text-xl font-semibold text-[#1d1d1f] tracking-tight mb-3">
+            2. Privacy Policy
+          </h2>
 
-            {/* 2. Use of Information */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">2.2</span>
-                <span>How We Use Information</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Information collected is used strictly for legitimate business and service operational purposes:
-              </p>
-              <ul className="list-disc pl-5 space-y-1.5 text-slate-400 text-sm">
-                <li>Providing email verification and diagnostic functionality.</li>
-                <li>Managing token balances, account tiers, and feature entitlements.</li>
-                <li>Communicating administrative notifications, system updates, and customer support responses.</li>
-                <li>Ensuring platform integrity, preventing unauthorized activity, and maintaining service reliability.</li>
-              </ul>
-            </div>
+          {/* 2.1 Information We Collect */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              2.1 Information We Collect
+            </h3>
+            <p>
+              We collect information strictly necessary to provide and administer the Service, including:
+            </p>
+            <ul className="list-disc pl-5 space-y-1.5 text-[#424245]">
+              <li><strong className="text-[#1d1d1f]">Account Information:</strong> Name, work email address, and authentication credentials provided during sign-up.</li>
+              <li><strong className="text-[#1d1d1f]">Billing Records:</strong> Transaction identifiers, plan tier records, and payment confirmation metadata processed by certified payment gateways.</li>
+              <li><strong className="text-[#1d1d1f]">Operational Telemetry:</strong> Aggregate verification volumes, token balances, and system health counters necessary to deliver platform stability.</li>
+            </ul>
+          </div>
 
-            {/* 3. Data Retention & Third Parties */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">2.3</span>
-                <span>Data Retention & Third Parties</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                We do not sell, rent, or trade user data or verification query records to third parties. Data is processed solely to fulfill customer requests and maintain account integrity. Verification queries are processed ephemerally and are not retained for building centralized lead directories or secondary marketing lists.
-              </p>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Customer account records are retained only for as long as necessary to maintain active accounts, fulfill contractual obligations, resolve disputes, and comply with applicable statutory retention requirements.
-              </p>
-            </div>
+          {/* 2.2 Use of Information */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              2.2 How We Use Information
+            </h3>
+            <p>
+              Information collected is used exclusively for legitimate business and operational purposes:
+            </p>
+            <ul className="list-disc pl-5 space-y-1.5 text-[#424245]">
+              <li>Executing email validation and deliverability diagnostic operations.</li>
+              <li>Managing account token balances, plan tiers, and concurrency limits.</li>
+              <li>Delivering operational communications, system notices, and support assistance.</li>
+              <li>Preventing unauthorized abuse, fraudulent activity, and service interruptions.</li>
+            </ul>
+          </div>
 
-            {/* 4. Data Security */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">2.4</span>
-                <span>Data Security</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                We implement industry-standard encryption protocols (including HTTPS/TLS) and organizational safeguards to protect customer data against unauthorized access, alteration, disclosure, or destruction.
-              </p>
-            </div>
+          {/* 2.3 Data Retention & Third Parties */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              2.3 Data Retention & Third Parties
+            </h3>
+            <p>
+              We do not sell, rent, or trade customer information or verification query records to third parties. Data is processed solely to fulfill customer requests and maintain account integrity. Verification queries are processed ephemerally and are not retained to build secondary lead directories or public databases.
+            </p>
+            <p className="mt-2">
+              Account records are retained only for as long as necessary to maintain active service, comply with statutory tax and accounting obligations, and resolve legal disputes.
+            </p>
+          </div>
 
-            {/* 5. Policy Updates & Inquiries */}
-            <div className="space-y-2.5">
-              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                <span className="text-indigo-400 font-mono text-sm">2.5</span>
-                <span>Inquiries & Updates</span>
-              </h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                We may periodically update this policy to reflect operational, legal, or regulatory changes. Continued use of the platform following any modifications constitutes acceptance of the revised terms. For inquiries regarding our privacy or compliance policies, please reach out via our official contact channels.
-              </p>
-            </div>
-          </section>
+          {/* 2.4 Data Security */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              2.4 Data Security
+            </h3>
+            <p>
+              We maintain industry-standard administrative, technical, and physical safeguards (including encrypted transit via TLS) to protect information against unauthorized disclosure, alteration, or loss.
+            </p>
+          </div>
 
-        </div>
+          {/* 2.5 Inquiries & Updates */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              2.5 Inquiries & Policy Updates
+            </h3>
+            <p>
+              We may update this policy periodically to reflect operational or regulatory developments. Continued platform access following any updates constitutes acceptance of the modified terms. For inquiries regarding our privacy standards, please contact our support team.
+            </p>
+          </div>
+        </section>
 
       </article>
     </div>
