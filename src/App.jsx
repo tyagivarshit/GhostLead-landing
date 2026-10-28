@@ -201,16 +201,7 @@ export default function App() {
     return 'home';
   };
 
-  const getInitialLegalTab = () => {
-    if (typeof window !== 'undefined') {
-      const path = window.location.pathname.toLowerCase();
-      if (path.includes('privacy')) return 'privacy';
-    }
-    return 'terms';
-  };
-
   const [currentView, setCurrentView] = useState(getInitialView);
-  const [legalTab, setLegalTab] = useState(getInitialLegalTab);
 
   // Synchronize browser history and popstate navigation
   useEffect(() => {
@@ -221,7 +212,6 @@ export default function App() {
           setCurrentView('pricing');
         } else if (path === '/legal' || path === '/legal/' || path === '/terms' || path === '/terms/' || path === '/privacy' || path === '/privacy/') {
           setCurrentView('legal');
-          setLegalTab(path.includes('privacy') ? 'privacy' : 'terms');
         } else {
           setCurrentView('home');
         }
@@ -232,31 +222,26 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const navigateTo = (view, hash = '', tab = null) => {
+  const navigateTo = (view, hash = '') => {
     setCurrentView(view);
-    if (view === 'legal' && tab) {
-      setLegalTab(tab);
-    }
 
     let targetPath = '/';
     if (view === 'pricing') {
       targetPath = '/pricing';
     } else if (view === 'legal') {
-      targetPath = (tab || legalTab) === 'privacy' ? '/privacy' : '/terms';
+      targetPath = hash === '#privacy' ? '/privacy' : '/terms';
     } else if (hash) {
       targetPath = `/${hash}`;
     }
 
     if (typeof window !== 'undefined') {
       if (window.location.pathname !== targetPath) {
-        window.history.pushState({ view, tab: tab || legalTab }, '', targetPath);
+        window.history.pushState({ view }, '', targetPath);
       } else if (hash) {
-        window.history.replaceState({ view, tab: tab || legalTab }, '', targetPath);
+        window.history.replaceState({ view }, '', targetPath);
       }
 
-      if (view === 'pricing' || view === 'legal') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else if (hash) {
+      if (hash) {
         setTimeout(() => {
           const el = document.querySelector(hash);
           if (el) {
@@ -522,10 +507,7 @@ export default function App() {
               transition={{ duration: 0.22, ease: FAST_EASE }}
               className="w-full"
             >
-              <LegalPolicyView
-                initialTab={legalTab}
-                onNavigateHome={(hash) => navigateTo('home', hash)}
-              />
+              <LegalPolicyView />
             </motion.div>
           ) : currentView === 'pricing' ? (
             <motion.div

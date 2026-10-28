@@ -1,367 +1,224 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  ShieldCheck, 
-  AlertTriangle, 
-  FileText, 
-  ArrowLeft, 
-  Scale, 
-  Database, 
-  Clock
-} from 'lucide-react';
-
 /**
- * Airtight, Zero-Liability Legal Policy View.
- * Contains exhaustive Terms of Service and Privacy Policy adhering strictly to protective legal clauses.
- * 
- * @param {{
- *   initialTab?: 'terms' | 'privacy',
- *   onNavigateHome: (hash?: string) => void
- * }} props
+ * Unified Legal Policy & Terms of Service View.
+ * Professional, generic B2B document combining Terms of Service and Privacy Policy.
  */
-export function LegalPolicyView({ initialTab = 'terms', onNavigateHome }) {
-  const [activeTab, setActiveTab] = useState(initialTab);
-
+export function LegalPolicyView() {
   return (
-    <div className="w-full max-w-5xl mx-auto py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-3xl mx-auto py-24 px-6 text-slate-300 font-sans">
       
-      {/* Top Navigation & Breadcrumb */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 sm:mb-10">
-        <button
-          type="button"
-          onClick={() => onNavigateHome()}
-          className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-all text-xs sm:text-sm font-semibold cursor-pointer shadow-xs active:scale-95"
-        >
-          <ArrowLeft className="w-4 h-4 text-indigo-400 group-hover:-translate-x-0.5 transition-transform" />
-          <span>← Back to Home</span>
-        </button>
-
-        {/* Status Indicators */}
-        <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono text-slate-400">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-800 text-slate-300">
-            <Clock className="w-3.5 h-3.5 text-indigo-400" />
-            Effective: October 2026
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-800/60 text-indigo-300">
-            <Scale className="w-3.5 h-3.5 text-indigo-400" />
-            Binding Legal Contract
-          </span>
-        </div>
-      </div>
-
-      {/* Main Glassmorphic Legal Card */}
-      <div className="rounded-3xl bg-slate-950/95 border border-slate-800/90 shadow-2xl p-6 sm:p-10 lg:p-12 text-slate-300 relative overflow-hidden backdrop-blur-2xl">
+      {/* Clean Document Container */}
+      <article className="rounded-3xl bg-slate-950/90 border border-slate-800/80 p-8 sm:p-12 shadow-2xl relative overflow-hidden backdrop-blur-xl">
         
         {/* Subtle Ambient Glow */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-violet-500/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-80 h-80 bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-violet-500/10 blur-[100px] rounded-full pointer-events-none" />
 
-        {/* Header Title Section */}
-        <div className="relative z-10 border-b border-slate-800/80 pb-8 mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-900/30 border border-indigo-700/40 text-indigo-300 text-xs font-bold mb-4">
-            <FileText className="w-3.5 h-3.5 text-indigo-400" />
-            GhostLead Compliance & Governance
+        {/* Document Header */}
+        <header className="relative z-10 border-b border-slate-800/80 pb-8 mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-800/60 text-indigo-300 text-xs font-semibold mb-3">
+            <span>GhostLead Legal & Compliance</span>
+            <span>•</span>
+            <span>Last updated: October 2026</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+          
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Terms of Service & Privacy Policy
           </h1>
-          <p className="mt-3.5 text-sm sm:text-base text-slate-400 max-w-3xl leading-relaxed">
-            Please review these terms and privacy disclosures thoroughly before using GhostLead or acquiring verification credit tokens. By accessing the site, running mailbox queries, or reserving a Lifetime Deal slot, you irrevocably agree to these terms.
+          
+          <p className="mt-3 text-sm sm:text-base text-slate-400 leading-relaxed">
+            This agreement governs your access to and use of GhostLead services, websites, and associated applications. By accessing or using the Service, you agree to be bound by these unified terms and our data protection standards.
           </p>
-
-          {/* Tab Switcher */}
-          <div className="mt-6 flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => setActiveTab('terms')}
-              className={`px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                activeTab === 'terms'
-                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
-              }`}
-            >
-              Terms of Service
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('privacy')}
-              className={`px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                activeTab === 'privacy'
-                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                  : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
-              }`}
-            >
-              Privacy Policy & Zero-Database Architecture
-            </button>
-          </div>
-        </div>
+        </header>
 
         {/* Document Content */}
         <div className="relative z-10 space-y-12 text-sm sm:text-base leading-relaxed">
 
-          {activeTab === 'terms' && (
-            <motion.div
-              key="terms-content"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-10"
-            >
-              {/* SECTION 1: STRICT ZERO-REFUND POLICY */}
-              <section className="space-y-4">
-                <div className="p-4 sm:p-5 rounded-2xl bg-rose-950/40 border border-rose-800/80 text-rose-200">
-                  <div className="flex items-start gap-3">
-                    <AlertTriangle className="w-5 h-5 text-rose-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h2 className="text-base sm:text-lg font-bold text-white tracking-wide">
-                        1. Strict Zero-Refund Policy (100% Final & Non-Refundable)
-                      </h2>
-                      <p className="mt-2 text-xs sm:text-sm text-rose-200/90 leading-relaxed">
-                        Due to the technical reality that email mailbox verification immediately and irreversibly consumes real-time Port 25 network bandwidth, dedicated cloud compute, and outbound IP reputation resources, <strong>ALL SALES (INCLUDING LIFETIME DEAL TOKEN STACKS, ADDITIONAL CREDIT BATCHES, AND MONTHLY SAAS TIERS) ARE 100% FINAL AND STRICTLY NON-REFUNDABLE UNDER ALL CIRCUMSTANCES.</strong>
-                      </p>
-                      <p className="mt-2 text-xs sm:text-sm text-rose-200/90 leading-relaxed">
-                        GhostLead incurs direct, unrecoverable infrastructure costs at the moment credits or token allocations are provisioned. Once an order is processed or verification operations commence, zero refunds, reversals, or credit charge adjustments will be granted.
-                      </p>
-                      <p className="mt-2 text-xs sm:text-sm text-rose-300 font-semibold leading-relaxed">
-                        <strong>Chargebacks & Fraud Protection:</strong> Initiating an unauthorized chargeback, payment dispute, or fraudulent claim through a card issuer or banking partner constitutes a material breach of this Agreement. Any chargeback will result in immediate and permanent account termination, forfeiture of all remaining non-expiring credit tokens, and placement on commercial risk prevention blacklists.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </section>
+          {/* ========================================================= */}
+          {/* PART I: TERMS OF SERVICE                                  */}
+          {/* ========================================================= */}
+          <section id="terms" className="scroll-mt-32 space-y-8">
+            <div className="border-b border-slate-800/60 pb-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">
+                Part I
+              </span>
+              <h2 className="text-2xl font-bold text-white mt-1">
+                Terms of Service
+              </h2>
+            </div>
 
-              {/* SECTION 2: TOKEN LIFECYCLE & FAIR USAGE */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                  <span>2. Token Lifecycle, Concurrency & Fair Usage Policy</span>
-                </h2>
-                
-                <div className="space-y-3 pl-4 border-l-2 border-indigo-500/30">
-                  <p>
-                    Verification tokens represent digital access entitlements to the GhostLead live SMTP validation engine:
-                  </p>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-                    <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                      <div className="text-xs font-bold uppercase tracking-wider text-indigo-400 mb-1">
-                        Lifetime Deals (Waves 1, 2, 3)
-                      </div>
-                      <h3 className="text-sm font-bold text-white mb-2">Non-Expiring Token Stacks</h3>
-                      <ul className="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
-                        <li>Credits never expire; valid perpetually until exhausted.</li>
-                        <li>Strictly bound by tier concurrency slots (Starter: 2 slots, Pro: 4 slots, Agency: 8 slots).</li>
-                        <li>Bound by daily abuse caps (Starter: 2,500/day, Pro: 8,000/day, Agency: 20,000/day) resetting at 00:00 UTC.</li>
-                        <li>Early founders may top up additional tokens at locked founder rates.</li>
-                      </ul>
-                    </div>
+            {/* 1. Acceptance of Terms */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">1.1</span>
+                <span>Acceptance of Terms</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                By creating an account, acquiring verification credits, or using the GhostLead platform, you enter into a binding agreement with GhostLead. If you are accepting these terms on behalf of an organization, you represent that you have the requisite authority to bind that entity.
+              </p>
+            </div>
 
-                    <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
-                      <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
-                        Standard Monthly SaaS Tiers
-                      </div>
-                      <h3 className="text-sm font-bold text-white mb-2">Monthly Recurring Quota</h3>
-                      <ul className="text-xs text-slate-400 space-y-1.5 list-disc pl-4">
-                        <li>Monthly quota resets at the end of each 30-day billing cycle.</li>
-                        <li>Zero rollover or credit carryover to subsequent months.</li>
-                        <li>Unused monthly verification capacity expires automatically.</li>
-                        <li>Subscription cancelable anytime before next billing cycle.</li>
-                      </ul>
-                    </div>
-                  </div>
+            {/* 2. Service Provision & Description */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">1.2</span>
+                <span>Description of Service</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                GhostLead provides digital email verification and deliverability diagnostic tools designed to help organizations validate prospective email address quality and domain configurations. Services are delivered electronically through web interfaces, browser extensions, and API endpoints.
+              </p>
+            </div>
 
-                  <p className="text-xs sm:text-sm text-slate-400">
-                    <strong>Hard Cap Sunset Provision:</strong> GhostLead Lifetime Deal availability is strictly capped to the first 150 accounts across Waves 1 to 3. Once account #150 is reached, all Lifetime Deal offers sunset permanently, and the platform transitions exclusively to recurring monthly subscription pricing ($39/mo, $79/mo, $159/mo). Existing LTD founders retain their non-expiring status indefinitely.
-                  </p>
-                </div>
-              </section>
+            {/* 3. Account Tiers & Token Usage */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">1.3</span>
+                <span>Account Tiers & Credit Usage</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Service access is provisioned through verification credits and account tiers. Token usage, parallel processing capacity, and concurrency are governed strictly by your selected account tier and plan limits. Users agree to operate within the established rate limits and volume parameters allocated to their subscription or lifetime access package.
+              </p>
+            </div>
 
-              {/* SECTION 3: ABUSE & DELIVERABILITY DISCLAIMER */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                  <span>3. Abuse & Deliverability Disclaimer</span>
-                </h2>
-                
-                <div className="space-y-3 pl-4 border-l-2 border-indigo-500/30">
-                  <p>
-                    GhostLead operates purely as an objective, technical mailbox diagnostic tool evaluating domain DNS, MX records, and recipient SMTP server handshake responses at the time of query.
-                  </p>
-                  
-                  <div className="p-4 rounded-xl bg-indigo-950/30 border border-indigo-800/40 text-xs sm:text-sm text-indigo-200">
-                    <p className="font-semibold text-white mb-1">No Inboxing Guarantee:</p>
-                    <p>
-                      GhostLead does not and cannot guarantee email inbox placement, deliverability, or open rates. Deliverability is dictated by factors entirely outside our control, including sender domain age, DNS authentication records (SPF, DKIM, DMARC), email content, spam triggers, sender IP warming neglect, and recipient email security software (e.g. Mimecast, Proofpoint, Barracuda).
-                    </p>
-                  </div>
+            {/* 4. Payment & Refund Terms */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">1.4</span>
+                <span>Payment & Refund Policy</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Fees for paid tiers, token packages, and subscription renewals are stated on the platform pricing page. All purchases and token allocations are final and non-refundable unless explicitly mandated by applicable law. In the event of a disputed billing record, customers are encouraged to contact customer support for prompt resolution.
+              </p>
+            </div>
 
-                  <p className="text-xs sm:text-sm text-slate-400">
-                    <strong>Prohibited Abuse & Automated Flooding:</strong> GhostLead may not be used to launch dictionary attacks, harvest spam traps, or spam unverified lists against public email systems. Any user attempting to bypass concurrency controls or script automated floods exceeding daily abuse caps will experience immediate rate-limiting and account forfeiture without notice or refund.
-                  </p>
-                </div>
-              </section>
+            {/* 5. Acceptable Use Policy */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">1.5</span>
+                <span>Acceptable Use & Fair Practices</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Customers agree to utilize the Service strictly for lawful and legitimate commercial operations. You may not utilize GhostLead for:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-slate-400 text-sm">
+                <li>Transmission of unsolicited bulk emails in violation of international anti-spam legislation (such as the CAN-SPAM Act, CASL, or GDPR).</li>
+                <li>Dictionary attacks, directory harvesting, or malicious probing of mail infrastructures.</li>
+                <li>Attempting to circumvent account limits, concurrency slots, or technical access barriers.</li>
+                <li>Reselling or sublicensing the platform without explicit written authorization.</li>
+              </ul>
+              <p className="text-slate-400 text-sm leading-relaxed mt-2">
+                GhostLead reserves the right to restrict or suspend access to accounts that demonstrate abusive or unlawful usage patterns.
+              </p>
+            </div>
 
-              {/* SECTION 4: THIRD-PARTY DISCLAIMER */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                  <span>4. Third-Party Trademarks & Independence Disclaimer</span>
-                </h2>
-                
-                <div className="space-y-3 pl-4 border-l-2 border-indigo-500/30">
-                  <p className="text-xs sm:text-sm text-slate-300">
-                    <strong>GhostLead is an independent software tool.</strong> GhostLead is not affiliated, associated, authorized, endorsed by, or in any way officially connected with LinkedIn Corporation, Microsoft Corporation, Smartlead, Instantly.ai, Google LLC, or any of their respective subsidiaries or affiliates.
-                  </p>
-                  <p className="text-xs sm:text-sm text-slate-400">
-                    The name "LinkedIn" as well as related names, marks, emblems, and images are registered trademarks of their respective owners. The use in this service of any trade name, trademark, or service mark is for identification and reference purposes only and does not imply any association with the trademark holder.
-                  </p>
-                </div>
-              </section>
+            {/* 6. Limitation of Liability */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">1.6</span>
+                <span>Limitation of Liability</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                To the maximum extent permitted by applicable law, GhostLead and its operators shall not be liable for any indirect, incidental, special, or consequential damages, including loss of profits, revenue, or business opportunities. In no circumstance shall GhostLead's cumulative liability exceed the total amount paid by the customer for the Service during the three (3) months immediately preceding the event giving rise to liability.
+              </p>
+            </div>
 
-              {/* SECTION 5: LIMITATION OF LIABILITY */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                  <span>5. Limitation of Liability & Indemnification</span>
-                </h2>
-                
-                <div className="space-y-3 pl-4 border-l-2 border-indigo-500/30 text-xs sm:text-sm text-slate-400">
-                  <p>
-                    TO THE MAXIMUM EXTENT PERMITTED UNDER APPLICABLE LAW, GHOSTLEAD AND ITS OPERATORS, AFFILIATES, OFFICERS, AND CONTRACTORS SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF REVENUE, LOSS OF PROFITS, DOMAIN BLACKLISTING, ACCOUNT TERMINATION BY THIRD-PARTY OUTREACH TOOLS, OR LOSS OF DATA.
-                  </p>
-                  <p>
-                    IN NO EVENT SHALL GHOSTLEAD'S AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT OR THE USE OF THE SERVICE EXCEED THE ACTUAL AMOUNT PAID BY THE USER TO GHOSTLEAD IN THE THREE (3) MONTHS IMMEDIATELY PRECEDING THE CLAIM (OR THE PURCHASE PRICE OF THE APPLICABLE SINGLE LIFETIME DEAL TIER).
-                  </p>
-                </div>
-              </section>
-            </motion.div>
-          )}
+            {/* 7. Third-Party Trademarks */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">1.7</span>
+                <span>Third-Party Trademarks</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                GhostLead is an independent software provider. Any third-party product names, logos, or trademarks referenced within our service or marketing materials are the property of their respective owners and do not imply endorsement, partnership, or affiliation.
+              </p>
+            </div>
+          </section>
 
-          {activeTab === 'privacy' && (
-            <motion.div
-              key="privacy-content"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-10"
-            >
-              {/* PRIVACY HIGHLIGHT: ZERO-DATABASE CONTACT ARCHITECTURE */}
-              <section className="space-y-4">
-                <div className="p-4 sm:p-5 rounded-2xl bg-emerald-950/40 border border-emerald-800/80 text-emerald-200">
-                  <div className="flex items-start gap-3">
-                    <Database className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h2 className="text-base sm:text-lg font-bold text-white tracking-wide">
-                        Zero-Database Contact Architecture (GDPR & CCPA by Design)
-                      </h2>
-                      <p className="mt-2 text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
-                        <strong>GhostLead strictly adheres to a Zero-Database Contact Architecture.</strong> We do NOT scrape, harvest, store, trade, resell, or build centralized databases containing personal lead contacts, employee directories, or customer lists.
-                      </p>
-                      <p className="mt-2 text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
-                        Every single verification operation executes via real-time, stateless network protocols (DNS query, MX routing, and live SMTP handshake) with the target server. The verification outcome (e.g. Valid, Risky, Catch-All) is streamed directly to the user's active client session and is immediately expunged from volatile server memory.
-                      </p>
-                      <p className="mt-2 text-xs sm:text-sm text-emerald-300 font-semibold leading-relaxed">
-                        Uploaded CSV files, contact email targets, and validation logs are never saved, stored, or indexed on GhostLead storage drives.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </section>
+          {/* ========================================================= */}
+          {/* PART II: PRIVACY POLICY                                   */}
+          {/* ========================================================= */}
+          <section id="privacy" className="scroll-mt-32 space-y-8 pt-6 border-t border-slate-800/80">
+            <div className="border-b border-slate-800/60 pb-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">
+                Part II
+              </span>
+              <h2 className="text-2xl font-bold text-white mt-1">
+                Privacy Policy
+              </h2>
+            </div>
 
-              {/* SECTION: DATA WE COLLECT */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                  <span>1. Information We Collect</span>
-                </h2>
-                
-                <div className="space-y-3 pl-4 border-l-2 border-indigo-500/30 text-xs sm:text-sm text-slate-300">
-                  <p>
-                    Because we do not store customer leads or prospect records, our data collection is limited exclusively to functional account administration:
-                  </p>
-                  <ul className="space-y-2 list-disc pl-5 text-slate-400">
-                    <li>
-                      <strong className="text-slate-200">Account Credentials & Work Email:</strong> Your registered work email address for reservation token tracking, wave notifications, and authentication.
-                    </li>
-                    <li>
-                      <strong className="text-slate-200">Billing Metadata:</strong> Token balances, concurrency slots, transaction IDs, and wave affiliation. Payment card numbers are processed directly by our PCI-DSS compliant payment gateway and are never touched or stored by GhostLead.
-                    </li>
-                    <li>
-                      <strong className="text-slate-200">Telemetry & Abuse Counter:</strong> Aggregate daily usage counters (e.g. number of rows verified today) used strictly to enforce daily abuse limits and prevent denial-of-service floods.
-                    </li>
-                  </ul>
-                </div>
-              </section>
+            {/* 1. Information We Collect */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">2.1</span>
+                <span>Information We Collect</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                We collect personal information necessary to deliver and manage the Service, including:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-slate-400 text-sm">
+                <li><strong className="text-slate-200">Account Details:</strong> Name, work email address, and account credentials provided during registration.</li>
+                <li><strong className="text-slate-200">Transaction & Billing Records:</strong> Purchase history, plan selections, and payment confirmation metadata handled via secure third-party payment processors.</li>
+                <li><strong className="text-slate-200">Usage Telemetry:</strong> Aggregate query volumes, feature interaction counts, and account credit balance data for operational maintenance.</li>
+              </ul>
+            </div>
 
-              {/* SECTION: PURPOSE OF PROCESSING */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                  <span>2. How We Use Information</span>
-                </h2>
-                
-                <div className="space-y-3 pl-4 border-l-2 border-indigo-500/30 text-xs sm:text-sm text-slate-400">
-                  <p>We process your administrative data solely to:</p>
-                  <ul className="space-y-1.5 list-disc pl-5">
-                    <li>Provision, maintain, and secure your access to verification tokens.</li>
-                    <li>Notify you regarding your Wave reservation spot prior to public launch.</li>
-                    <li>Prevent fraud, abusive high-volume list bombing, and unauthorized chargebacks.</li>
-                    <li>Comply with valid statutory legal obligations and law enforcement requests.</li>
-                  </ul>
-                </div>
-              </section>
+            {/* 2. Use of Information */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">2.2</span>
+                <span>How We Use Information</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Information collected is used strictly for legitimate business and service operational purposes:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-slate-400 text-sm">
+                <li>Providing email verification and diagnostic functionality.</li>
+                <li>Managing token balances, account tiers, and feature entitlements.</li>
+                <li>Communicating administrative notifications, system updates, and customer support responses.</li>
+                <li>Ensuring platform integrity, preventing unauthorized activity, and maintaining service reliability.</li>
+              </ul>
+            </div>
 
-              {/* SECTION: ZERO THIRD-PARTY SALE */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                  <span>3. No Sale or Commercialization of Data</span>
-                </h2>
-                
-                <div className="space-y-3 pl-4 border-l-2 border-indigo-500/30 text-xs sm:text-sm text-slate-400">
-                  <p>
-                    We have never sold, rented, or commercialized any user data or lead verification queries to data brokers, advertising networks, or third-party intelligence services. We will never do so in the future.
-                  </p>
-                </div>
-              </section>
+            {/* 3. Data Retention & Third Parties */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">2.3</span>
+                <span>Data Retention & Third Parties</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                We do not sell, rent, or trade user data or verification query records to third parties. Data is processed solely to fulfill customer requests and maintain account integrity. Verification queries are processed ephemerally and are not retained for building centralized lead directories or secondary marketing lists.
+              </p>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Customer account records are retained only for as long as necessary to maintain active accounts, fulfill contractual obligations, resolve disputes, and comply with applicable statutory retention requirements.
+              </p>
+            </div>
 
-              {/* SECTION: DATA SECURITY & RETENTION */}
-              <section className="space-y-4">
-                <h2 className="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-indigo-400" />
-                  <span>4. Data Security & Ephemeral Processing</span>
-                </h2>
-                
-                <div className="space-y-3 pl-4 border-l-2 border-indigo-500/30 text-xs sm:text-sm text-slate-400">
-                  <p>
-                    All communication between your browser, the Chrome Extension, and GhostLead verification nodes is encrypted using TLS 1.3 / AES-256. Because mailbox verification is ephemeral and stateless, target recipient emails cease to exist on our servers the second the socket connection closes.
-                  </p>
-                </div>
-              </section>
-            </motion.div>
-          )}
+            {/* 4. Data Security */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">2.4</span>
+                <span>Data Security</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                We implement industry-standard encryption protocols (including HTTPS/TLS) and organizational safeguards to protect customer data against unauthorized access, alteration, disclosure, or destruction.
+              </p>
+            </div>
+
+            {/* 5. Policy Updates & Inquiries */}
+            <div className="space-y-2.5">
+              <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <span className="text-indigo-400 font-mono text-sm">2.5</span>
+                <span>Inquiries & Updates</span>
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                We may periodically update this policy to reflect operational, legal, or regulatory changes. Continued use of the platform following any modifications constitutes acceptance of the revised terms. For inquiries regarding our privacy or compliance policies, please reach out via our official contact channels.
+              </p>
+            </div>
+          </section>
 
         </div>
 
-        {/* Bottom Navigation & Contact Line */}
-        <div className="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>GhostLead Zero-Liability Infrastructure • Version 2.4</span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => onNavigateHome()}
-              className="font-bold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer"
-            >
-              Return to Home Page →
-            </button>
-          </div>
-        </div>
-
-      </div>
+      </article>
     </div>
   );
 }

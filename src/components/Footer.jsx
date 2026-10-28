@@ -73,14 +73,14 @@ export function Footer({ waveMetrics, onNavigate }) {
           {/* Legal Links */}
           <a 
             href="/privacy" 
-            onClick={(e) => handleNav(e, 'legal', '', 'privacy')} 
+            onClick={(e) => handleNav(e, 'legal', '#privacy')} 
             className="hover:text-indigo-600 transition-colors cursor-pointer font-medium"
           >
             Privacy Policy
           </a>
           <a 
             href="/terms" 
-            onClick={(e) => handleNav(e, 'legal', '', 'terms')} 
+            onClick={(e) => handleNav(e, 'legal', '#terms')} 
             className="hover:text-indigo-600 transition-colors cursor-pointer font-medium"
           >
             Terms of Service
