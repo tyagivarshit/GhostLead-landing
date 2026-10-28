@@ -13,8 +13,6 @@ import {
   X,
   AlertCircle,
   RefreshCw,
-  Star,
-  BadgeCheck,
   Clock,
   Server,
   Globe,
@@ -24,8 +22,10 @@ import { registerWaitlistUser, supabase } from './lib/supabase';
 import { calculateWaveMetrics } from './lib/waveMetrics';
 import { TopAnnouncementBar } from './components/TopAnnouncementBar';
 import { WavesSection } from './components/WavesSection';
+import { Pricing } from './components/Pricing';
+import { getPricingPlans } from './lib/pricingPlans';
 
-export { WavesSection };
+export { WavesSection, Pricing };
 
 // 6-Hour Rolling Sandbox Window
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
@@ -69,70 +69,6 @@ function GhostIcon({ className = "w-6 h-6" }) {
     </svg>
   );
 }
-
-// Wave 1 Lifetime Plans
-const PLANS = {
-  Starter: {
-    name: 'Starter',
-    price: 49,
-    leads: '1,000 Verified Leads / month',
-    seats: 'Single User Account',
-    claimed: 11,
-    total: 15,
-    tag: '4 Slots Left',
-    barColor: 'bg-amber-500',
-    popular: false,
-    nextWavePrice: '$69',
-    features: [
-      '1,000 Verified Leads / month',
-      'Single User Account',
-      'Chrome Extension LinkedIn Capture',
-      'Real-Time Mailbox Verification',
-      'Direct CSV Lead Export',
-      'Standard Processing Queue'
-    ]
-  },
-  Pro: {
-    name: 'Pro',
-    price: 119,
-    leads: '5,000 Verified Leads / month',
-    seats: 'Up to 3 Team Seats',
-    claimed: 6,
-    total: 10,
-    tag: '4 Slots Left',
-    barColor: 'bg-indigo-600',
-    popular: true,
-    nextWavePrice: '$159',
-    features: [
-      '5,000 Verified Leads / month',
-      'Up to 3 Team Seats',
-      'Real-Time Mailbox Verification',
-      'Zero-Bounce Deliverability Guard',
-      'Instantly & Smartlead 1-Click Sync',
-      'Priority Processing Queue'
-    ]
-  },
-  Agency: {
-    name: 'Agency',
-    price: 249,
-    leads: '15,000 Verified Leads / month',
-    seats: 'Unlimited Team Seats',
-    claimed: 4,
-    total: 5,
-    tag: 'LAST SEAT!',
-    barColor: 'bg-rose-500',
-    popular: false,
-    nextWavePrice: '$299',
-    features: [
-      '15,000 Verified Leads / month',
-      'Unlimited Team Seats',
-      'Bulk LinkedIn List Prospector',
-      'Direct CRM & Webhook Integrations',
-      'Dedicated Account Specialist',
-      'Ultra-Fast Dedicated Queue'
-    ]
-  }
-};
 
 export default function App() {
   // Sandbox State
@@ -259,38 +195,13 @@ export default function App() {
 
     fetchWaitlistCount();
 
-    // Supabase realtime subscription for live updates
-    let channel = null;
-    if (supabase) {
-      try {
-        channel = supabase
-          .channel('schema-db-changes')
-          .on(
-            'postgres_changes',
-            {
-              event: 'INSERT',
-              schema: 'public',
-              table: 'waitlist',
-            },
-            () => {
-              fetchWaitlistCount();
-            }
-          )
-          .subscribe();
-      } catch (subErr) {
-        console.warn('[GhostLead] Realtime subscription error:', subErr);
-      }
-    }
-
     return () => {
       isMounted = false;
-      if (channel && supabase) {
-        supabase.removeChannel(channel);
-      }
     };
   }, []);
 
   const waveMetrics = calculateWaveMetrics(totalCount);
+  const pricingPlans = getPricingPlans(totalCount);
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -1005,47 +916,6 @@ export default function App() {
           </div>
         </div>
 
-        {/* Social Proof & Value Badges (Directly Below Sandbox Widget) */}
-        <div className="mt-8 flex flex-col items-center gap-4">
-          
-          {/* Avatar Cluster & Rating */}
-          <div className="flex flex-wrap items-center justify-center gap-2.5 text-xs sm:text-sm text-slate-600">
-            <div className="flex -space-x-2 overflow-hidden flex-shrink-0">
-              <span className="inline-block h-7 w-7 rounded-full ring-2 ring-white bg-indigo-100 text-indigo-700 font-bold text-xs flex items-center justify-center">AK</span>
-              <span className="inline-block h-7 w-7 rounded-full ring-2 ring-white bg-violet-100 text-violet-700 font-bold text-xs flex items-center justify-center">TM</span>
-              <span className="inline-block h-7 w-7 rounded-full ring-2 ring-white bg-emerald-100 text-emerald-700 font-bold text-xs flex items-center justify-center">DL</span>
-              <span className="inline-block h-7 w-7 rounded-full ring-2 ring-white bg-amber-100 text-amber-700 font-bold text-xs flex items-center justify-center">SR</span>
-            </div>
-
-            <div className="flex items-center gap-0.5 text-amber-500 flex-shrink-0">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-              ))}
-            </div>
-
-            <span className="font-medium text-slate-700">
-              Join <strong className="text-slate-950 font-bold">340+ agency founders & sales teams</strong> securing their slot.
-            </span>
-          </div>
-
-          {/* Key Value Badges */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-slate-600">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
-              99% Deliverability Guarantee
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700">
-              <Zap className="w-3.5 h-3.5 text-indigo-600 flex-shrink-0" />
-              1.2s Real-Time Mailbox Ping
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700">
-              <BadgeCheck className="w-3.5 h-3.5 text-violet-600 flex-shrink-0" />
-              Zero Stale Database Scrapes
-            </span>
-          </div>
-
-        </div>
-
       </section>
 
       {/* ========================================================= */}
@@ -1195,10 +1065,10 @@ export default function App() {
             Strict Scarcity Wave Release
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
-            Lifetime Deal (LTD) Waves
+            Lifetime Deal Waves
           </h2>
           <p className="mt-3.5 text-base sm:text-lg text-slate-600">
-            Pay once, use forever. As each wave sells out, pricing moves permanently to the next tier. No monthly subscriptions, no hidden renewals.
+           One-time investment. Non-expiring credit stacks. Zero subscriptions, zero hidden renewals—strictly capped to the first 150 accounts.
           </p>
         </div>
 
@@ -1222,176 +1092,12 @@ export default function App() {
             </div>
           )}
 
+          {/* Wave Tracker Cards */}
           <WavesSection totalCount={totalCount} />
         </div>
 
         {/* 3 Wide Pricing Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-          
-          {/* Starter Card */}
-          <div className="rounded-3xl p-6 sm:p-8 bg-white border border-slate-200/90 flex flex-col justify-between hover:shadow-lg transition-all transform-gpu will-change-transform">
-            <div>
-              <div className="flex justify-between items-center">
-                <span className="text-xl font-bold text-slate-950">Starter</span>
-                <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">
-                  Hard Cap: 15 Slots
-                </span>
-              </div>
-              
-              <div className="mt-4 flex items-baseline gap-1.5">
-                <span className="text-4xl sm:text-5xl font-extrabold text-slate-950">$49</span>
-                <span className="text-slate-500 text-sm font-semibold">/ lifetime</span>
-              </div>
-              <p className="text-xs text-slate-500 mt-1">
-                One-time payment • Never pay monthly
-              </p>
-
-              {/* Progress bar */}
-              <div className="mt-5 p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
-                <div className="flex justify-between text-xs font-semibold mb-1.5">
-                  <span className="text-slate-700">11 / 15 Claimed</span>
-                  <span className="text-amber-600 font-bold">Only 4 left!</span>
-                </div>
-                <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                  <div className="bg-amber-500 h-full w-[73%]" />
-                </div>
-              </div>
-
-              <div className="mt-6 pt-5 border-t border-slate-100">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-                  What's included:
-                </div>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600">
-                  {PLANS.Starter.features.map((feat, idx) => (
-                    <li key={idx} className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <button 
-              onClick={() => openModal('Starter')}
-              className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm bg-slate-100 hover:bg-slate-200 text-slate-900 transition-all cursor-pointer flex items-center justify-center active:scale-98"
-            >
-              Claim Starter Slot ($49)
-            </button>
-          </div>
-
-          {/* Pro Card (Founder's Choice) */}
-          <div className="rounded-3xl p-6 sm:p-8 bg-white border-2 border-indigo-600 shadow-xl shadow-indigo-100/70 flex flex-col justify-between relative hover:shadow-2xl transition-all transform-gpu will-change-transform">
-            
-            {/* Founder's Choice Pill */}
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-xs font-extrabold px-4 py-1 rounded-full uppercase tracking-wider shadow-md shadow-indigo-600/30 flex items-center gap-1.5 whitespace-nowrap">
-              <Sparkles className="w-3 h-3 text-amber-300" />
-              Founder's Choice
-            </div>
-
-            <div>
-              <div className="flex justify-between items-center">
-                <span className="text-xl font-bold text-slate-950">Pro</span>
-                <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">
-                  Hard Cap: 10 Slots
-                </span>
-              </div>
-              
-              <div className="mt-4 flex items-baseline gap-1.5">
-                <span className="text-4xl sm:text-5xl font-extrabold text-slate-950">$119</span>
-                <span className="text-slate-500 text-sm font-semibold">/ lifetime</span>
-              </div>
-              <p className="text-xs text-indigo-600 font-semibold mt-1">
-                Save $40 vs Wave 2 ($159)
-              </p>
-
-              {/* Progress bar */}
-              <div className="mt-5 p-3 rounded-2xl bg-indigo-50/50 border border-indigo-100">
-                <div className="flex justify-between text-xs font-semibold mb-1.5">
-                  <span className="text-slate-700">6 / 10 Claimed</span>
-                  <span className="text-indigo-600 font-bold">4 Left</span>
-                </div>
-                <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                  <div className="bg-indigo-600 h-full w-[60%]" />
-                </div>
-              </div>
-
-              <div className="mt-6 pt-5 border-t border-slate-100">
-                <div className="text-xs font-bold uppercase tracking-wider text-indigo-600 mb-3">
-                  Everything in Starter, plus:
-                </div>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600">
-                  {PLANS.Pro.features.map((feat, idx) => (
-                    <li key={idx} className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <button 
-              onClick={() => openModal('Pro')}
-              className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-3 px-4 rounded-xl font-bold text-xs sm:text-sm bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-lg shadow-indigo-600/30 cursor-pointer flex items-center justify-center active:scale-98"
-            >
-              Claim Pro Slot ($119)
-            </button>
-          </div>
-
-          {/* Agency Card */}
-          <div className="rounded-3xl p-6 sm:p-8 bg-white border border-slate-200/90 flex flex-col justify-between hover:shadow-lg transition-all transform-gpu will-change-transform">
-            <div>
-              <div className="flex justify-between items-center">
-                <span className="text-xl font-bold text-slate-950">Agency</span>
-                <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200">
-                  Hard Cap: 5 Slots
-                </span>
-              </div>
-              
-              <div className="mt-4 flex items-baseline gap-1.5">
-                <span className="text-4xl sm:text-5xl font-extrabold text-slate-950">$249</span>
-                <span className="text-slate-500 text-sm font-semibold">/ lifetime</span>
-              </div>
-              <p className="text-xs text-rose-600 font-semibold mt-1">
-                Next wave jumps to $299+
-              </p>
-
-              {/* Progress bar */}
-              <div className="mt-5 p-3 rounded-2xl bg-rose-50/50 border border-rose-100">
-                <div className="flex justify-between text-xs font-semibold mb-1.5">
-                  <span className="text-slate-700">4 / 5 Claimed</span>
-                  <span className="text-rose-600 font-extrabold">LAST SEAT!</span>
-                </div>
-                <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                  <div className="bg-rose-500 h-full w-[80%]" />
-                </div>
-              </div>
-
-              <div className="mt-6 pt-5 border-t border-slate-100">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
-                  Everything in Pro, plus:
-                </div>
-                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600">
-                  {PLANS.Agency.features.map((feat, idx) => (
-                    <li key={idx} className="flex items-center gap-2.5">
-                      <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <button 
-              onClick={() => openModal('Agency')}
-              className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-2.5 px-4 rounded-xl font-bold text-xs sm:text-sm bg-slate-950 hover:bg-slate-800 text-white transition-all cursor-pointer flex items-center justify-center active:scale-98"
-            >
-              Claim Agency Slot ($249)
-            </button>
-          </div>
-
-        </div>
+        <Pricing totalCount={totalCount} onSelectPlan={openModal} />
 
         {/* Deliverability Trust Badge */}
         <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 sm:p-5 text-center max-w-xl mx-auto mt-10">
@@ -1507,7 +1213,7 @@ export default function App() {
                     </label>
                     <div className="grid grid-cols-3 gap-2">
                       {(['Starter', 'Pro', 'Agency']).map((tierKey) => {
-                        const plan = PLANS[tierKey];
+                        const plan = pricingPlans[tierKey];
                         const isCurrent = selectedTier === tierKey;
                         return (
                           <button
@@ -1520,9 +1226,9 @@ export default function App() {
                                 : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
                             }`}
                           >
-                            <div className="text-xs font-bold">{plan.name}</div>
-                            <div className="text-sm font-extrabold text-slate-950 mt-0.5">${plan.price}</div>
-                            <div className="text-[10px] text-slate-500 truncate">{plan.tag}</div>
+                            <div className="text-xs font-bold">{plan.badge || plan.name}</div>
+                            <div className="text-sm font-extrabold text-slate-950 mt-0.5">${plan.price}{pricingPlans.isClosed ? '/mo' : ''}</div>
+                            <div className="text-[10px] text-slate-500 truncate">{pricingPlans.activeWaveTag}</div>
                           </button>
                         );
                       })}
@@ -1570,7 +1276,7 @@ export default function App() {
                         </>
                       ) : (
                         <>
-                          <span>Claim {waveMetrics.waveName} Slot (${PLANS[selectedTier].price})</span>
+                          <span>Claim {waveMetrics.waveName} Slot (${pricingPlans[selectedTier].price})</span>
                           <ArrowRight className="w-4 h-4 flex-shrink-0" />
                         </>
                       )}
@@ -1615,7 +1321,7 @@ export default function App() {
                   <div className="mt-5 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-left text-slate-700 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-slate-500">Selected Tier:</span>
-                      <span className="font-bold text-indigo-700">{selectedTier} (${PLANS[selectedTier].price} Lifetime)</span>
+                      <span className="font-bold text-indigo-700">{selectedTier} (${pricingPlans[selectedTier].price} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500">Contact Email:</span>
