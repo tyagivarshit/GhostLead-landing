@@ -25,9 +25,9 @@ import { WavesSection } from './components/WavesSection';
 import { Pricing } from './components/Pricing';
 import { getPricingPlans } from './lib/pricingPlans';
 import { Navbar, GhostIcon } from './components/Navbar';
-import { PricingModal } from './components/PricingModal';
+import { PricingPage } from './components/PricingPage';
 
-export { WavesSection, Pricing, Navbar, PricingModal };
+export { WavesSection, Pricing, Navbar, PricingPage };
 
 // 6-Hour Rolling Sandbox Window
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
@@ -185,9 +185,66 @@ export default function App() {
   const waveMetrics = calculateWaveMetrics(totalCount);
   const pricingPlans = getPricingPlans(totalCount);
 
+  // Dedicated Routing View State ('home' | 'pricing')
+  const getInitialView = () => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.toLowerCase();
+      if (path === '/pricing' || path === '/pricing/' || window.location.hash === '#pricing') {
+        return 'pricing';
+      }
+    }
+    return 'home';
+  };
+
+  const [currentView, setCurrentView] = useState(getInitialView);
+
+  // Synchronize browser history and popstate navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      if (typeof window !== 'undefined') {
+        const path = window.location.pathname.toLowerCase();
+        if (path === '/pricing' || path === '/pricing/') {
+          setCurrentView('pricing');
+        } else {
+          setCurrentView('home');
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigateTo = (view, hash = '') => {
+    setCurrentView(view);
+    const targetPath = view === 'pricing' ? '/pricing' : (hash ? `/${hash}` : '/');
+
+    if (typeof window !== 'undefined') {
+      if (window.location.pathname !== (view === 'pricing' ? '/pricing' : '/')) {
+        window.history.pushState({ view }, '', targetPath);
+      } else if (hash) {
+        window.history.replaceState({ view }, '', targetPath);
+      }
+
+      if (view === 'pricing') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (hash) {
+        setTimeout(() => {
+          const el = document.querySelector(hash);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }, 60);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  };
+
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
   const [modalHeadline, setModalHeadline] = useState("Lock Your Wave 1 Early-Bird Slot");
   const [isLimitGateModal, setIsLimitGateModal] = useState(false);
   const [selectedTier, setSelectedTier] = useState('Pro');
@@ -420,19 +477,46 @@ export default function App() {
       {/* ========================================================= */}
       <Navbar 
         waveMetrics={waveMetrics} 
+        currentView={currentView}
+        onNavigate={navigateTo}
         onOpenModal={openModal} 
-        onOpenPricingModal={() => setIsPricingModalOpen(true)}
       />
 
       {/* Main Content Flow with Adequate Top Padding Fix (pt-24 sm:pt-28 lg:pt-32) */}
       <main className="pt-24 sm:pt-28 lg:pt-32">
-        {/* ========================================================= */}
-        {/* 2. TOP SCARCITY BAR (COMPACT)                             */}
-        {/* ========================================================= */}
-        <TopAnnouncementBar 
-          waveMetrics={waveMetrics} 
-          onOpenModal={openModal} 
-        />
+        <AnimatePresence mode="wait">
+          {currentView === 'pricing' ? (
+            <motion.div
+              key="pricing-page"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.22, ease: FAST_EASE }}
+              className="w-full"
+            >
+              <PricingPage
+                totalCount={totalCount}
+                waveMetrics={waveMetrics}
+                onSelectPlan={openModal}
+                onNavigateHome={(hash) => navigateTo('home', hash)}
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="home-page"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.22, ease: FAST_EASE }}
+              className="w-full"
+            >
+              {/* ========================================================= */}
+              {/* 2. TOP SCARCITY BAR (COMPACT)                             */}
+              {/* ========================================================= */}
+              <TopAnnouncementBar 
+                waveMetrics={waveMetrics} 
+                onOpenModal={openModal} 
+              />
 
         {/* ========================================================= */}
         {/* 3. HERO SECTION (TIGHTENED FOLD, HUMAN HIGH-TRUST COPY)   */}
@@ -866,6 +950,25 @@ export default function App() {
       </section>
 
       {/* ========================================================= */}
+      {/* 4.5 SCARCITY WAVES TRACKER                                */}
+      {/* ========================================================= */}
+      <section className="py-14 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold mb-2.5 border border-amber-200/70">
+            <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+            Strict Scarcity Wave Release
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+            Lifetime Wave Progression
+          </h2>
+          <p className="mt-2 text-sm sm:text-base text-slate-600">
+            Strictly capped to the first 150 accounts across 3 waves before shifting to monthly SaaS.
+          </p>
+        </div>
+        <WavesSection totalCount={totalCount} />
+      </section>
+
+      {/* ========================================================= */}
       {/* 5. FEATURES BENTO GRID (SPACIOUS 3-CARD ROW)              */}
       {/* ========================================================= */}
       <section id="features" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 sm:scroll-mt-28">
@@ -1000,72 +1103,47 @@ export default function App() {
         </div>
       </section>
 
-      {/* ========================================================= */}
-      {/* 6. LIFETIME DEAL (LTD) WAVES SECTION (CENTERED & CLEAR)    */}
-      {/* ========================================================= */}
-      <section id="pricing" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200/60 scroll-mt-24 sm:scroll-mt-28">
-        
-        {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold mb-3 border border-amber-200/70">
-            <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-            Strict Scarcity Wave Release
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 tracking-tight">
-            Lifetime Deal Waves
-          </h2>
-          <p className="mt-3.5 text-base sm:text-lg text-slate-600">
-           One-time investment. Non-expiring credit stacks. Zero subscriptions, zero hidden renewals—strictly capped to the first 150 accounts.
-          </p>
-        </div>
-
-        {/* Visual Wave Tracker Indicator */}
-        <div className="mb-12 max-w-4xl mx-auto">
-          {waveMetrics.isClosed && (
-            <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-300 text-amber-950 flex items-center justify-between gap-3 flex-wrap sm:flex-nowrap">
-              <div className="flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                <span className="text-xs sm:text-sm font-semibold">
-                  {waveMetrics.soldOutMessage}
-                </span>
+        {/* ========================================================= */}
+        {/* 6. LIFETIME DEAL (LTD) SUMMARY BANNER                     */}
+        {/* ========================================================= */}
+        <section className="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center border-t border-slate-200/60">
+          <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
+            <div className="relative z-10 max-w-2xl mx-auto">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-indigo-300 text-xs font-bold mb-4 border border-white/10 backdrop-blur-md">
+                <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+                Strict Scarcity Wave Release
               </div>
-              <button
-                type="button"
-                onClick={() => openModal('Pro', 'Join Public Launch Waitlist')}
-                className="px-4 py-2 bg-slate-950 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer flex-shrink-0 whitespace-nowrap"
-              >
-                Join Launch Waitlist
-              </button>
+              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+                Lifetime Deal Token Stack
+              </h2>
+              <p className="mt-3 text-sm sm:text-base text-slate-300">
+                Pay once, verify forever with non-expiring credits. Starter $69, Pro $149, Agency $299 with automatic wave escalations before public SaaS launch.
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => navigateTo('pricing')}
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-full font-bold text-sm bg-white text-slate-950 hover:bg-slate-100 shadow-lg shadow-white/10 transition-all cursor-pointer flex items-center justify-center gap-2 group active:scale-98"
+                >
+                  <span>View Dedicated Pricing & Waves</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => openModal('Pro')}
+                  className="w-full sm:w-auto px-6 py-3.5 rounded-full font-bold text-sm bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 transition-all cursor-pointer active:scale-98"
+                >
+                  <span>Claim Wave 1 Slot Now</span>
+                </button>
+              </div>
             </div>
-          )}
-
-          {/* Wave Tracker Cards */}
-          <WavesSection totalCount={totalCount} />
-        </div>
-
-        {/* 3 Wide Pricing Cards */}
-        <Pricing totalCount={totalCount} onSelectPlan={openModal} />
-
-        {/* Deliverability Trust Badge */}
-        <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 sm:p-5 text-center max-w-xl mx-auto mt-10">
-          <div className="inline-flex items-center justify-center gap-2 mb-1.5">
-            <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0">
-              <ShieldCheck className="w-3.5 h-3.5" />
-            </div>
-            <h3 className="text-sm sm:text-base font-bold text-slate-900">
-               0% Hard Bounce Rate Guarantee
-            </h3>
           </div>
-          <p className="text-xs text-slate-600 leading-relaxed max-w-md mx-auto">
-            Every verified email is checked directly against active recipient mailboxes in real time so your sender reputation stays safe.
-          </p>
-          <div className="mt-3 pt-3 border-t border-slate-200/60 inline-flex items-center justify-center text-[11px] font-semibold text-slate-500">
-            <span>🔒 No Credit Card Required Today • Instant {waveMetrics.isClosed ? 'Waitlist Registration' : `${waveMetrics.waveName} Slot Reservation`}</span>
-          </div>
-        </div>
+        </section>
 
-      </section>
-      </main>
+      </motion.div>
+    )}
+  </AnimatePresence>
+</main>
 
       {/* ========================================================= */}
       {/* 7. FOOTER                                                 */}
@@ -1073,16 +1151,40 @@ export default function App() {
       <footer className="py-10 border-t border-slate-200/70 bg-white text-center text-xs text-slate-500">
         <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 font-bold text-slate-900">
-            <div className="w-6 h-6 rounded-lg bg-slate-950 text-white flex items-center justify-center">
-              <GhostIcon className="w-3.5 h-3.5" />
-            </div>
-            <span>GhostLead</span>
+            <button
+              type="button"
+              onClick={() => navigateTo('home')}
+              className="flex items-center gap-2 text-left cursor-pointer hover:opacity-90 transition-opacity"
+            >
+              <div className="w-6 h-6 rounded-lg bg-slate-950 text-white flex items-center justify-center">
+                <GhostIcon className="w-3.5 h-3.5" />
+              </div>
+              <span className="font-bold text-slate-900">GhostLead</span>
+            </button>
             <span className="text-slate-400 font-normal">© 2026. Zero-bounce prospecting infrastructure.</span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <a href="#sandbox" className="hover:text-slate-950 transition-colors">Sandbox</a>
-            <a href="#features" className="hover:text-slate-950 transition-colors">Features</a>
-            <a href="#pricing" className="hover:text-slate-950 transition-colors">{waveMetrics.isClosed ? 'Pricing Matrix' : `${waveMetrics.waveName} Matrix`}</a>
+            <a 
+              href="/#sandbox" 
+              onClick={(e) => { e.preventDefault(); navigateTo('home', '#sandbox'); }} 
+              className="hover:text-slate-950 transition-colors cursor-pointer"
+            >
+              Sandbox
+            </a>
+            <a 
+              href="/#features" 
+              onClick={(e) => { e.preventDefault(); navigateTo('home', '#features'); }} 
+              className="hover:text-slate-950 transition-colors cursor-pointer"
+            >
+              Features
+            </a>
+            <a 
+              href="/pricing" 
+              onClick={(e) => { e.preventDefault(); navigateTo('pricing'); }} 
+              className="hover:text-slate-950 transition-colors cursor-pointer font-medium text-slate-700"
+            >
+              {waveMetrics.isClosed ? 'Pricing Matrix' : `${waveMetrics.waveName} Matrix`}
+            </a>
             <span className="text-slate-300 hidden sm:inline">|</span>
             <span className="text-slate-400 font-medium">99.4% Deliverability Guaranteed</span>
           </div>
@@ -1293,16 +1395,6 @@ export default function App() {
           </div>
         )}
       </AnimatePresence>
-
-      {/* ========================================================= */}
-      {/* 9. 3D SPRING-BOUNCE PRICING MODAL                         */}
-      {/* ========================================================= */}
-      <PricingModal
-        isOpen={isPricingModalOpen}
-        onClose={() => setIsPricingModalOpen(false)}
-        totalCount={totalCount}
-        onSelectPlan={openModal}
-      />
 
     </div>
   );

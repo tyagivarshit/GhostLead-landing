@@ -32,14 +32,22 @@ export function GhostIcon({ className = "w-6 h-6" }) {
  *     waveName?: string,
  *     isClosed?: boolean
  *   },
- *   onOpenModal: (tier?: string) => void,
- *   onOpenPricingModal?: () => void
+ *   currentView?: 'home' | 'pricing',
+ *   onNavigate?: (view: 'home' | 'pricing', hash?: string) => void,
+ *   onOpenModal: (tier?: string) => void
  * }} props
  */
-export function Navbar({ waveMetrics, onOpenModal, onOpenPricingModal }) {
+export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenModal }) {
   const isClosed = Boolean(waveMetrics?.isClosed);
   const waveName = waveMetrics?.waveName || 'Wave 1';
   const waveTagText = isClosed ? '[Waitlist]' : `[${waveName}]`;
+
+  const handleNavClick = (e, view, hash = '') => {
+    e.preventDefault();
+    if (typeof onNavigate === 'function') {
+      onNavigate(view, hash);
+    }
+  };
 
   return (
     <div 
@@ -52,8 +60,9 @@ export function Navbar({ waveMetrics, onOpenModal, onOpenPricingModal }) {
       >
         {/* Left: GhostLead logo icon + bold title "GhostLead" + rounded wave badge */}
         <a 
-          href="#" 
-          className="flex items-center gap-2 group flex-shrink-0"
+          href="/" 
+          onClick={(e) => handleNavClick(e, 'home')}
+          className="flex items-center gap-2 group flex-shrink-0 cursor-pointer"
           aria-label="GhostLead Home"
         >
           <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-slate-950 via-slate-900 to-indigo-950 dark:from-white dark:to-slate-200 text-white dark:text-slate-950 flex items-center justify-center shadow-md shadow-slate-950/20 group-hover:scale-105 transition-transform flex-shrink-0">
@@ -72,29 +81,30 @@ export function Navbar({ waveMetrics, onOpenModal, onOpenPricingModal }) {
         {/* Center: Smooth scroll anchor navigation links */}
         <nav 
           aria-label="Main Navigation" 
-          className="hidden md:flex items-center gap-7 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300"
+          className="hidden md:flex items-center gap-6 lg:gap-7 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300"
         >
           <a 
-            href="#sandbox" 
-            className="hover:text-slate-950 dark:hover:text-white transition-colors"
+            href="/#sandbox" 
+            onClick={(e) => handleNavClick(e, 'home', '#sandbox')}
+            className="hover:text-slate-950 dark:hover:text-white transition-colors cursor-pointer"
           >
             Live Sandbox
           </a>
           <a 
-            href="#features" 
-            className="hover:text-slate-950 dark:hover:text-white transition-colors"
+            href="/#features" 
+            onClick={(e) => handleNavClick(e, 'home', '#features')}
+            className="hover:text-slate-950 dark:hover:text-white transition-colors cursor-pointer"
           >
             Features
           </a>
           <a 
-            href="#pricing" 
-            onClick={(e) => {
-              e.preventDefault();
-              if (typeof onOpenPricingModal === 'function') {
-                onOpenPricingModal();
-              }
-            }}
-            className="hover:text-slate-950 dark:hover:text-white transition-colors flex items-center gap-1.5 cursor-pointer"
+            href="/pricing" 
+            onClick={(e) => handleNavClick(e, 'pricing')}
+            className={`transition-all flex items-center gap-1.5 cursor-pointer rounded-full px-3 py-1 -my-1 ${
+              currentView === 'pricing'
+                ? 'text-indigo-600 dark:text-indigo-400 bg-indigo-50/90 dark:bg-indigo-950/60 font-bold border border-indigo-200/80 dark:border-indigo-800/60 shadow-2xs'
+                : 'hover:text-slate-950 dark:hover:text-white'
+            }`}
           >
             <span>Pricing</span>
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
