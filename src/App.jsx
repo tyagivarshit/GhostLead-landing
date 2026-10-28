@@ -26,8 +26,10 @@ import { Pricing } from './components/Pricing';
 import { getPricingPlans } from './lib/pricingPlans';
 import { Navbar, GhostIcon } from './components/Navbar';
 import { PricingPage } from './components/PricingPage';
+import { LegalPolicyView } from './components/LegalPolicyView';
+import { Footer } from './components/Footer';
 
-export { WavesSection, Pricing, Navbar, PricingPage };
+export { WavesSection, Pricing, Navbar, PricingPage, LegalPolicyView, Footer, GhostIcon };
 
 // 6-Hour Rolling Sandbox Window
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
@@ -185,18 +187,30 @@ export default function App() {
   const waveMetrics = calculateWaveMetrics(totalCount);
   const pricingPlans = getPricingPlans(totalCount);
 
-  // Dedicated Routing View State ('home' | 'pricing')
+  // Dedicated Routing View State ('home' | 'pricing' | 'legal')
   const getInitialView = () => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname.toLowerCase();
       if (path === '/pricing' || path === '/pricing/' || window.location.hash === '#pricing') {
         return 'pricing';
       }
+      if (path === '/legal' || path === '/legal/' || path === '/terms' || path === '/terms/' || path === '/privacy' || path === '/privacy/') {
+        return 'legal';
+      }
     }
     return 'home';
   };
 
+  const getInitialLegalTab = () => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.toLowerCase();
+      if (path.includes('privacy')) return 'privacy';
+    }
+    return 'terms';
+  };
+
   const [currentView, setCurrentView] = useState(getInitialView);
+  const [legalTab, setLegalTab] = useState(getInitialLegalTab);
 
   // Synchronize browser history and popstate navigation
   useEffect(() => {
@@ -205,6 +219,9 @@ export default function App() {
         const path = window.location.pathname.toLowerCase();
         if (path === '/pricing' || path === '/pricing/') {
           setCurrentView('pricing');
+        } else if (path === '/legal' || path === '/legal/' || path === '/terms' || path === '/terms/' || path === '/privacy' || path === '/privacy/') {
+          setCurrentView('legal');
+          setLegalTab(path.includes('privacy') ? 'privacy' : 'terms');
         } else {
           setCurrentView('home');
         }
@@ -215,18 +232,29 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const navigateTo = (view, hash = '') => {
+  const navigateTo = (view, hash = '', tab = null) => {
     setCurrentView(view);
-    const targetPath = view === 'pricing' ? '/pricing' : (hash ? `/${hash}` : '/');
+    if (view === 'legal' && tab) {
+      setLegalTab(tab);
+    }
+
+    let targetPath = '/';
+    if (view === 'pricing') {
+      targetPath = '/pricing';
+    } else if (view === 'legal') {
+      targetPath = (tab || legalTab) === 'privacy' ? '/privacy' : '/terms';
+    } else if (hash) {
+      targetPath = `/${hash}`;
+    }
 
     if (typeof window !== 'undefined') {
-      if (window.location.pathname !== (view === 'pricing' ? '/pricing' : '/')) {
-        window.history.pushState({ view }, '', targetPath);
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ view, tab: tab || legalTab }, '', targetPath);
       } else if (hash) {
-        window.history.replaceState({ view }, '', targetPath);
+        window.history.replaceState({ view, tab: tab || legalTab }, '', targetPath);
       }
 
-      if (view === 'pricing') {
+      if (view === 'pricing' || view === 'legal') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (hash) {
         setTimeout(() => {
@@ -485,7 +513,21 @@ export default function App() {
       {/* Main Content Flow with Adequate Top Padding Fix (pt-24 sm:pt-28 lg:pt-32) */}
       <main className="pt-24 sm:pt-28 lg:pt-32">
         <AnimatePresence mode="wait">
-          {currentView === 'pricing' ? (
+          {currentView === 'legal' ? (
+            <motion.div
+              key="legal-page"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.22, ease: FAST_EASE }}
+              className="w-full"
+            >
+              <LegalPolicyView
+                initialTab={legalTab}
+                onNavigateHome={(hash) => navigateTo('home', hash)}
+              />
+            </motion.div>
+          ) : currentView === 'pricing' ? (
             <motion.div
               key="pricing-page"
               initial={{ opacity: 0, y: 14 }}
@@ -1148,48 +1190,7 @@ export default function App() {
       {/* ========================================================= */}
       {/* 7. FOOTER                                                 */}
       {/* ========================================================= */}
-      <footer className="py-10 border-t border-slate-200/70 bg-white text-center text-xs text-slate-500">
-        <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 font-bold text-slate-900">
-            <button
-              type="button"
-              onClick={() => navigateTo('home')}
-              className="flex items-center gap-2 text-left cursor-pointer hover:opacity-90 transition-opacity"
-            >
-              <div className="w-6 h-6 rounded-lg bg-slate-950 text-white flex items-center justify-center">
-                <GhostIcon className="w-3.5 h-3.5" />
-              </div>
-              <span className="font-bold text-slate-900">GhostLead</span>
-            </button>
-            <span className="text-slate-400 font-normal">© 2026. Zero-bounce prospecting infrastructure.</span>
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-6">
-            <a 
-              href="/#sandbox" 
-              onClick={(e) => { e.preventDefault(); navigateTo('home', '#sandbox'); }} 
-              className="hover:text-slate-950 transition-colors cursor-pointer"
-            >
-              Sandbox
-            </a>
-            <a 
-              href="/#features" 
-              onClick={(e) => { e.preventDefault(); navigateTo('home', '#features'); }} 
-              className="hover:text-slate-950 transition-colors cursor-pointer"
-            >
-              Features
-            </a>
-            <a 
-              href="/pricing" 
-              onClick={(e) => { e.preventDefault(); navigateTo('pricing'); }} 
-              className="hover:text-slate-950 transition-colors cursor-pointer font-medium text-slate-700"
-            >
-              {waveMetrics.isClosed ? 'Pricing Matrix' : `${waveMetrics.waveName} Matrix`}
-            </a>
-            <span className="text-slate-300 hidden sm:inline">|</span>
-            <span className="text-slate-400 font-medium">99.4% Deliverability Guaranteed</span>
-          </div>
-        </div>
-      </footer>
+      <Footer waveMetrics={waveMetrics} onNavigate={navigateTo} />
 
       {/* ========================================================= */}
       {/* 8. PRE-REGISTRATION MODAL (60FPS FAST ACCELERATION)        */}
