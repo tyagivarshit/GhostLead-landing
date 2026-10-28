@@ -69,7 +69,7 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
   };
 
   return (
-    <div className="w-full max-w-full">
+    <div className="w-full max-w-full text-[#1d1d1f]">
       {/* Hero Header for Dedicated Pricing View */}
       <section className="pt-4 pb-10 sm:pt-6 sm:pb-12 max-w-4xl mx-auto text-center px-4">
         
@@ -78,7 +78,7 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50/90 border border-amber-200/90 text-amber-900 text-xs font-bold mb-5 shadow-2xs"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/[0.04] border border-black/[0.04] text-[#6e6e73] text-xs font-semibold mb-5 shadow-2xs"
         >
           <Flame className="w-4 h-4 text-amber-500 fill-amber-500 animate-pulse flex-shrink-0" />
           <span>
@@ -86,8 +86,8 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
               ? "All 150 LTD Slots Claimed — Public Waitlist Active" 
               : `Strict Scarcity Wave Release • ${waveMetrics.waveName} Active`}
           </span>
-          <span className="hidden sm:inline text-amber-400">•</span>
-          <span className="hidden sm:inline font-semibold text-amber-800">
+          <span className="hidden sm:inline text-black/[0.1]">•</span>
+          <span className="hidden sm:inline font-medium text-[#1d1d1f]">
             {waveMetrics.isClosed ? "Shifting to SaaS" : "Strict 150 Account Lifetime Cap"}
           </span>
         </motion.div>
@@ -97,10 +97,10 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: 0.05 }}
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-950 leading-[1.15]"
+          className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#1d1d1f] leading-[1.15]"
         >
           Non-Expiring Lifetime Token Stack.
-          <span className="block mt-1 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-600">
+          <span className="block mt-1 sm:mt-2 text-[#86868b] font-normal">
             One-time payment. Never pay monthly.
           </span>
         </motion.h1>
@@ -110,7 +110,7 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: 0.1 }}
-          className="mt-4 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed"
+          className="mt-4 text-base sm:text-lg text-[#86868b] max-w-2xl mx-auto leading-relaxed"
         >
           Pay once, verify forever with credits that never vanish. Parallel concurrency slots for high-speed enrichment, and transparent wave escalations before public SaaS launch.
         </motion.p>
@@ -120,7 +120,7 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.35, delay: 0.15 }}
-          className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-slate-500 font-medium"
+          className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-[#86868b] font-medium"
         >
           <span className="flex items-center gap-1.5">
             <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
@@ -146,18 +146,18 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
         
         {/* Closed / Sold Out Notification */}
         {waveMetrics.isClosed && (
-          <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-amber-50 border border-amber-300 text-amber-950 flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap shadow-xs">
+          <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-950 flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap shadow-xs">
             <div className="flex items-center gap-3">
               <AlertCircle className="w-6 h-6 text-amber-600 flex-shrink-0" />
               <div>
-                <div className="text-sm font-bold">All 150 Lifetime Slots Claimed</div>
+                <div className="text-sm font-semibold">All 150 Lifetime Slots Claimed</div>
                 <div className="text-xs text-amber-800 mt-0.5">{waveMetrics.soldOutMessage}</div>
               </div>
             </div>
             <button
               type="button"
               onClick={() => onSelectPlan('Pro', 'Join Public Launch Waitlist')}
-              className="px-5 py-2.5 bg-slate-950 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer flex-shrink-0 whitespace-nowrap active:scale-95"
+              className="px-5 py-2.5 bg-[#1d1d1f] hover:bg-black text-white rounded-full text-xs font-medium transition-all shadow-sm cursor-pointer flex-shrink-0 whitespace-nowrap active:scale-95"
             >
               Join Launch Waitlist →
             </button>
@@ -167,7 +167,7 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
         {/* Visual Wave Escalation Tracker */}
         <div className="mb-12">
           <div className="text-center mb-4">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-[#86868b] uppercase tracking-wider">
               Real-Time Wave Tracker
             </span>
           </div>
@@ -180,17 +180,17 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
         </div>
 
         {/* Guarantee Banner */}
-        <div className="mt-14 max-w-3xl mx-auto bg-gradient-to-r from-emerald-50 via-teal-50/60 to-indigo-50/40 border border-emerald-200/90 rounded-3xl p-6 sm:p-8 text-center shadow-xs">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto mb-3 shadow-2xs">
+        <div className="mt-14 max-w-3xl mx-auto bg-white/80 backdrop-blur-2xl border border-black/[0.06] rounded-[28px] p-6 sm:p-8 text-center shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),0_0_1px_1px_rgba(0,0,0,0.03)]">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center mx-auto mb-3 shadow-2xs">
             <ShieldCheck className="w-6 h-6 text-emerald-600" />
           </div>
-          <h3 className="text-lg sm:text-xl font-bold text-slate-950">
+          <h3 className="text-lg sm:text-xl font-semibold text-[#1d1d1f]">
             0% Hard Bounce Rate Guarantee
           </h3>
-          <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl mx-auto">
+          <p className="mt-2 text-xs sm:text-sm text-[#86868b] leading-relaxed max-w-xl mx-auto">
             Every address is queried directly against recipient MX mailboxes through our zero-bounce SMTP handshake engine. If any email marked valid causes a hard bounce, we will refund 2x verification credits automatically.
           </p>
-          <div className="mt-4 pt-3 border-t border-emerald-200/60 inline-flex flex-wrap items-center justify-center gap-3 text-xs font-bold text-emerald-900">
+          <div className="mt-4 pt-3 border-t border-black/[0.05] inline-flex flex-wrap items-center justify-center gap-3 text-xs font-medium text-[#1d1d1f]">
             <span>✓ No Credit Card Needed Today</span>
             <span>•</span>
             <span>✓ Instant Reservation Token</span>
@@ -202,62 +202,62 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
         {/* Comparison: GhostLead Non-Expiring LTD vs Traditional Monthly SaaS */}
         <div className="mt-20 max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold mb-3 border border-slate-200">
-              <Layers className="w-3.5 h-3.5 text-indigo-600" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] text-[#6e6e73] text-xs font-semibold mb-3 border border-black/[0.04]">
+              <Layers className="w-3.5 h-3.5 text-purple-600" />
               Token Economics
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-[#1d1d1f] tracking-tight">
               Why Non-Expiring Credits Outperform Subscriptions
             </h2>
-            <p className="mt-2 text-sm text-slate-600 max-w-xl mx-auto">
+            <p className="mt-2 text-sm text-[#86868b] max-w-xl mx-auto">
               See why high-growth founders and outbound agencies are replacing monthly seat subscriptions with GhostLead lifetime tokens.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* The Old Way: Monthly SaaS */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-white border border-rose-200/70 shadow-xs relative">
+            <div className="p-6 sm:p-7 rounded-[28px] bg-white border border-rose-200/60 shadow-xs relative">
               <div className="flex items-center justify-between pb-4 border-b border-rose-100">
-                <span className="text-sm font-bold text-rose-900 flex items-center gap-2">
+                <span className="text-sm font-semibold text-rose-900 flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
                   Monthly SaaS Subscriptions
                 </span>
-                <span className="text-[11px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-200">
+                <span className="text-[11px] font-semibold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-200/60">
                   Recurring Cost
                 </span>
               </div>
               <ul className="mt-5 space-y-3.5 text-xs sm:text-sm text-slate-600">
                 <li className="flex items-start gap-2.5">
-                  <span className="text-rose-500 font-bold flex-shrink-0 mt-0.5">✕</span>
+                  <span className="text-rose-500 font-semibold flex-shrink-0 mt-0.5">✕</span>
                   <span>Credits expire every 30 days — unspent balance vanishes.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="text-rose-500 font-bold flex-shrink-0 mt-0.5">✕</span>
+                  <span className="text-rose-500 font-semibold flex-shrink-0 mt-0.5">✕</span>
                   <span>Billed $49–$199 every month even if campaigns are paused.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="text-rose-500 font-bold flex-shrink-0 mt-0.5">✕</span>
+                  <span className="text-rose-500 font-semibold flex-shrink-0 mt-0.5">✕</span>
                   <span>Stale 90-day cached lists yield 15-25% hard bounces.</span>
                 </li>
                 <li className="flex items-start gap-2.5">
-                  <span className="text-rose-500 font-bold flex-shrink-0 mt-0.5">✕</span>
+                  <span className="text-rose-500 font-semibold flex-shrink-0 mt-0.5">✕</span>
                   <span>Additional seat licenses increase cost by $30/user/mo.</span>
                 </li>
               </ul>
             </div>
 
             {/* The GhostLead Way: Non-Expiring LTD */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-white border-2 border-indigo-600 shadow-lg shadow-indigo-100/60 relative">
-              <div className="flex items-center justify-between pb-4 border-b border-indigo-100">
-                <span className="text-sm font-bold text-indigo-950 flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-indigo-600" />
+            <div className="p-6 sm:p-7 rounded-[28px] bg-white/95 border-2 border-purple-500/40 ring-1 ring-purple-500/20 shadow-md relative">
+              <div className="flex items-center justify-between pb-4 border-b border-purple-100">
+                <span className="text-sm font-semibold text-[#1d1d1f] flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-purple-600" />
                   GhostLead Non-Expiring LTD
                 </span>
-                <span className="text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
+                <span className="text-[11px] font-semibold text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200/60">
                   Pay Once, Own Forever
                 </span>
               </div>
-              <ul className="mt-5 space-y-3.5 text-xs sm:text-sm text-slate-700 font-medium">
+              <ul className="mt-5 space-y-3.5 text-xs sm:text-sm text-[#1d1d1f]">
                 <li className="flex items-start gap-2.5">
                   <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                   <span>100% Non-expiring tokens — stay in your balance until verified.</span>
@@ -282,14 +282,14 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
         {/* Frequently Asked Questions */}
         <div className="mt-20 max-w-3xl mx-auto">
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold mb-3 border border-slate-200">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] text-[#6e6e73] text-xs font-semibold mb-3 border border-black/[0.04]">
               <HelpCircle className="w-3.5 h-3.5 text-slate-500" />
               Frequently Asked Questions
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-[#1d1d1f] tracking-tight">
               Everything You Need to Know
             </h2>
-            <p className="mt-2 text-sm text-slate-600">
+            <p className="mt-2 text-sm text-[#86868b]">
               Clear answers regarding wave escalation, non-expiring tokens, and slot reservations.
             </p>
           </div>
@@ -300,24 +300,24 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
               return (
                 <div 
                   key={index}
-                  className="rounded-2xl bg-white border border-slate-200/90 overflow-hidden transition-all shadow-2xs"
+                  className="rounded-2xl bg-white/90 border border-black/[0.06] overflow-hidden transition-all shadow-2xs"
                 >
                   <button
                     type="button"
                     onClick={() => toggleFaq(index)}
-                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/80 transition-colors"
+                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/60 transition-colors"
                   >
-                    <span className="text-sm sm:text-base font-bold text-slate-900">
+                    <span className="text-sm sm:text-base font-semibold text-[#1d1d1f]">
                       {faq.question}
                     </span>
                     <ChevronDown 
                       className={`w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-200 ${
-                        isOpen ? 'rotate-180 text-indigo-600' : ''
+                        isOpen ? 'rotate-180 text-purple-600' : ''
                       }`} 
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                    <div className="px-4 pb-4 sm:px-5 sm:pb-5 text-xs sm:text-sm text-[#86868b] leading-relaxed border-t border-black/[0.04] pt-3">
                       {faq.answer}
                     </div>
                   )}
@@ -328,20 +328,18 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
         </div>
 
         {/* Bottom CTA Card */}
-        <div className="mt-20 bg-gradient-to-tr from-slate-950 via-slate-900 to-indigo-950 rounded-3xl p-8 sm:p-12 text-white text-center shadow-2xl relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-500/20 via-transparent to-transparent pointer-events-none" />
-          
+        <div className="mt-20 bg-white/80 backdrop-blur-2xl rounded-[28px] p-8 sm:p-14 text-[#1d1d1f] border border-black/[0.06] text-center shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),0_0_1px_1px_rgba(0,0,0,0.03)] relative overflow-hidden">
           <div className="relative z-10 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-indigo-300 text-xs font-bold mb-4 border border-white/10 backdrop-blur-md">
-              <Zap className="w-3.5 h-3.5 text-amber-300" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] text-[#6e6e73] text-xs font-semibold mb-4 border border-black/[0.04]">
+              <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
               Limited Founder Batch
             </div>
             
-            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-4xl font-semibold tracking-tight leading-tight text-[#1d1d1f]">
               Secure Your Lifetime Deal Before Wave 1 Closes
             </h2>
             
-            <p className="mt-3.5 text-sm sm:text-base text-slate-300 leading-relaxed">
+            <p className="mt-3.5 text-sm sm:text-base text-[#86868b] leading-relaxed">
               Join founders and cold outreach leaders locking in non-expiring verification infrastructure. Next wave jumps up to +$70 automatically.
             </p>
 
@@ -349,7 +347,7 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
               <button
                 type="button"
                 onClick={() => onSelectPlan('Pro')}
-                className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-sm bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 transition-all cursor-pointer flex items-center justify-center gap-2 group active:scale-98"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-full font-medium text-sm bg-[#1d1d1f] hover:bg-black text-white shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2 group active:scale-98"
               >
                 <span>Claim Pro LTD Slot ($149)</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -358,20 +356,20 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan, onNavig
               <button
                 type="button"
                 onClick={() => onNavigateHome('#sandbox')}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-bold text-sm bg-white/10 hover:bg-white/15 text-white border border-white/15 transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-98"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full font-medium text-sm bg-slate-100 hover:bg-slate-200/80 text-[#1d1d1f] border border-black/[0.04] transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-98"
               >
                 <span>Test Live Sandbox</span>
               </button>
             </div>
 
-            <div className="mt-5 flex items-center justify-center gap-4 text-xs text-slate-400">
+            <div className="mt-5 flex items-center justify-center gap-4 text-xs text-[#86868b]">
               <span className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-indigo-400" />
+                <Clock className="w-3.5 h-3.5 text-purple-600" />
                 Locks instantly
               </span>
               <span>•</span>
               <span className="flex items-center gap-1.5">
-                <Lock className="w-3.5 h-3.5 text-emerald-400" />
+                <Lock className="w-3.5 h-3.5 text-emerald-600" />
                 Zero upfront payment
               </span>
             </div>

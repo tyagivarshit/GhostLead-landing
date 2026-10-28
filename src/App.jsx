@@ -478,11 +478,11 @@ export default function App() {
   const cleanDomainDisplay = domain.replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0].trim() || 'domain.com';
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#FAFAFC] text-slate-900 font-sans antialiased selection:bg-indigo-100 selection:text-indigo-900 relative">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#fbfbfd] text-[#1d1d1f] font-sans antialiased selection:bg-indigo-100 selection:text-indigo-900 relative">
       
       {/* Soft Ambient Light Glow (GPU accelerated, zero re-rasterization) */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-[450px] pointer-events-none -z-10 overflow-hidden flex justify-center transform-gpu will-change-transform">
-        <div className="w-[750px] h-[320px] bg-gradient-to-b from-indigo-100/35 via-violet-50/15 to-transparent blur-[90px] rounded-full" />
+        <div className="w-[750px] h-[320px] bg-[radial-gradient(ellipse_at_top,_rgba(240,240,245,0.85),_transparent_70%)] blur-[80px] rounded-full" />
       </div>
 
       {/* ========================================================= */}
@@ -552,7 +552,7 @@ export default function App() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={FAST_TRANSITION}
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-950 leading-[1.15]"
+          className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#1d1d1f] leading-[1.15]"
         >
           Stop sending cold emails to dead mailboxes.
           <span className="block mt-1.5 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-600">
@@ -565,7 +565,7 @@ export default function App() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...FAST_TRANSITION, delay: 0.05 }}
-          className="mt-3.5 sm:mt-4 text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-normal"
+          className="mt-3.5 sm:mt-4 text-sm sm:text-base md:text-lg text-[#86868b] max-w-2xl mx-auto leading-relaxed font-normal"
         >
           Browse leads on LinkedIn, ping their mail server in real time, and guarantee your outbound emails actually land in the primary inbox.
         </motion.p>
@@ -574,31 +574,31 @@ export default function App() {
         {/* 4. INTERACTIVE SANDBOX WIDGET (IMMEDIATELY BELOW WITH MT-6) */}
         {/* ========================================================= */}
         <div id="sandbox" className="mt-6 text-left scroll-mt-24 sm:scroll-mt-28">
-          <div className="transform-gpu will-change-transform bg-slate-950 text-white rounded-3xl p-5 sm:p-7 border border-slate-800 shadow-2xl relative overflow-hidden">
+          <div className="transform-gpu will-change-transform bg-white/80 backdrop-blur-2xl text-[#1d1d1f] rounded-[28px] p-6 sm:p-8 border border-black/[0.06] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),0_0_1px_1px_rgba(0,0,0,0.03)] relative overflow-hidden">
             
-            {/* Subtle Ambient Console Lighting */}
-            <div className="absolute -top-24 -right-24 w-52 h-52 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none" />
+            {/* Subtle Ambient Lighting */}
+            <div className="absolute -top-24 -right-24 w-52 h-52 bg-purple-500/5 rounded-full blur-2xl pointer-events-none" />
 
             {/* Console Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800 relative z-10">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-black/[0.05] relative z-10">
               <div>
-                <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 uppercase tracking-wider mb-0.5">
+                <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-600 uppercase tracking-wider mb-0.5">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
                   Live Mail Server Health Inspector
                 </div>
-                <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                <h2 className="text-lg sm:text-xl font-semibold text-[#1d1d1f] tracking-tight">
                   Inspect any business domain&apos;s mail infrastructure.
                 </h2>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs text-[#86868b] mt-0.5">
                   Live DNS &amp; MX verification. Test your own domain or target company below.
                 </p>
               </div>
 
               {/* Checks Used Pill */}
-              <div className="self-start sm:self-center flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-full text-xs font-semibold flex-shrink-0">
-                <span className="text-slate-400">UI Demo Checks:</span>
-                <span className={`font-extrabold px-2 py-0.5 rounded text-xs ${
-                  isLimitReached ? 'bg-rose-500 text-white' : 'bg-indigo-600 text-white'
+              <div className="self-start sm:self-center flex items-center gap-2 bg-black/[0.03] border border-black/[0.04] px-3.5 py-1.5 rounded-full text-xs font-medium flex-shrink-0">
+                <span className="text-[#86868b]">UI Demo Checks:</span>
+                <span className={`font-bold px-2 py-0.5 rounded-full text-[11px] ${
+                  isLimitReached ? 'bg-rose-500 text-white' : 'bg-[#1d1d1f] text-white'
                 }`}>
                   {isLimitReached ? '5 / 5 (Limit Reached)' : `${checksCount} / 5`}
                 </span>
@@ -607,13 +607,13 @@ export default function App() {
 
             {/* 1-Click Test Chips */}
             <div className="pt-3.5 flex items-center gap-2 text-xs relative z-10">
-              <span className="text-slate-400 font-medium flex-shrink-0">Quick Presets:</span>
+              <span className="text-[#86868b] font-medium flex-shrink-0">Quick Presets:</span>
               <div className="flex overflow-x-auto no-scrollbar py-0.5 gap-2 items-center w-full touch-pan-x">
                 <button
                   type="button"
                   onClick={() => handlePresetSelect('automexiaai.in')}
                   disabled={isLimitReached || isVerifying}
-                  className="px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
+                  className="px-3.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-black/[0.04] text-slate-700 hover:text-[#1d1d1f] font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
                 >
                   automexiaai.in
                 </button>
@@ -621,7 +621,7 @@ export default function App() {
                   type="button"
                   onClick={() => handlePresetSelect('stripe.com')}
                   disabled={isLimitReached || isVerifying}
-                  className="px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
+                  className="px-3.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-black/[0.04] text-slate-700 hover:text-[#1d1d1f] font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
                 >
                   stripe.com
                 </button>
@@ -629,7 +629,7 @@ export default function App() {
                   type="button"
                   onClick={() => handlePresetSelect('airbnb.com')}
                   disabled={isLimitReached || isVerifying}
-                  className="px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
+                  className="px-3.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-black/[0.04] text-slate-700 hover:text-[#1d1d1f] font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
                 >
                   airbnb.com
                 </button>
@@ -639,11 +639,11 @@ export default function App() {
             {/* Form Inputs */}
             <form onSubmit={handleDemoVerify} className="mt-3.5 flex flex-col sm:flex-row gap-2.5 sm:gap-3 relative z-10">
               <div className="flex-1 min-w-0">
-                <label className="block text-[11px] font-bold text-slate-400 uppercase mb-1">
+                <label className="block text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-1">
                   Company Domain
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                     <Globe className="w-4 h-4" />
                   </div>
                   <input 
@@ -656,7 +656,7 @@ export default function App() {
                     }}
                     disabled={isLimitReached || isVerifying}
                     required
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-3.5 py-2.5 sm:py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all disabled:bg-slate-900/50 disabled:cursor-not-allowed font-mono"
+                    className="w-full bg-slate-100/70 border border-slate-200/80 rounded-xl pl-10 pr-3.5 py-2.5 sm:py-3 text-sm text-[#1d1d1f] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#1d1d1f] focus:ring-1 focus:ring-[#1d1d1f] transition-all disabled:bg-slate-100 disabled:cursor-not-allowed font-mono"
                   />
                 </div>
               </div>
@@ -665,7 +665,7 @@ export default function App() {
                 <button 
                   type="submit"
                   disabled={isVerifying}
-                  className="transform-gpu will-change-transform w-full sm:w-auto h-[42px] sm:h-[46px] bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed text-white font-semibold text-xs sm:text-sm rounded-xl px-5 sm:px-6 flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition-all cursor-pointer active:scale-98 whitespace-nowrap"
+                  className="transform-gpu will-change-transform w-full sm:w-auto h-[44px] bg-[#1d1d1f] hover:bg-black disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium text-xs sm:text-sm rounded-full px-6 flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer active:scale-98 whitespace-nowrap"
                 >
                   {isVerifying ? (
                     <span className="flex items-center gap-2">
@@ -689,18 +689,18 @@ export default function App() {
 
             {/* Live Countdown on Limit Reached */}
             {isLimitReached && (
-              <div className="transform-gpu will-change-transform mt-3 p-2.5 sm:p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 flex items-center justify-center flex-wrap gap-x-2 gap-y-1 relative z-10 text-center shadow-xs">
-                <div className="flex items-center gap-1.5 text-slate-300">
-                  <Clock className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0 animate-pulse" />
+              <div className="transform-gpu will-change-transform mt-3.5 p-3 rounded-2xl bg-slate-50 border border-black/[0.05] text-xs text-[#6e6e73] flex items-center justify-center flex-wrap gap-x-2 gap-y-1 relative z-10 text-center shadow-2xs">
+                <div className="flex items-center gap-1.5 text-[#6e6e73]">
+                  <Clock className="w-3.5 h-3.5 text-purple-600 flex-shrink-0 animate-pulse" />
                   <span>
-                    UI demo checks refresh in <strong className="text-white font-semibold">{countdownHours}h {countdownMinutes}m</strong>
+                    UI demo checks refresh in <strong className="text-[#1d1d1f] font-semibold">{countdownHours}h {countdownMinutes}m</strong>
                   </span>
                 </div>
-                <span className="text-slate-600 hidden sm:inline">•</span>
+                <span className="text-slate-300 hidden sm:inline">•</span>
                 <button
                   type="button"
                   onClick={openLimitGateModal}
-                  className="font-bold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer hover:underline inline-flex items-center gap-0.5"
+                  className="font-semibold text-purple-600 hover:text-purple-700 transition-colors cursor-pointer hover:underline inline-flex items-center gap-0.5"
                 >
                   Need unlimited? {waveMetrics.isClosed ? 'Join Launch Waitlist' : `Claim ${waveMetrics.waveName} Slot`} →
                 </button>
@@ -719,54 +719,54 @@ export default function App() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={FAST_TRANSITION}
-                    className="transform-gpu will-change-transform space-y-2 p-3.5 sm:p-4 rounded-2xl bg-slate-900/90 border border-slate-800"
+                    className="transform-gpu will-change-transform space-y-2.5 p-3.5 sm:p-4 rounded-2xl bg-slate-50/80 border border-black/[0.05]"
                   >
-                    <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    <div className="flex items-center justify-between pb-2 border-b border-black/[0.04] text-[10px] font-semibold text-[#86868b] uppercase tracking-wider">
                       <span>DNS &amp; MX Inspection Radar</span>
-                      <span className="text-indigo-400 animate-pulse">Inspecting mail infrastructure...</span>
+                      <span className="text-purple-600 animate-pulse">Inspecting mail infrastructure...</span>
                     </div>
 
                     {/* Stage 1 */}
                     <div className={`p-2.5 rounded-xl border flex items-center justify-between text-xs transition-colors ${
-                      verifyStep >= 1 ? 'bg-slate-800/80 border-slate-700 text-white' : 'bg-slate-900/40 border-slate-800 text-slate-500'
+                      verifyStep >= 1 ? 'bg-white border-black/[0.06] text-[#1d1d1f] shadow-2xs' : 'bg-slate-100/40 border-black/[0.03] text-slate-400'
                     }`}>
                       <div className="flex items-center gap-2.5 min-w-0">
                         <span className="text-base flex-shrink-0">🔍</span>
                         <div className="min-w-0">
-                          <div className="font-semibold text-white text-xs">Step 1: Domain Format &amp; Hostname Validation</div>
-                          <div className="text-[11px] text-slate-400 truncate">
+                          <div className="font-semibold text-[#1d1d1f] text-xs">Step 1: Domain Format &amp; Hostname Validation</div>
+                          <div className="text-[11px] text-[#86868b] truncate">
                             Validating format for {cleanDomainDisplay}
                           </div>
                         </div>
                       </div>
                       {verifyStep >= 1 ? (
-                        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-950/70 border border-emerald-800/80 px-2 py-0.5 rounded-full flex-shrink-0">
+                        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-full flex-shrink-0">
                           <Check className="w-3 h-3" /> Valid
                         </span>
                       ) : (
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider flex-shrink-0">Pending</span>
+                        <span className="text-[10px] text-slate-400 uppercase tracking-wider flex-shrink-0">Pending</span>
                       )}
                     </div>
 
                     {/* Stage 2 */}
                     <div className={`p-2.5 rounded-xl border flex items-center justify-between text-xs transition-colors ${
-                      verifyStep >= 2 ? 'bg-slate-800/80 border-slate-700 text-white' : 'bg-slate-900/40 border-slate-800 text-slate-500'
+                      verifyStep >= 2 ? 'bg-white border-black/[0.06] text-[#1d1d1f] shadow-2xs' : 'bg-slate-100/40 border-black/[0.03] text-slate-400'
                     }`}>
                       <div className="flex items-center gap-2.5 min-w-0">
                         <span className="text-base flex-shrink-0">⚙️</span>
                         <div className="min-w-0">
-                          <div className="font-semibold text-white text-xs">Step 2: DNS &amp; MX Server Resolution</div>
-                          <div className="text-[11px] text-slate-400 truncate">
+                          <div className="font-semibold text-[#1d1d1f] text-xs">Step 2: DNS &amp; MX Server Resolution</div>
+                          <div className="text-[11px] text-[#86868b] truncate">
                             Querying exchange servers for {cleanDomainDisplay}
                           </div>
                         </div>
                       </div>
                       {verifyStep >= 2 ? (
-                        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-950/70 border border-emerald-800/80 px-2 py-0.5 rounded-full flex-shrink-0">
+                        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-full flex-shrink-0">
                           <Check className="w-3 h-3" /> Resolved
                         </span>
                       ) : (
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider flex-shrink-0">
+                        <span className="text-[10px] text-slate-400 uppercase tracking-wider flex-shrink-0">
                           {verifyStep === 1 ? 'Querying...' : 'Waiting'}
                         </span>
                       )}
@@ -774,23 +774,23 @@ export default function App() {
 
                     {/* Stage 3 */}
                     <div className={`p-2.5 rounded-xl border flex items-center justify-between text-xs transition-colors ${
-                      verifyStep >= 3 ? 'bg-slate-800/80 border-slate-700 text-white' : 'bg-slate-900/40 border-slate-800 text-slate-500'
+                      verifyStep >= 3 ? 'bg-white border-black/[0.06] text-[#1d1d1f] shadow-2xs' : 'bg-slate-100/40 border-black/[0.03] text-slate-400'
                     }`}>
                       <div className="flex items-center gap-2.5 min-w-0">
                         <span className="text-base flex-shrink-0">🛡️</span>
                         <div className="min-w-0">
-                          <div className="font-semibold text-white text-xs">Step 3: SPF &amp; Provider Identification</div>
-                          <div className="text-[11px] text-slate-400 truncate">
+                          <div className="font-semibold text-[#1d1d1f] text-xs">Step 3: SPF &amp; Provider Identification</div>
+                          <div className="text-[11px] text-[#86868b] truncate">
                             Inspecting mail security records
                           </div>
                         </div>
                       </div>
                       {verifyStep >= 3 ? (
-                        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-950/70 border border-emerald-800/80 px-2 py-0.5 rounded-full flex-shrink-0">
+                        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-full flex-shrink-0">
                           <Check className="w-3 h-3" /> Complete
                         </span>
                       ) : (
-                        <span className="text-[10px] text-slate-500 uppercase tracking-wider flex-shrink-0">
+                        <span className="text-[10px] text-slate-400 uppercase tracking-wider flex-shrink-0">
                           {verifyStep === 2 ? 'Analyzing...' : 'Waiting'}
                         </span>
                       )}
@@ -806,17 +806,17 @@ export default function App() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={FAST_TRANSITION}
-                    className="transform-gpu will-change-transform p-4 sm:p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl flex flex-col gap-4 text-left"
+                    className="transform-gpu will-change-transform p-5 sm:p-6 rounded-2xl bg-white border border-black/[0.06] shadow-sm flex flex-col gap-4 text-left"
                   >
                     {/* Domain & Status Badge */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-3 border-b border-slate-800/80">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-3 border-b border-black/[0.05]">
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="w-9 h-9 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 flex-shrink-0">
-                          <Globe className="w-4 h-4 text-indigo-400" />
+                        <div className="w-9 h-9 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600 flex-shrink-0">
+                          <Globe className="w-4 h-4 text-purple-600" />
                         </div>
                         <div className="min-w-0">
-                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Target Domain</span>
-                          <span className="font-mono font-bold text-white text-base sm:text-lg truncate block">
+                          <span className="text-[10px] font-semibold text-[#86868b] uppercase tracking-wider block">Target Domain</span>
+                          <span className="font-mono font-semibold text-[#1d1d1f] text-base sm:text-lg truncate block">
                             {verifyResult.domain}
                           </span>
                         </div>
@@ -824,13 +824,13 @@ export default function App() {
 
                       <div className="flex items-center gap-2 flex-shrink-0">
                         {verifyResult.hasMx ? (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 shadow-xs">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 border border-emerald-200/60 text-emerald-700 shadow-2xs">
+                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                             Active Mail Server
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-950/80 border border-amber-500/30 text-amber-400 shadow-xs">
-                            <AlertCircle className="w-3.5 h-3.5 text-amber-400" />
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 border border-amber-200/60 text-amber-700 shadow-2xs">
+                            <AlertCircle className="w-3.5 h-3.5 text-amber-500" />
                             No MX Found
                           </span>
                         )}
@@ -840,43 +840,43 @@ export default function App() {
                     {/* Inspection Grid (3 columns on md+, responsive) */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                       {/* 1. Primary Mail Provider */}
-                      <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col justify-between">
-                        <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                          <Server className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0" />
+                      <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50/70 border border-black/[0.04] flex flex-col justify-between">
+                        <div className="flex items-center gap-2 text-[10px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">
+                          <Server className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
                           <span>Primary Mail Provider</span>
                         </div>
-                        <div className="text-sm font-semibold text-white tracking-tight">
+                        <div className="text-sm font-semibold text-[#1d1d1f] tracking-tight">
                           {verifyResult.provider || 'None'}
                         </div>
                       </div>
 
                       {/* 2. Primary MX Host */}
-                      <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col justify-between">
-                        <div className="flex items-center justify-between gap-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                      <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50/70 border border-black/[0.04] flex flex-col justify-between">
+                        <div className="flex items-center justify-between gap-1 text-[10px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">
                           <span>Primary MX Host</span>
-                          <span className="text-[10px] font-medium text-slate-400 bg-slate-900 px-1.5 py-0.5 rounded border border-slate-800">
+                          <span className="text-[10px] font-medium text-[#86868b] bg-white px-1.5 py-0.5 rounded border border-black/[0.04]">
                             ({verifyResult.mxCount ?? 0} exchange servers)
                           </span>
                         </div>
-                        <div className="font-mono text-xs text-slate-200 truncate" title={verifyResult.primaryMx || 'None'}>
+                        <div className="font-mono text-xs text-[#1d1d1f] truncate" title={verifyResult.primaryMx || 'None'}>
                           {verifyResult.primaryMx || 'None'}
                         </div>
                       </div>
 
                       {/* 3. SPF Protection */}
-                      <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex flex-col justify-between sm:col-span-2 md:col-span-1">
-                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-                          <ShieldCheck className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0" />
+                      <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50/70 border border-black/[0.04] flex flex-col justify-between sm:col-span-2 md:col-span-1">
+                        <div className="flex items-center gap-1.5 text-[10px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">
+                          <ShieldCheck className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
                           <span>SPF Protection</span>
                         </div>
                         <div>
                           {verifyResult.hasSpf ? (
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-50 border border-emerald-200/60 text-emerald-700">
                               <Check className="w-3.5 h-3.5 flex-shrink-0" />
                               SPF Record Configured (v=spf1)
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-850 border border-slate-700 text-slate-400">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-100 border border-slate-200 text-slate-500">
                               <X className="w-3.5 h-3.5 flex-shrink-0" />
                               No SPF Detected
                             </span>
@@ -886,17 +886,17 @@ export default function App() {
                     </div>
 
                     {/* Extension Trust Callout Banner */}
-                    <div className="mt-2 pt-3.5 border-t border-slate-800/80 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 bg-slate-950/40 -mx-4 sm:-mx-5 -mb-4 sm:-mb-5 p-4 sm:p-5 rounded-b-2xl">
-                      <div className="flex items-start gap-2.5 max-w-xl text-xs text-slate-300 leading-relaxed">
-                        <ChromeIcon className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
+                    <div className="mt-2 pt-4 border-t border-black/[0.06] flex flex-col md:flex-row items-start md:items-center justify-between gap-3 bg-slate-50/50 -mx-5 sm:-mx-6 -mb-5 sm:-mb-6 p-5 sm:p-6 rounded-b-2xl">
+                      <div className="flex items-start gap-2.5 max-w-xl text-xs text-[#6e6e73] leading-relaxed">
+                        <ChromeIcon className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
                         <p>
-                          <strong className="text-white font-medium">Domain configuration verified live.</strong> Want to ping individual executive inboxes on this server with zero bounce? Individual mailbox SMTP handshakes run natively inside the GhostLead Chrome Extension.
+                          <strong className="text-[#1d1d1f] font-semibold">Domain configuration verified live.</strong> Want to ping individual executive inboxes on this server with zero bounce? Individual mailbox SMTP handshakes run natively inside the GhostLead Chrome Extension.
                         </p>
                       </div>
                       <button
                         type="button"
                         onClick={() => setIsWaitlistOpen(true)}
-                        className="w-full md:w-auto flex-shrink-0 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-indigo-600/25 active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+                        className="w-full md:w-auto flex-shrink-0 px-5 py-2.5 bg-[#1d1d1f] hover:bg-black text-white text-xs font-medium rounded-full transition-all shadow-sm active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
                       >
                         <span>{waveMetrics.isClosed ? 'Join Extension Waitlist' : `Claim ${waveMetrics.waveName} Extension Access`}</span>
                         <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
@@ -907,7 +907,7 @@ export default function App() {
 
                 {/* Idle Preview Prompt */}
                 {!isVerifying && !verifyResult && !verifyError && (
-                  <div className="text-center py-6 text-slate-500 text-xs">
+                  <div className="text-center py-6 text-[#86868b] text-xs">
                     Enter any business domain above to inspect its live DNS, MX records, and mail infrastructure.
                   </div>
                 )}
@@ -920,17 +920,17 @@ export default function App() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={FAST_TRANSITION}
-                    className="transform-gpu will-change-transform p-4 sm:p-5 rounded-2xl bg-slate-900 border border-rose-500/30 shadow-md flex items-center justify-between gap-3 text-rose-200"
+                    className="transform-gpu will-change-transform p-4 sm:p-5 rounded-2xl bg-rose-50/70 border border-rose-200/70 shadow-2xs flex items-center justify-between gap-3 text-rose-900"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center flex-shrink-0 text-rose-400">
+                      <div className="w-9 h-9 rounded-xl bg-rose-100/80 border border-rose-200 flex items-center justify-center flex-shrink-0 text-rose-600">
                         <AlertCircle className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="text-xs font-bold text-rose-400 uppercase tracking-wider">
+                        <div className="text-xs font-bold text-rose-700 uppercase tracking-wider">
                           Inspection Notice
                         </div>
-                        <div className="text-sm text-slate-300 mt-0.5">
+                        <div className="text-sm text-rose-950 mt-0.5">
                           {verifyError}
                         </div>
                       </div>
@@ -938,7 +938,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => setVerifyError(null)}
-                      className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer flex-shrink-0"
+                      className="text-rose-400 hover:text-rose-700 p-1.5 rounded-lg hover:bg-rose-100/60 transition-colors cursor-pointer flex-shrink-0"
                       title="Dismiss"
                     >
                       <X className="w-4 h-4" />
@@ -951,9 +951,9 @@ export default function App() {
 
             {/* Subtle Locked Indicator when Limit Reached */}
             {isLimitReached && (
-              <div className="transform-gpu will-change-transform mt-4 p-3.5 rounded-2xl bg-amber-950/60 border border-amber-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm text-amber-200 relative z-10">
+              <div className="transform-gpu will-change-transform mt-4 p-4 rounded-2xl bg-amber-50/80 border border-amber-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm text-amber-950 relative z-10">
                 <div className="flex items-center gap-2">
-                  <Lock className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                  <Lock className="w-4 h-4 text-amber-600 flex-shrink-0" />
                   <span>
                     UI demo limit reached. Claim your Lifetime Deal to unlock unlimited checks.
                   </span>
@@ -961,7 +961,7 @@ export default function App() {
                 <button 
                   type="button"
                   onClick={openLimitGateModal}
-                  className="w-full sm:w-auto flex-shrink-0 font-bold px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl shadow-sm text-xs transition-all active:scale-95 cursor-pointer"
+                  className="w-full sm:w-auto flex-shrink-0 font-medium px-4 py-2 bg-[#1d1d1f] hover:bg-black text-white rounded-full shadow-sm text-xs transition-all active:scale-95 cursor-pointer"
                 >
                   {waveMetrics.isClosed ? 'Join Waitlist →' : `Claim ${waveMetrics.waveName} Deal →`}
                 </button>
@@ -976,16 +976,16 @@ export default function App() {
       {/* ========================================================= */}
       {/* 4.5 SCARCITY WAVES TRACKER                                */}
       {/* ========================================================= */}
-      <section className="py-14 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-700 text-xs font-bold mb-2.5 border border-amber-200/70">
+      <section className="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] text-[#6e6e73] text-[11px] font-semibold border border-black/[0.04] mb-3">
             <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
             Strict Scarcity Wave Release
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-[#1d1d1f] tracking-tight">
             Lifetime Wave Progression
           </h2>
-          <p className="mt-2 text-sm sm:text-base text-slate-600">
+          <p className="mt-2.5 text-sm sm:text-base text-[#86868b]">
             Strictly capped to the first 150 accounts across 3 waves before shifting to monthly SaaS.
           </p>
         </div>
@@ -999,14 +999,14 @@ export default function App() {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold mb-3 border border-indigo-200/70">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] text-[#6e6e73] text-[11px] font-semibold border border-black/[0.04] mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-purple-600" />
             Built for Modern Outbound
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950 leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1d1d1f] leading-tight">
             Engineered for Zero-Bounce Executive Prospecting
           </h2>
-          <p className="mt-3.5 text-base sm:text-lg text-slate-600">
+          <p className="mt-3 text-base sm:text-lg text-[#86868b]">
             Everything your sales team and agency need to land directly in primary inboxes without risking domain blacklists.
           </p>
         </div>
@@ -1015,35 +1015,35 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           
           {/* Card 1: One-Click Extension Capture */}
-          <div className="transform-gpu will-change-transform bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between">
+          <div className="transform-gpu will-change-transform bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-[24px] border border-black/[0.06] shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
             <div>
-              <div className="w-11 h-11 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 mb-5 shadow-xs">
-                <ChromeIcon className="w-5 h-5 text-indigo-600" />
+              <div className="w-11 h-11 rounded-2xl bg-purple-50/80 border border-purple-100 flex items-center justify-center text-purple-600 mb-5">
+                <ChromeIcon className="w-5 h-5 text-purple-600" />
               </div>
-              <div className="text-xs font-bold uppercase tracking-wider text-indigo-600 mb-1">
+              <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
                 LinkedIn Native
               </div>
-              <h3 className="text-xl font-bold text-slate-950">
+              <h3 className="text-xl font-semibold text-[#1d1d1f]">
                 One-Click Extension Capture
               </h3>
-              <p className="mt-2.5 text-sm text-slate-600 leading-relaxed">
+              <p className="mt-2.5 text-sm text-[#86868b] leading-relaxed">
                 Target any decision-maker on LinkedIn and instantly grab their verified active address without switching tabs. Reveal direct emails directly beside their profile in real time.
               </p>
             </div>
 
-            <div className="mt-6 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs text-slate-700">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-200/80">
+            <div className="mt-6 p-4 rounded-2xl bg-slate-50/80 border border-black/[0.04] text-xs text-slate-700">
+              <div className="flex items-center justify-between pb-2 border-b border-black/[0.04]">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                  <span className="font-semibold text-slate-800">LinkedIn Profile Widget</span>
+                  <span className="font-medium text-[#1d1d1f]">LinkedIn Profile Widget</span>
                 </div>
-                <span className="text-[10px] font-bold text-indigo-600 bg-indigo-100/60 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-medium text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200/50">
                   1-Click
                 </span>
               </div>
               <div className="mt-2.5 flex items-center justify-between">
                 <span className="font-mono text-slate-600">brian@airbnb.com</span>
-                <span className="font-bold text-emerald-600 flex items-center gap-1 text-[11px]">
+                <span className="font-semibold text-emerald-600 flex items-center gap-1 text-[11px]">
                   <CheckCircle2 className="w-3.5 h-3.5" /> 99.8% Safe
                 </span>
               </div>
@@ -1051,35 +1051,35 @@ export default function App() {
           </div>
 
           {/* Card 2: Zero-Bounce Protection */}
-          <div className="transform-gpu will-change-transform bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between">
+          <div className="transform-gpu will-change-transform bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-[24px] border border-black/[0.06] shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
             <div>
-              <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-5 shadow-xs">
+              <div className="w-11 h-11 rounded-2xl bg-emerald-50/80 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-5">
                 <ShieldCheck className="w-5 h-5 text-emerald-600" />
               </div>
-              <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-1">
+              <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
                 Domain Health
               </div>
-              <h3 className="text-xl font-bold text-slate-950">
+              <h3 className="text-xl font-semibold text-[#1d1d1f]">
                 Zero-Bounce Protection
               </h3>
-              <p className="mt-2.5 text-sm text-slate-600 leading-relaxed">
+              <p className="mt-2.5 text-sm text-[#86868b] leading-relaxed">
                 Every address undergoes direct real-time mailbox validation before you add it to your campaigns. Say goodbye to 20-30% bounce rates from stale databases and keep your sender score flawless.
               </p>
             </div>
 
-            <div className="mt-6 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs text-slate-700">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-200/80">
-                <span className="font-semibold text-slate-800">Deliverability Comparison</span>
-                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
+            <div className="mt-6 p-4 rounded-2xl bg-slate-50/80 border border-black/[0.04] text-xs text-slate-700">
+              <div className="flex items-center justify-between pb-2 border-b border-black/[0.04]">
+                <span className="font-medium text-[#1d1d1f]">Deliverability Comparison</span>
+                <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/50">
                   99% vs 76%
                 </span>
               </div>
               <div className="mt-2.5 space-y-1.5">
                 <div className="flex justify-between items-center text-[11px]">
                   <span className="text-slate-500">GhostLead Bounces</span>
-                  <span className="font-bold text-emerald-600">&lt; 0.6%</span>
+                  <span className="font-semibold text-emerald-600">&lt; 0.6%</span>
                 </div>
-                <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-200/70 h-1.5 rounded-full overflow-hidden">
                   <div className="bg-emerald-500 h-full w-[99.4%]" />
                 </div>
               </div>
@@ -1087,37 +1087,37 @@ export default function App() {
           </div>
 
           {/* Card 3: Direct CSV & CRM Export */}
-          <div className="transform-gpu will-change-transform bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between">
+          <div className="transform-gpu will-change-transform bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-[24px] border border-black/[0.06] shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
             <div>
-              <div className="w-11 h-11 rounded-2xl bg-violet-50 border border-violet-100 flex items-center justify-center text-violet-600 mb-5 shadow-xs">
-                <Download className="w-5 h-5 text-violet-600" />
+              <div className="w-11 h-11 rounded-2xl bg-slate-100 border border-black/[0.05] flex items-center justify-center text-[#1d1d1f] mb-5">
+                <Download className="w-5 h-5 text-[#1d1d1f]" />
               </div>
-              <div className="text-xs font-bold uppercase tracking-wider text-violet-600 mb-1">
+              <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
                 Seamless Export
               </div>
-              <h3 className="text-xl font-bold text-slate-950">
+              <h3 className="text-xl font-semibold text-[#1d1d1f]">
                 Direct CSV & CRM Export
               </h3>
-              <p className="mt-2.5 text-sm text-slate-600 leading-relaxed">
+              <p className="mt-2.5 text-sm text-[#86868b] leading-relaxed">
                 Export high-confidence lead files ready to plug straight into Instantly, Smartlead, HubSpot, or your cold outreach sequencer with zero manual cleanups or column rearranging.
               </p>
             </div>
 
-            <div className="mt-6 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs text-slate-700">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-200/80">
-                <span className="font-semibold text-slate-800">1-Click Integration Formats</span>
-                <span className="text-[10px] font-bold text-violet-700 bg-violet-100 px-2 py-0.5 rounded">
+            <div className="mt-6 p-4 rounded-2xl bg-slate-50/80 border border-black/[0.04] text-xs text-slate-700">
+              <div className="flex items-center justify-between pb-2 border-b border-black/[0.04]">
+                <span className="font-medium text-[#1d1d1f]">1-Click Integration Formats</span>
+                <span className="text-[10px] font-medium text-[#1d1d1f] bg-black/[0.04] px-2.5 py-0.5 rounded-full border border-black/[0.04]">
                   Instant
                 </span>
               </div>
               <div className="mt-2.5 flex flex-wrap gap-2">
-                <span className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 font-mono text-[10px] font-bold text-slate-700">
+                <span className="px-2.5 py-1 rounded-full bg-white border border-black/[0.06] font-mono text-[10px] font-medium text-slate-700 shadow-2xs">
                   Instantly.ai
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 font-mono text-[10px] font-bold text-slate-700">
+                <span className="px-2.5 py-1 rounded-full bg-white border border-black/[0.06] font-mono text-[10px] font-medium text-slate-700 shadow-2xs">
                   Smartlead
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-white border border-slate-200 font-mono text-[10px] font-bold text-slate-700">
+                <span className="px-2.5 py-1 rounded-full bg-white border border-black/[0.06] font-mono text-[10px] font-medium text-slate-700 shadow-2xs">
                   Clean CSV
                 </span>
               </div>
@@ -1127,42 +1127,42 @@ export default function App() {
         </div>
       </section>
 
-        {/* ========================================================= */}
-        {/* 6. LIFETIME DEAL (LTD) SUMMARY BANNER                     */}
-        {/* ========================================================= */}
-        <section className="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center border-t border-slate-200/60">
-          <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden">
-            <div className="relative z-10 max-w-2xl mx-auto">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-indigo-300 text-xs font-bold mb-4 border border-white/10 backdrop-blur-md">
-                <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                Strict Scarcity Wave Release
-              </div>
-              <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
-                Lifetime Deal Token Stack
-              </h2>
-              <p className="mt-3 text-sm sm:text-base text-slate-300">
-                Pay once, verify forever with non-expiring credits. Starter $69, Pro $149, Agency $299 with automatic wave escalations before public SaaS launch.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button
-                  type="button"
-                  onClick={() => navigateTo('pricing')}
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-full font-bold text-sm bg-white text-slate-950 hover:bg-slate-100 shadow-lg shadow-white/10 transition-all cursor-pointer flex items-center justify-center gap-2 group active:scale-98"
-                >
-                  <span>View Dedicated Pricing & Waves</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => openModal('Pro')}
-                  className="w-full sm:w-auto px-6 py-3.5 rounded-full font-bold text-sm bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 transition-all cursor-pointer active:scale-98"
-                >
-                  <span>Claim Wave 1 Slot Now</span>
-                </button>
-              </div>
+      {/* ========================================================= */}
+      {/* 6. LIFETIME DEAL (LTD) SUMMARY BANNER                     */}
+      {/* ========================================================= */}
+      <section className="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center border-t border-black/[0.06]">
+        <div className="bg-white/80 backdrop-blur-2xl rounded-[28px] p-8 sm:p-14 text-[#1d1d1f] border border-black/[0.06] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),0_0_1px_1px_rgba(0,0,0,0.03)] relative overflow-hidden">
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] text-[#6e6e73] text-[11px] font-semibold mb-4 border border-black/[0.04]">
+              <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+              Strict Scarcity Wave Release
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1d1d1f]">
+              Lifetime Deal Token Stack
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-[#86868b]">
+              Pay once, verify forever with non-expiring credits. Starter $69, Pro $149, Agency $299 with automatic wave escalations before public SaaS launch.
+            </p>
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+              <button
+                type="button"
+                onClick={() => navigateTo('pricing')}
+                className="w-full sm:w-auto px-6 py-3 rounded-full font-medium text-sm bg-slate-100 hover:bg-slate-200/80 text-[#1d1d1f] border border-black/[0.04] transition-all cursor-pointer flex items-center justify-center gap-2 group active:scale-98"
+              >
+                <span>View Dedicated Pricing & Waves</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button
+                type="button"
+                onClick={() => openModal('Pro')}
+                className="w-full sm:w-auto px-6 py-3 rounded-full font-medium text-sm bg-[#1d1d1f] hover:bg-black text-white shadow-sm transition-all cursor-pointer active:scale-98"
+              >
+                <span>Claim Wave 1 Slot Now</span>
+              </button>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
       </motion.div>
     )}
@@ -1188,7 +1188,7 @@ export default function App() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.18 }}
               onClick={() => setIsModalOpen(false)}
-              className="absolute inset-0 bg-slate-950/70 transform-gpu will-change-transform"
+              className="absolute inset-0 bg-slate-950/40 backdrop-blur-md transform-gpu will-change-transform"
             />
 
             {/* Dialog Container */}
@@ -1197,7 +1197,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 30, scale: 0.98 }}
               transition={MODAL_SPRING}
-              className="relative w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200/90 z-10 max-h-[90vh] overflow-y-auto transform-gpu will-change-transform"
+              className="relative w-full max-w-lg bg-white/95 backdrop-blur-2xl rounded-t-[28px] sm:rounded-[28px] p-6 sm:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] border border-black/[0.06] z-10 max-h-[90vh] overflow-y-auto transform-gpu will-change-transform text-[#1d1d1f]"
             >
               {/* Drag Handle on Mobile */}
               <div className="w-12 h-1.5 bg-slate-300 rounded-full mx-auto mb-4 sm:hidden flex-shrink-0" />
@@ -1206,7 +1206,7 @@ export default function App() {
               <button 
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-5 right-5 text-slate-400 hover:text-slate-700 p-2 rounded-full hover:bg-slate-100 transition-colors z-20 cursor-pointer"
+                className="absolute top-5 right-5 text-slate-400 hover:text-[#1d1d1f] p-2 rounded-full hover:bg-black/[0.04] transition-colors z-20 cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -1215,23 +1215,23 @@ export default function App() {
               {!isSubmitted ? (
                 <>
                   {isLimitGateModal && (
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/90 text-amber-900 text-xs font-bold mb-3 shadow-2xs">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200/90 text-amber-900 text-xs font-semibold mb-3 shadow-2xs">
                       <Sparkles className="w-3.5 h-3.5 text-amber-600 flex-shrink-0" />
                       <span>⚡ UI Demo Limit Reached (5/5)</span>
                     </div>
                   )}
 
-                  <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center mb-4 shadow-xs">
-                    <Lock className="w-6 h-6 text-indigo-600" />
+                  <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center mb-4">
+                    <Lock className="w-6 h-6 text-purple-600" />
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-slate-950 tracking-tight leading-snug pr-6">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] tracking-tight leading-snug pr-6">
                     {isLimitGateModal
                       ? "You've experienced real-time verification speed."
                       : modalHeadline}
                   </h3>
                   
-                  <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <p className="mt-2 text-xs sm:text-sm text-[#86868b] leading-relaxed">
                     {isLimitGateModal
                       ? `Lock your ${waveMetrics.isClosed ? 'standard launch waitlist rate' : `${waveMetrics.waveName} early-bird lifetime rate`} today before slots close to get unlimited verification.`
                       : waveMetrics.isClosed
@@ -1241,7 +1241,7 @@ export default function App() {
 
                   {/* Plan Selection Pills */}
                   <div className="mt-5">
-                    <label className="block text-[11px] font-bold text-slate-700 uppercase mb-2">
+                    <label className="block text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">
                       Selected Tier:
                     </label>
                     <div className="grid grid-cols-3 gap-2">
@@ -1255,13 +1255,19 @@ export default function App() {
                             onClick={() => setSelectedTier(tierKey)}
                             className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                               isCurrent
-                                ? 'bg-indigo-50 border-indigo-600 text-indigo-900 ring-2 ring-indigo-500/20 shadow-xs'
-                                : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                                ? 'bg-[#1d1d1f] border-[#1d1d1f] text-white shadow-xs'
+                                : 'bg-slate-50 border-black/[0.05] text-slate-600 hover:bg-slate-100'
                             }`}
                           >
-                            <div className="text-xs font-bold">{plan.badge || plan.name}</div>
-                            <div className="text-sm font-extrabold text-slate-950 mt-0.5">${plan.price}{pricingPlans.isClosed ? '/mo' : ''}</div>
-                            <div className="text-[10px] text-slate-500 truncate">{pricingPlans.activeWaveTag}</div>
+                            <div className={`text-xs font-semibold ${isCurrent ? 'text-white' : 'text-slate-800'}`}>
+                              {plan.badge || plan.name}
+                            </div>
+                            <div className={`text-sm font-bold mt-0.5 ${isCurrent ? 'text-white' : 'text-[#1d1d1f]'}`}>
+                              ${plan.price}{pricingPlans.isClosed ? '/mo' : ''}
+                            </div>
+                            <div className={`text-[10px] truncate ${isCurrent ? 'text-slate-300' : 'text-[#86868b]'}`}>
+                              {pricingPlans.activeWaveTag}
+                            </div>
                           </button>
                         );
                       })}
@@ -1278,7 +1284,7 @@ export default function App() {
                     )}
 
                     <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+                      <label className="block text-xs font-semibold text-[#86868b] uppercase tracking-wider mb-1.5">
                         Work Email Address
                       </label>
                       <input 
@@ -1288,14 +1294,14 @@ export default function App() {
                         value={emailInput}
                         onChange={(e) => setEmailInput(e.target.value)}
                         placeholder="founder@company.com"
-                        className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/10 text-sm text-slate-900 placeholder-slate-400 transition-all disabled:bg-slate-100 disabled:text-slate-400"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200/90 bg-slate-50 focus:bg-white focus:outline-none focus:border-[#1d1d1f] focus:ring-2 focus:ring-black/5 text-sm text-[#1d1d1f] placeholder:text-slate-400 transition-all disabled:bg-slate-100 disabled:text-slate-400 font-sans"
                       />
                     </div>
 
                     <button 
                       type="submit"
                       disabled={isSubmitting}
-                      className="transform-gpu will-change-transform w-full min-h-[46px] py-3 px-4 bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-400 disabled:cursor-not-allowed text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+                      className="transform-gpu will-change-transform w-full min-h-[46px] py-3 px-4 bg-[#1d1d1f] hover:bg-black disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-medium text-xs sm:text-sm rounded-full transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer active:scale-98"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center gap-2">
@@ -1317,7 +1323,7 @@ export default function App() {
                   </form>
 
                   {/* Trust Notes */}
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-center gap-3 text-[11px] text-slate-400 text-center">
+                  <div className="mt-4 pt-3 border-t border-black/[0.05] flex items-center justify-center gap-3 text-[11px] text-[#86868b] text-center">
                     <span className="flex items-center gap-1">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
                       Zero credit card charged today
@@ -1329,15 +1335,15 @@ export default function App() {
               ) : (
                 /* Instant Confirmation Screen */
                 <div className="text-center py-4">
-                  <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center mb-4 shadow-xs">
+                  <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center mb-4 border border-emerald-100">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   
-                  <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-2 border border-emerald-200">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-black/[0.04] text-[#6e6e73] text-xs font-semibold mb-2 border border-black/[0.04]">
                     Reservation Token {reservationToken}
                   </div>
 
-                  <h3 className="text-2xl font-extrabold text-slate-950 tracking-tight">
+                  <h3 className="text-2xl font-semibold text-[#1d1d1f] tracking-tight">
                     {isDuplicate ? "Slot Already Secured!" : "Slot Reserved!"}
                   </h3>
                   
@@ -1346,29 +1352,29 @@ export default function App() {
                       Good news! This email is already on the {waveMetrics.isClosed ? 'standard launch' : `${waveMetrics.waveName} early-bird`} waitlist. We have verified your spot and refreshed your priority token.
                     </p>
                   ) : (
-                    <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm mx-auto">
+                    <p className="mt-2 text-xs sm:text-sm text-[#86868b] leading-relaxed max-w-sm mx-auto">
                       We will notify you 2 hours prior to public launch to lock your {waveMetrics.isClosed ? 'launch spot' : 'early-bird rate'}.
                     </p>
                   )}
 
-                  <div className="mt-5 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-left text-slate-700 space-y-2">
+                  <div className="mt-5 p-4 rounded-2xl bg-slate-50/80 border border-black/[0.05] text-xs text-left text-slate-700 space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Selected Tier:</span>
-                      <span className="font-bold text-indigo-700">{selectedTier} (${pricingPlans[selectedTier].price} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
+                      <span className="text-[#86868b]">Selected Tier:</span>
+                      <span className="font-semibold text-purple-700">{selectedTier} (${pricingPlans[selectedTier].price} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Contact Email:</span>
-                      <span className="font-mono font-semibold text-slate-950 break-all">{emailInput}</span>
+                      <span className="text-[#86868b]">Contact Email:</span>
+                      <span className="font-mono font-semibold text-[#1d1d1f] break-all">{emailInput}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-slate-500">{waveMetrics.isClosed ? 'Waitlist Status:' : `${waveMetrics.waveName} Discount:`}</span>
-                      <span className="font-bold text-emerald-600">{waveMetrics.isClosed ? 'Standard Waitlist Confirmed' : 'Locked In'}</span>
+                      <span className="text-[#86868b]">{waveMetrics.isClosed ? 'Waitlist Status:' : `${waveMetrics.waveName} Discount:`}</span>
+                      <span className="font-semibold text-emerald-600">{waveMetrics.isClosed ? 'Standard Waitlist Confirmed' : 'Locked In'}</span>
                     </div>
                   </div>
 
                   <button 
                     onClick={() => { setIsModalOpen(false); setIsSubmitted(false); }}
-                    className="transform-gpu will-change-transform mt-6 w-full py-3.5 px-4 bg-slate-950 hover:bg-slate-800 text-white font-bold text-sm rounded-xl transition-all shadow-sm cursor-pointer active:scale-98"
+                    className="transform-gpu will-change-transform mt-6 w-full py-3.5 px-4 bg-[#1d1d1f] hover:bg-black text-white font-medium text-sm rounded-full transition-all shadow-sm cursor-pointer active:scale-98"
                   >
                     Done & Return to Site
                   </button>
