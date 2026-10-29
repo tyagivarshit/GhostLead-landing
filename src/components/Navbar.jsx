@@ -115,21 +115,25 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
         {/* Center: Desktop smooth scroll anchor navigation links */}
         <nav 
           aria-label="Main Navigation" 
-          className="hidden md:flex items-center gap-6 lg:gap-7 text-xs sm:text-sm font-medium text-[#6e6e73]"
+          className="hidden md:flex items-center gap-6 lg:gap-7 text-xs sm:text-sm font-medium"
         >
+          <a 
+            href="/" 
+            onClick={(e) => handleNavClick(e, 'home')}
+            className={`transition-colors cursor-pointer ${
+              currentView === 'home'
+                ? 'text-[#1d1d1f] font-semibold'
+                : 'text-slate-600 hover:text-black'
+            }`}
+          >
+            Home
+          </a>
           <a 
             href="/#sandbox" 
             onClick={(e) => handleNavClick(e, 'home', '#sandbox')}
-            className="hover:text-[#1d1d1f] transition-colors cursor-pointer"
+            className="text-slate-600 hover:text-black transition-colors cursor-pointer"
           >
             Live Sandbox
-          </a>
-          <a 
-            href="/#features" 
-            onClick={(e) => handleNavClick(e, 'home', '#features')}
-            className="hover:text-[#1d1d1f] transition-colors cursor-pointer"
-          >
-            Features
           </a>
           <a 
             href="/pricing" 
@@ -137,7 +141,7 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
             className={`transition-all flex items-center gap-1.5 cursor-pointer rounded-full px-3 py-1 -my-1 ${
               currentView === 'pricing'
                 ? 'text-indigo-600 bg-indigo-50/80 font-semibold border border-indigo-200/60 shadow-2xs'
-                : 'hover:text-[#1d1d1f]'
+                : 'text-slate-600 hover:text-black'
             }`}
           >
             <span>Pricing</span>
@@ -187,18 +191,22 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
           >
             <div className="flex flex-col space-y-1">
               <a
+                href="/"
+                onClick={(e) => handleNavClick(e, 'home')}
+                className={`flex items-center px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                  currentView === 'home'
+                    ? 'text-[#1d1d1f] bg-slate-100/90 font-semibold'
+                    : 'text-slate-700 hover:text-[#1d1d1f] hover:bg-slate-100/80'
+                }`}
+              >
+                Home
+              </a>
+              <a
                 href="/#sandbox"
                 onClick={(e) => handleNavClick(e, 'home', '#sandbox')}
                 className="flex items-center px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:text-[#1d1d1f] hover:bg-slate-100/80 transition-colors"
               >
                 Live Sandbox
-              </a>
-              <a
-                href="/#features"
-                onClick={(e) => handleNavClick(e, 'home', '#features')}
-                className="flex items-center px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:text-[#1d1d1f] hover:bg-slate-100/80 transition-colors"
-              >
-                Features
               </a>
               <a
                 href="/pricing"

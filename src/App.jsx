@@ -239,6 +239,8 @@ export default function App() {
         window.history.pushState({ view }, '', targetPath);
       } else if (hash) {
         window.history.replaceState({ view }, '', targetPath);
+      } else if (window.location.hash) {
+        window.history.pushState({ view }, '', targetPath);
       }
 
       if (hash) {
