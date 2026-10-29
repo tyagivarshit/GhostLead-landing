@@ -56,17 +56,19 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
         data-testid="navbar-glass-capsule"
         className="pointer-events-auto w-full max-w-5xl rounded-full transition-all duration-300 bg-white/80 backdrop-blur-2xl border border-black/[0.06] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between transform-gpu will-change-transform"
       >
-        {/* Left: GhostLead logo icon + bold title "GhostLead" */}
+        {/* Left: GhostLead 3D emblem logo + bold title "GhostLead" */}
         <a 
           href="/" 
           onClick={(e) => handleNavClick(e, 'home')}
           className="flex items-center gap-2 group flex-shrink-0 cursor-pointer"
           aria-label="GhostLead Home"
         >
-          <div className="w-8 h-8 rounded-xl bg-[#1d1d1f] text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform flex-shrink-0">
-            <GhostIcon className="w-4 h-4" />
-          </div>
-          <span className="text-lg font-semibold tracking-tight text-[#1d1d1f]">
+          <img 
+            src="/logo.png" 
+            alt="GhostLead Emblem" 
+            className="w-8 h-8 sm:w-9 sm:h-9 object-contain drop-shadow-[0_2px_8px_rgba(59,130,246,0.35)] transition-transform duration-200 hover:scale-105" 
+          />
+          <span className="font-bold text-lg sm:text-xl text-[#1d1d1f] tracking-tight">
             GhostLead
           </span>
         </a>

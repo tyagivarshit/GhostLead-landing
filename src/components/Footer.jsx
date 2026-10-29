@@ -1,5 +1,3 @@
-import { GhostIcon } from './Navbar';
-
 /**
  * Universal Footer Component with Clean Brand & Legal Navigation.
  * 
@@ -27,9 +25,11 @@ export function Footer({ onNavigate }) {
             className="flex items-center gap-2 cursor-pointer hover:opacity-85 transition-opacity"
             aria-label="GhostLead Home"
           >
-            <div className="w-7 h-7 rounded-lg bg-[#1d1d1f] text-white flex items-center justify-center shadow-xs">
-              <GhostIcon className="w-4 h-4" />
-            </div>
+            <img 
+              src="/logo.png" 
+              alt="GhostLead" 
+              className="w-6 h-6 object-contain drop-shadow-sm" 
+            />
             <span className="font-semibold text-[#1d1d1f] text-sm">GhostLead</span>
           </button>
           <span className="text-[#86868b] font-normal">
