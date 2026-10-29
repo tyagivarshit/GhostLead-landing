@@ -229,7 +229,7 @@ export default function App() {
     if (view === 'pricing') {
       targetPath = '/pricing';
     } else if (view === 'legal') {
-      targetPath = hash === '#privacy' ? '/privacy' : '/terms';
+      targetPath = hash === '#terms' ? '/terms' : '/privacy';
     } else if (hash) {
       targetPath = `/${hash}`;
     }
@@ -1127,52 +1127,15 @@ export default function App() {
         </div>
       </section>
 
-      {/* ========================================================= */}
-      {/* 6. LIFETIME DEAL (LTD) SUMMARY BANNER                     */}
-      {/* ========================================================= */}
-      <section className="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center border-t border-black/[0.06]">
-        <div className="bg-white/80 backdrop-blur-2xl rounded-[28px] p-8 sm:p-14 text-[#1d1d1f] border border-black/[0.06] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05),0_0_1px_1px_rgba(0,0,0,0.03)] relative overflow-hidden">
-          <div className="relative z-10 max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] text-[#6e6e73] text-[11px] font-semibold mb-4 border border-black/[0.04]">
-              <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-              Strict Scarcity Wave Release
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1d1d1f]">
-              Lifetime Deal Token Stack
-            </h2>
-            <p className="mt-3 text-sm sm:text-base text-[#86868b]">
-              Pay once, verify forever with non-expiring credits. Starter $69, Pro $149, Agency $299 with automatic wave escalations before public SaaS launch.
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-              <button
-                type="button"
-                onClick={() => navigateTo('pricing')}
-                className="w-full sm:w-auto px-6 py-3 rounded-full font-medium text-sm bg-slate-100 hover:bg-slate-200/80 text-[#1d1d1f] border border-black/[0.04] transition-all cursor-pointer flex items-center justify-center gap-2 group active:scale-98"
-              >
-                <span>View Dedicated Pricing & Waves</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button
-                type="button"
-                onClick={() => openModal('Pro')}
-                className="w-full sm:w-auto px-6 py-3 rounded-full font-medium text-sm bg-[#1d1d1f] hover:bg-black text-white shadow-sm transition-all cursor-pointer active:scale-98"
-              >
-                <span>Claim Wave 1 Slot Now</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
       </motion.div>
     )}
   </AnimatePresence>
 </main>
 
       {/* ========================================================= */}
-      {/* 7. FOOTER                                                 */}
+      {/* 6. FOOTER                                                 */}
       {/* ========================================================= */}
-      <Footer waveMetrics={waveMetrics} onNavigate={navigateTo} />
+      <Footer onNavigate={navigateTo} />
 
       {/* ========================================================= */}
       {/* 8. PRE-REGISTRATION MODAL (60FPS FAST ACCELERATION)        */}
