@@ -1160,7 +1160,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 30, scale: 0.98 }}
               transition={MODAL_SPRING}
-              className="relative w-full max-w-lg bg-white/95 backdrop-blur-2xl rounded-t-[28px] sm:rounded-[28px] p-6 sm:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] border border-black/[0.06] z-10 max-h-[90vh] overflow-y-auto transform-gpu will-change-transform text-[#1d1d1f]"
+              className="relative w-full max-w-lg bg-white/95 backdrop-blur-2xl rounded-t-[28px] sm:rounded-[28px] p-6 sm:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] border border-black/[0.06] z-10 max-h-[90vh] md:max-h-none overflow-y-auto md:overflow-visible [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden transform-gpu will-change-transform text-[#1d1d1f]"
             >
               {/* Drag Handle on Mobile */}
               <div className="w-12 h-1.5 bg-slate-300 rounded-full mx-auto mb-4 sm:hidden flex-shrink-0" />
@@ -1184,8 +1184,8 @@ export default function App() {
                     </div>
                   )}
 
-                  <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center mb-4">
-                    <Lock className="w-6 h-6 text-purple-600" />
+                  <div className="w-11 h-11 rounded-2xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center mb-3 sm:mb-3.5">
+                    <Lock className="w-5 h-5 text-purple-600" />
                   </div>
 
                   <h3 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] tracking-tight leading-snug pr-6">
@@ -1194,7 +1194,7 @@ export default function App() {
                       : modalHeadline}
                   </h3>
                   
-                  <p className="mt-2 text-xs sm:text-sm text-[#86868b] leading-relaxed">
+                  <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-[#86868b] leading-relaxed">
                     {isLimitGateModal
                       ? `Lock your ${waveMetrics.isClosed ? 'standard launch waitlist rate' : `${waveMetrics.waveName} early-bird lifetime rate`} today before slots close to get unlimited verification.`
                       : waveMetrics.isClosed
@@ -1203,8 +1203,8 @@ export default function App() {
                   </p>
 
                   {/* Plan Selection Pills */}
-                  <div className="mt-5">
-                    <label className="block text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">
+                  <div className="my-3.5 sm:my-4">
+                    <label className="block text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-1.5">
                       Selected Tier:
                     </label>
                     <div className="grid grid-cols-3 gap-2">
@@ -1216,7 +1216,7 @@ export default function App() {
                             key={tierKey}
                             type="button"
                             onClick={() => setSelectedTier(tierKey)}
-                            className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                            className={`p-2 sm:p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                               isCurrent
                                 ? 'bg-[#1d1d1f] border-[#1d1d1f] text-white shadow-xs'
                                 : 'bg-slate-50 border-black/[0.05] text-slate-600 hover:bg-slate-100'
@@ -1238,7 +1238,7 @@ export default function App() {
                   </div>
 
                   {/* Form */}
-                  <form onSubmit={handlePreRegisterSubmit} className="mt-5 space-y-4">
+                  <form onSubmit={handlePreRegisterSubmit} className="space-y-3 sm:space-y-3.5">
                     {submitError && (
                       <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-700 flex items-center gap-2">
                         <AlertCircle className="w-4 h-4 flex-shrink-0" />
@@ -1247,7 +1247,7 @@ export default function App() {
                     )}
 
                     <div>
-                      <label className="block text-xs font-semibold text-[#86868b] uppercase tracking-wider mb-1.5">
+                      <label className="block text-xs font-semibold text-[#86868b] uppercase tracking-wider mb-1">
                         Work Email Address
                       </label>
                       <input 
@@ -1257,14 +1257,14 @@ export default function App() {
                         value={emailInput}
                         onChange={(e) => setEmailInput(e.target.value)}
                         placeholder="founder@company.com"
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200/90 bg-slate-50 focus:bg-white focus:outline-none focus:border-[#1d1d1f] focus:ring-2 focus:ring-black/5 text-sm text-[#1d1d1f] placeholder:text-slate-400 transition-all disabled:bg-slate-100 disabled:text-slate-400 font-sans"
+                        className="w-full px-4 py-2.5 sm:py-3 rounded-xl border border-slate-200/90 bg-slate-50 focus:bg-white focus:outline-none focus:border-[#1d1d1f] focus:ring-2 focus:ring-black/5 text-sm text-[#1d1d1f] placeholder:text-slate-400 transition-all disabled:bg-slate-100 disabled:text-slate-400 font-sans"
                       />
                     </div>
 
                     <button 
                       type="submit"
                       disabled={isSubmitting}
-                      className="transform-gpu will-change-transform w-full min-h-[46px] py-3 px-4 bg-[#1d1d1f] hover:bg-black disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-medium text-xs sm:text-sm rounded-full transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+                      className="transform-gpu will-change-transform w-full min-h-[44px] sm:min-h-[46px] py-2.5 sm:py-3 px-4 bg-[#1d1d1f] hover:bg-black disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-medium text-xs sm:text-sm rounded-full transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer active:scale-98"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center gap-2">
@@ -1286,7 +1286,7 @@ export default function App() {
                   </form>
 
                   {/* Trust Notes */}
-                  <div className="mt-4 pt-3 border-t border-black/[0.05] flex items-center justify-center gap-3 text-[11px] text-[#86868b] text-center">
+                  <div className="mt-3.5 pt-2.5 border-t border-black/[0.05] flex items-center justify-center gap-3 text-[11px] text-[#86868b] text-center">
                     <span className="flex items-center gap-1">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
                       Zero credit card charged today
@@ -1297,9 +1297,9 @@ export default function App() {
                 </>
               ) : (
                 /* Instant Confirmation Screen */
-                <div className="text-center py-4">
-                  <div className="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center mb-4 border border-emerald-100">
-                    <CheckCircle2 className="w-8 h-8" />
+                <div className="text-center py-2 sm:py-4">
+                  <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center mb-3 border border-emerald-100">
+                    <CheckCircle2 className="w-7 h-7" />
                   </div>
                   
                   <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-black/[0.04] text-[#6e6e73] text-xs font-semibold mb-2 border border-black/[0.04]">
@@ -1311,16 +1311,16 @@ export default function App() {
                   </h3>
                   
                   {isDuplicate ? (
-                    <p className="mt-2 text-xs sm:text-sm text-amber-800 bg-amber-50 border border-amber-200 px-3 py-2 rounded-xl leading-relaxed max-w-sm mx-auto">
+                    <p className="mt-1.5 text-xs sm:text-sm text-amber-800 bg-amber-50 border border-amber-200 px-3 py-2 rounded-xl leading-relaxed max-w-sm mx-auto">
                       Good news! This email is already on the {waveMetrics.isClosed ? 'standard launch' : `${waveMetrics.waveName} early-bird`} waitlist. We have verified your spot and refreshed your priority token.
                     </p>
                   ) : (
-                    <p className="mt-2 text-xs sm:text-sm text-[#86868b] leading-relaxed max-w-sm mx-auto">
+                    <p className="mt-1.5 text-xs sm:text-sm text-[#86868b] leading-relaxed max-w-sm mx-auto">
                       We will notify you 2 hours prior to public launch to lock your {waveMetrics.isClosed ? 'launch spot' : 'early-bird rate'}.
                     </p>
                   )}
 
-                  <div className="mt-5 p-4 rounded-2xl bg-slate-50/80 border border-black/[0.05] text-xs text-left text-slate-700 space-y-2">
+                  <div className="mt-4 p-3.5 sm:p-4 rounded-2xl bg-slate-50/80 border border-black/[0.05] text-xs text-left text-slate-700 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-[#86868b]">Selected Tier:</span>
                       <span className="font-semibold text-purple-700">{selectedTier} (${pricingPlans[selectedTier].price} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
@@ -1337,7 +1337,7 @@ export default function App() {
 
                   <button 
                     onClick={() => { setIsModalOpen(false); setIsSubmitted(false); }}
-                    className="transform-gpu will-change-transform mt-6 w-full py-3.5 px-4 bg-[#1d1d1f] hover:bg-black text-white font-medium text-sm rounded-full transition-all shadow-sm cursor-pointer active:scale-98"
+                    className="transform-gpu will-change-transform mt-5 w-full py-3 sm:py-3.5 px-4 bg-[#1d1d1f] hover:bg-black text-white font-medium text-sm rounded-full transition-all shadow-sm cursor-pointer active:scale-98"
                   >
                     Done & Return to Site
                   </button>
