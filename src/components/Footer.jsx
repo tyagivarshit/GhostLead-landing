@@ -30,7 +30,12 @@ export function Footer({ onNavigate }) {
               alt="GhostLead" 
               className="w-6 h-6 object-contain drop-shadow-sm" 
             />
-            <span className="font-semibold text-[#1d1d1f] text-sm">GhostLead</span>
+            <span className="text-sm tracking-tight flex items-center gap-0.5 font-bold">
+              <span className="text-slate-800 font-extrabold">Ghost</span>
+              <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-500 bg-clip-text text-transparent font-extrabold">
+                Lead
+              </span>
+            </span>
           </button>
           <span className="text-[#86868b] font-normal">
             © 2026. Stateless, zero-bounce executive prospecting infrastructure.

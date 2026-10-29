@@ -68,8 +68,11 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
             alt="GhostLead Emblem" 
             className="w-8 h-8 sm:w-9 sm:h-9 object-contain drop-shadow-[0_2px_8px_rgba(59,130,246,0.35)] transition-transform duration-200 hover:scale-105" 
           />
-          <span className="font-bold text-lg sm:text-xl text-[#1d1d1f] tracking-tight">
-            GhostLead
+          <span className="text-xl sm:text-2xl flex items-center gap-0.5 tracking-tight">
+            <span className="text-slate-900 font-extrabold">Ghost</span>
+            <span className="bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-500 bg-clip-text text-transparent font-extrabold drop-shadow-[0_1px_8px_rgba(56,189,248,0.25)]">
+              Lead
+            </span>
           </span>
         </a>
 

@@ -555,7 +555,7 @@ export default function App() {
           className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#1d1d1f] leading-[1.15]"
         >
           Stop sending cold emails to dead mailboxes.
-          <span className="block mt-1.5 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-indigo-700 to-violet-600">
+          <span className="block mt-1.5 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500">
             Find active founder emails with business domain verification preview.
           </span>
         </motion.h1>
