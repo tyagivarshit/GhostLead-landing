@@ -40,6 +40,11 @@ const LAST_RESET_KEY = 'ghostlead_sandbox_last_reset';
 const FAST_EASE = [0.16, 1, 0.3, 1];
 const FAST_TRANSITION = { duration: 0.25, ease: FAST_EASE };
 const MODAL_SPRING = { type: 'spring', stiffness: 280, damping: 26 };
+const MODAL_TIERS = [
+  { id: 'Starter', name: 'Starter', price: 69 },
+  { id: 'Pro', name: 'Pro', price: 149 },
+  { id: 'Agency', name: 'Agency', price: 299 },
+];
 
 // Chrome Browser Extension Icon
 function ChromeIcon({ className = "w-6 h-6" }) {
@@ -1185,8 +1190,8 @@ export default function App() {
                     </div>
                   )}
 
-                  <div className="w-11 h-11 rounded-2xl bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center mb-3 sm:mb-3.5">
-                    <Lock className="w-5 h-5 text-purple-600" />
+                  <div className="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center mb-3 sm:mb-3.5">
+                    <Lock className="w-5 h-5 text-blue-600" />
                   </div>
 
                   <h3 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] tracking-tight leading-snug pr-6">
@@ -1209,28 +1214,27 @@ export default function App() {
                       Selected Tier:
                     </label>
                     <div className="grid grid-cols-3 gap-2">
-                      {(['Starter', 'Pro', 'Agency']).map((tierKey) => {
-                        const plan = pricingPlans[tierKey];
-                        const isCurrent = selectedTier === tierKey;
+                      {MODAL_TIERS.map((tier) => {
+                        const isCurrent = selectedTier === tier.id;
                         return (
                           <button
-                            key={tierKey}
+                            key={tier.id}
                             type="button"
-                            onClick={() => setSelectedTier(tierKey)}
+                            onClick={() => setSelectedTier(tier.id)}
                             className={`p-2 sm:p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                               isCurrent
-                                ? 'bg-[#1d1d1f] border-[#1d1d1f] text-white shadow-xs'
+                                ? 'bg-slate-900 border-blue-500 ring-2 ring-blue-500/20 text-white shadow-xs'
                                 : 'bg-slate-50 border-black/[0.05] text-slate-600 hover:bg-slate-100'
                             }`}
                           >
                             <div className={`text-xs font-semibold ${isCurrent ? 'text-white' : 'text-slate-800'}`}>
-                              {plan.badge || plan.name}
+                              {tier.name}
                             </div>
                             <div className={`text-sm font-bold mt-0.5 ${isCurrent ? 'text-white' : 'text-[#1d1d1f]'}`}>
-                              ${plan.price}{pricingPlans.isClosed ? '/mo' : ''}
+                              ${tier.price}
                             </div>
                             <div className={`text-[10px] truncate ${isCurrent ? 'text-slate-300' : 'text-[#86868b]'}`}>
-                              {pricingPlans.activeWaveTag}
+                              [Wave 1 Active]
                             </div>
                           </button>
                         );
@@ -1265,7 +1269,7 @@ export default function App() {
                     <button 
                       type="submit"
                       disabled={isSubmitting}
-                      className="transform-gpu will-change-transform w-full min-h-[44px] sm:min-h-[46px] py-2.5 sm:py-3 px-4 bg-[#1d1d1f] hover:bg-black disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-medium text-xs sm:text-sm rounded-full transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+                      className="transform-gpu will-change-transform w-full min-h-[44px] sm:min-h-[46px] py-2.5 sm:py-3 px-4 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-medium text-xs sm:text-sm rounded-full transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer active:scale-98 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center gap-2">
@@ -1278,10 +1282,7 @@ export default function App() {
                           <ArrowRight className="w-4 h-4 flex-shrink-0" />
                         </>
                       ) : (
-                        <>
-                          <span>Claim {waveMetrics.waveName} Slot (${pricingPlans[selectedTier].price})</span>
-                          <ArrowRight className="w-4 h-4 flex-shrink-0" />
-                        </>
+                        <span>Claim Wave 1 Slot (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 149}) →</span>
                       )}
                     </button>
                   </form>
@@ -1324,7 +1325,7 @@ export default function App() {
                   <div className="mt-4 p-3.5 sm:p-4 rounded-2xl bg-slate-50/80 border border-black/[0.05] text-xs text-left text-slate-700 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-[#86868b]">Selected Tier:</span>
-                      <span className="font-semibold text-purple-700">{selectedTier} (${pricingPlans[selectedTier].price} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
+                      <span className="font-semibold text-blue-700">{selectedTier} (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 149} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-[#86868b]">Contact Email:</span>
@@ -1338,7 +1339,7 @@ export default function App() {
 
                   <button 
                     onClick={() => { setIsModalOpen(false); setIsSubmitted(false); }}
-                    className="transform-gpu will-change-transform mt-5 w-full py-3 sm:py-3.5 px-4 bg-[#1d1d1f] hover:bg-black text-white font-medium text-sm rounded-full transition-all shadow-sm cursor-pointer active:scale-98"
+                    className="transform-gpu will-change-transform mt-5 w-full py-3 sm:py-3.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm rounded-full transition-all shadow-sm cursor-pointer active:scale-98"
                   >
                     Done & Return to Site
                   </button>
