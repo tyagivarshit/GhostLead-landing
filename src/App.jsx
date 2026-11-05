@@ -558,12 +558,9 @@ export default function App() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={FAST_TRANSITION}
-          className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#1d1d1f] leading-[1.15]"
+          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.15]"
         >
-          Stop sending cold emails to dead mailboxes.
-          <span className="block mt-1.5 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500">
-            Find active founder emails with business domain verification preview.
-          </span>
+          Stop burning sending domains and credits on dead mailboxes.
         </motion.h1>
 
         {/* Value Explanation (Human & Direct, max 2 lines) */}
@@ -571,9 +568,9 @@ export default function App() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...FAST_TRANSITION, delay: 0.05 }}
-          className="mt-3.5 sm:mt-4 text-sm sm:text-base md:text-lg text-[#86868b] max-w-2xl mx-auto leading-relaxed font-normal"
+          className="mt-3.5 sm:mt-4 text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
         >
-          Browse leads on LinkedIn, ping their mail server in real time, and guarantee your outbound emails actually land in the primary inbox.
+          Outdated contact lists destroy your sender reputation before you even get a reply. GhostLead guarantees active business inboxes right at the source—and dead or risky addresses never consume your balance.
         </motion.p>
 
         {/* ========================================================= */}
