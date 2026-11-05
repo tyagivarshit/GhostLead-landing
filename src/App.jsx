@@ -540,7 +540,7 @@ export default function App() {
               {/* 2. TOP SCARCITY BAR (COMPACT)                             */}
               {/* ========================================================= */}
               <div className="flex justify-center py-2.5 px-4">
-                <WaveBadge />
+                <WaveBadge onOpenModal={openModal} />
               </div>
 
         {/* ========================================================= */}
