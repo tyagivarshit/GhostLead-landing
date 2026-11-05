@@ -157,7 +157,7 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
               setIsMobileMenuOpen(false);
               onOpenModal('Pro');
             }}
-            className="transform-gpu will-change-transform inline-flex items-center gap-1 px-3 sm:px-5 py-1.5 sm:py-2.5 text-xs sm:text-sm rounded-full font-semibold bg-[#1d1d1f] hover:bg-black text-white shadow-sm transition-all cursor-pointer flex-shrink-0 active:scale-98"
+            className="transform-gpu will-change-transform inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-blue-500/25 transition-all text-sm cursor-pointer flex-shrink-0 active:scale-98"
           >
             <span>{isClosed ? 'Join Waitlist →' : 'Claim Slot →'}</span>
           </button>

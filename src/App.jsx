@@ -671,7 +671,7 @@ export default function App() {
                 <button 
                   type="submit"
                   disabled={isVerifying}
-                  className="transform-gpu will-change-transform w-full sm:w-auto bg-slate-900 hover:bg-slate-800 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 whitespace-nowrap"
+                  className="transform-gpu will-change-transform w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white font-medium px-5 py-2.5 rounded-xl shadow-sm hover:shadow-blue-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 whitespace-nowrap disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed"
                 >
                   {isVerifying ? (
                     <span className="flex items-center gap-2">
@@ -908,7 +908,7 @@ export default function App() {
                       <button
                         type="button"
                         onClick={() => setIsWaitlistOpen(true)}
-                        className="w-full md:w-auto flex-shrink-0 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-medium rounded-xl transition-all shadow-sm active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+                        className="w-full md:w-auto flex-shrink-0 bg-blue-600 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded-xl shadow-sm hover:shadow-blue-500/25 transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap active:scale-95 text-xs sm:text-sm"
                       >
                         <span>Lock Founder Access ($0)</span>
                         <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
