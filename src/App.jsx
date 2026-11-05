@@ -20,7 +20,7 @@ import {
 import confetti from 'canvas-confetti';
 import { registerWaitlistUser, supabase } from './lib/supabase';
 import { calculateWaveMetrics } from './lib/waveMetrics';
-import { TopAnnouncementBar } from './components/TopAnnouncementBar';
+import WaveBadge from './components/WaveBadge';
 import { WavesSection } from './components/WavesSection';
 import { Pricing } from './components/Pricing';
 import { getPricingPlans } from './lib/pricingPlans';
@@ -539,10 +539,9 @@ export default function App() {
               {/* ========================================================= */}
               {/* 2. TOP SCARCITY BAR (COMPACT)                             */}
               {/* ========================================================= */}
-              <TopAnnouncementBar 
-                waveMetrics={waveMetrics} 
-                onOpenModal={openModal} 
-              />
+              <div className="flex justify-center py-2.5 px-4">
+                <WaveBadge />
+              </div>
 
         {/* ========================================================= */}
         {/* 3. HERO SECTION (TIGHTENED FOLD, HUMAN HIGH-TRUST COPY)   */}
