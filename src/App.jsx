@@ -560,7 +560,10 @@ export default function App() {
           transition={FAST_TRANSITION}
           className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.15]"
         >
-          Stop burning sending domains and credits on dead mailboxes.
+          <span>Stop burning sending domains and credits</span>
+          <span className="block bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
+            on dead mailboxes.
+          </span>
         </motion.h1>
 
         {/* Value Explanation (Human & Direct, max 2 lines) */}
@@ -616,7 +619,7 @@ export default function App() {
                   type="button"
                   onClick={() => handlePresetSelect('automexiaai.in')}
                   disabled={isLimitReached || isVerifying}
-                  className="px-3.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-black/[0.04] text-slate-700 hover:text-[#1d1d1f] font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
+                  className="text-xs font-medium px-3 py-1.5 rounded-lg bg-slate-100/80 hover:bg-blue-50 hover:text-blue-600 border border-transparent hover:border-blue-200 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
                 >
                   automexiaai.in
                 </button>
@@ -624,7 +627,7 @@ export default function App() {
                   type="button"
                   onClick={() => handlePresetSelect('stripe.com')}
                   disabled={isLimitReached || isVerifying}
-                  className="px-3.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-black/[0.04] text-slate-700 hover:text-[#1d1d1f] font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
+                  className="text-xs font-medium px-3 py-1.5 rounded-lg bg-slate-100/80 hover:bg-blue-50 hover:text-blue-600 border border-transparent hover:border-blue-200 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
                 >
                   stripe.com
                 </button>
@@ -632,7 +635,7 @@ export default function App() {
                   type="button"
                   onClick={() => handlePresetSelect('airbnb.com')}
                   disabled={isLimitReached || isVerifying}
-                  className="px-3.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200/80 border border-black/[0.04] text-slate-700 hover:text-[#1d1d1f] font-medium transition-colors disabled:opacity-40 flex-shrink-0 cursor-pointer text-xs"
+                  className="text-xs font-medium px-3 py-1.5 rounded-lg bg-slate-100/80 hover:bg-blue-50 hover:text-blue-600 border border-transparent hover:border-blue-200 transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex-shrink-0"
                 >
                   airbnb.com
                 </button>
@@ -645,7 +648,7 @@ export default function App() {
                 <label className="block text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-1">
                   Company Domain
                 </label>
-                <div className="relative">
+                <div className="relative border border-slate-200 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-100 rounded-xl bg-slate-100/70 focus-within:bg-white transition-all">
                   <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                     <Globe className="w-4 h-4" />
                   </div>
@@ -659,7 +662,7 @@ export default function App() {
                     }}
                     disabled={isLimitReached || isVerifying}
                     required
-                    className="w-full bg-slate-100/70 border border-slate-200/80 rounded-xl pl-10 pr-3.5 py-2.5 sm:py-3 text-sm text-[#1d1d1f] placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-[#1d1d1f] focus:ring-1 focus:ring-[#1d1d1f] transition-all disabled:bg-slate-100 disabled:cursor-not-allowed font-mono"
+                    className="w-full bg-transparent border-0 rounded-xl pl-10 pr-3.5 py-2.5 sm:py-3 text-sm text-[#1d1d1f] placeholder:text-slate-400 focus:outline-none transition-all disabled:cursor-not-allowed font-mono"
                   />
                 </div>
               </div>
@@ -668,7 +671,7 @@ export default function App() {
                 <button 
                   type="submit"
                   disabled={isVerifying}
-                  className="transform-gpu will-change-transform w-full sm:w-auto h-[44px] bg-[#1d1d1f] hover:bg-black disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium text-xs sm:text-sm rounded-full px-6 flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer active:scale-98 whitespace-nowrap"
+                  className="transform-gpu will-change-transform w-full sm:w-auto bg-slate-900 hover:bg-slate-800 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 whitespace-nowrap"
                 >
                   {isVerifying ? (
                     <span className="flex items-center gap-2">
@@ -825,12 +828,18 @@ export default function App() {
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-2 flex-shrink-0">
+                      <div className="flex items-center gap-2 flex-shrink-0 flex-wrap">
                         {verifyResult.hasMx ? (
-                          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 border border-emerald-200/60 text-emerald-700 shadow-2xs">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                            Active Mail Server
-                          </span>
+                          <>
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 border border-emerald-200/60 text-emerald-700 shadow-2xs">
+                              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                              Active Mail Server
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 border border-blue-200/60 text-blue-700 shadow-2xs">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" />
+                              SMTP Ping: Ready
+                            </span>
+                          </>
                         ) : (
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 border border-amber-200/60 text-amber-700 shadow-2xs">
                             <AlertCircle className="w-3.5 h-3.5 text-amber-500" />
@@ -843,9 +852,9 @@ export default function App() {
                     {/* Inspection Grid (3 columns on md+, responsive) */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                       {/* 1. Primary Mail Provider */}
-                      <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50/70 border border-black/[0.04] flex flex-col justify-between">
+                      <div className="bg-slate-50/60 border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between">
                         <div className="flex items-center gap-2 text-[10px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">
-                          <Server className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
+                          <Server className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
                           <span>Primary Mail Provider</span>
                         </div>
                         <div className="text-sm font-semibold text-[#1d1d1f] tracking-tight">
@@ -854,7 +863,7 @@ export default function App() {
                       </div>
 
                       {/* 2. Primary MX Host */}
-                      <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50/70 border border-black/[0.04] flex flex-col justify-between">
+                      <div className="bg-slate-50/60 border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between">
                         <div className="flex items-center justify-between gap-1 text-[10px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">
                           <span>Primary MX Host</span>
                           <span className="text-[10px] font-medium text-[#86868b] bg-white px-1.5 py-0.5 rounded border border-black/[0.04]">
@@ -867,9 +876,9 @@ export default function App() {
                       </div>
 
                       {/* 3. SPF Protection */}
-                      <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50/70 border border-black/[0.04] flex flex-col justify-between sm:col-span-2 md:col-span-1">
+                      <div className="bg-slate-50/60 border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between sm:col-span-2 md:col-span-1">
                         <div className="flex items-center gap-1.5 text-[10px] font-semibold text-[#86868b] uppercase tracking-wider mb-2">
-                          <ShieldCheck className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
+                          <ShieldCheck className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
                           <span>SPF Protection</span>
                         </div>
                         <div>
@@ -893,15 +902,15 @@ export default function App() {
                       <div className="flex items-start gap-2.5 max-w-xl text-xs text-[#6e6e73] leading-relaxed">
                         <ChromeIcon className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
                         <p>
-                          <strong className="text-[#1d1d1f] font-semibold">Domain configuration verified live.</strong> Want to ping individual executive inboxes on this server with zero bounce? Individual mailbox SMTP handshakes run natively inside the GhostLead Chrome Extension.
+                          <strong className="text-[#1d1d1f] font-semibold">Domain configuration verified live.</strong> GhostLead&apos;s Chrome extension uses this live infrastructure to ping individual founder mailboxes directly on LinkedIn—with zero bounce and zero charge for dead leads.
                         </p>
                       </div>
                       <button
                         type="button"
                         onClick={() => setIsWaitlistOpen(true)}
-                        className="w-full md:w-auto flex-shrink-0 px-5 py-2.5 bg-[#1d1d1f] hover:bg-black text-white text-xs font-medium rounded-full transition-all shadow-sm active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+                        className="w-full md:w-auto flex-shrink-0 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-medium rounded-xl transition-all shadow-sm active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
                       >
-                        <span>{waveMetrics.isClosed ? 'Join Extension Waitlist' : `Claim ${waveMetrics.waveName} Extension Access`}</span>
+                        <span>Lock Founder Access ($0)</span>
                         <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
                       </button>
                     </div>
