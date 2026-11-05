@@ -1008,12 +1008,12 @@ export default function App() {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] text-[#6e6e73] text-[11px] font-semibold border border-black/[0.04] mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-purple-600" />
-            Built for Modern Outbound
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-semibold tracking-wide text-blue-600 mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+            BUILT FOR PROSPECTORS & AGENCIES
           </div>
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1d1d1f] leading-tight">
-            Engineered for Zero-Bounce Executive Prospecting
+          <h2 className="text-3xl sm:text-4xl text-slate-900 font-extrabold tracking-tight leading-tight">
+            Zero-Bounce Cold Lead Extraction Directly on LinkedIn
           </h2>
           <p className="mt-3 text-base sm:text-lg text-[#86868b]">
             Everything your sales team and agency need to land directly in primary inboxes without risking domain blacklists.
@@ -1026,8 +1026,8 @@ export default function App() {
           {/* Card 1: One-Click Extension Capture */}
           <div className="transform-gpu will-change-transform bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-[24px] border border-black/[0.06] shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
             <div>
-              <div className="w-11 h-11 rounded-2xl bg-purple-50/80 border border-purple-100 flex items-center justify-center text-purple-600 mb-5">
-                <ChromeIcon className="w-5 h-5 text-purple-600" />
+              <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-5">
+                <ChromeIcon className="w-5 h-5 text-blue-600" />
               </div>
               <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
                 LinkedIn Native
@@ -1046,7 +1046,7 @@ export default function App() {
                   <span className="w-2 h-2 rounded-full bg-emerald-500" />
                   <span className="font-medium text-[#1d1d1f]">LinkedIn Profile Widget</span>
                 </div>
-                <span className="text-[10px] font-medium text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200/50">
+                <span className="text-[10px] font-medium text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200/50">
                   1-Click
                 </span>
               </div>
@@ -1062,8 +1062,8 @@ export default function App() {
           {/* Card 2: Zero-Bounce Protection */}
           <div className="transform-gpu will-change-transform bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-[24px] border border-black/[0.06] shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
             <div>
-              <div className="w-11 h-11 rounded-2xl bg-emerald-50/80 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-5">
-                <ShieldCheck className="w-5 h-5 text-emerald-600" />
+              <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-5">
+                <ShieldCheck className="w-5 h-5 text-blue-600" />
               </div>
               <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
                 Domain Health
@@ -1098,8 +1098,8 @@ export default function App() {
           {/* Card 3: Direct CSV & CRM Export */}
           <div className="transform-gpu will-change-transform bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-[24px] border border-black/[0.06] shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
             <div>
-              <div className="w-11 h-11 rounded-2xl bg-slate-100 border border-black/[0.05] flex items-center justify-center text-[#1d1d1f] mb-5">
-                <Download className="w-5 h-5 text-[#1d1d1f]" />
+              <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-5">
+                <Download className="w-5 h-5 text-blue-600" />
               </div>
               <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
                 Seamless Export

@@ -52,13 +52,13 @@ export function WavesSection({ totalCount = 0 }) {
         data-testid="wave-card-1"
         className={`p-4 sm:p-5 rounded-2xl transition-all transform-gpu will-change-transform ${
           isWave1Active
-            ? 'bg-white/95 border-2 border-purple-500/40 ring-1 ring-purple-500/20 shadow-sm hover:shadow-md'
+            ? 'bg-white/95 border-2 border-blue-500 shadow-lg shadow-blue-500/10 hover:shadow-md'
             : 'bg-white/90 border border-black/[0.06] shadow-sm hover:shadow-md opacity-90'
         }`}
       >
         <div className="flex items-center justify-between gap-2">
           <span className={`text-[11px] font-semibold uppercase tracking-wider flex items-center gap-1.5 ${
-            isWave1Active ? 'text-purple-700' : 'text-[#86868b]'
+            isWave1Active ? 'text-blue-600' : 'text-[#86868b]'
           }`}>
             {isWave1Active ? (
               <>
@@ -74,7 +74,7 @@ export function WavesSection({ totalCount = 0 }) {
           </span>
           <span className={`text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-full ${
             isWave1Active
-              ? 'bg-purple-600 text-white font-semibold shadow-xs uppercase tracking-wider'
+              ? 'bg-gradient-to-r from-blue-600 to-sky-500 text-white font-semibold shadow-xs uppercase tracking-wider'
               : 'bg-black/[0.04] text-[#86868b] border border-black/[0.04] font-medium'
           }`}>
             {isWave1Active ? 'WAVE 1: ACTIVE NOW' : 'SOLD OUT (30/30)'}
@@ -87,7 +87,7 @@ export function WavesSection({ totalCount = 0 }) {
 
         <div className="text-xs text-[#86868b] mt-1 min-h-[1.5rem]">
           {isWave1Active ? (
-            <>Only <strong className="text-purple-700 font-semibold">{`${wave1Remaining} / 30`}</strong> slots remaining</>
+            <>Only <strong className="text-blue-600 font-semibold">{`${wave1Remaining} / 30`}</strong> slots remaining</>
           ) : (
             <>All <strong className="text-[#1d1d1f] font-semibold">30 / 30</strong> slots claimed in this phase.</>
           )}
@@ -103,14 +103,14 @@ export function WavesSection({ totalCount = 0 }) {
         >
           <div 
             className={`h-full transition-all duration-500 rounded-full ${
-              isWave1Active ? 'bg-purple-600' : 'bg-slate-300'
+              isWave1Active ? 'bg-gradient-to-r from-blue-600 to-sky-500' : 'bg-slate-300'
             }`}
             style={{ width: `${wave1Percent}%` }} 
           />
         </div>
 
         <div className={`text-[10px] font-medium text-right mt-1.5 ${
-          isWave1Active ? 'text-purple-700' : 'text-[#86868b]'
+          isWave1Active ? 'text-blue-600' : 'text-[#86868b]'
         }`}>
           {`${wave1Percent}% Claimed`}
         </div>
