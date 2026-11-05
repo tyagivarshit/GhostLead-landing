@@ -4,7 +4,6 @@ import {
   ShieldCheck,
   Sparkles,
   CheckCircle2,
-  ArrowRight,
   Zap,
   Flame,
   Check,
@@ -314,14 +313,6 @@ export default function App() {
     setSubmitError(null);
     setIsDuplicate(false);
     setIsModalOpen(true);
-  };
-
-  const setIsWaitlistOpen = (open) => {
-    if (open) {
-      openModal('Pro', waveMetrics.isClosed ? 'Join Public Launch Waitlist' : 'Lock Your Early Founder Access');
-    } else {
-      setIsModalOpen(false);
-    }
   };
 
   const sanitizeDomainInput = (raw) => {
@@ -902,16 +893,16 @@ export default function App() {
                       <div className="flex items-start gap-2.5 max-w-xl text-xs text-[#6e6e73] leading-relaxed">
                         <ChromeIcon className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
                         <p>
-                          <strong className="text-[#1d1d1f] font-semibold">Domain configuration verified live.</strong> GhostLead&apos;s Chrome extension uses this live infrastructure to ping individual founder mailboxes directly on LinkedIn—with zero bounce and zero charge for dead leads.
+                          <strong className="text-[#1d1d1f] font-semibold">Live mail infrastructure verified.</strong>{' '}
+                          GhostLead executes this direct SMTP handshake right inside LinkedIn—guaranteeing 0% bounce and charging $0 for dead mailboxes.
                         </p>
                       </div>
                       <button
                         type="button"
-                        onClick={() => setIsWaitlistOpen(true)}
+                        onClick={() => openModal('Pro')}
                         className="w-full md:w-auto flex-shrink-0 bg-blue-600 hover:bg-blue-500 text-white font-medium px-4 py-2 rounded-xl shadow-sm hover:shadow-blue-500/25 transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap active:scale-95 text-xs sm:text-sm"
                       >
-                        <span>Lock Founder Access ($0)</span>
-                        <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
+                        <span>Lock Founder Access ($0) →</span>
                       </button>
                     </div>
                   </motion.div>
@@ -919,8 +910,14 @@ export default function App() {
 
                 {/* Idle Preview Prompt */}
                 {!isVerifying && !verifyResult && !verifyError && (
-                  <div className="text-center py-6 text-[#86868b] text-xs">
-                    Enter any business domain above to inspect its live DNS, MX records, and mail infrastructure.
+                  <div className="border border-dashed border-slate-200 rounded-2xl p-8 bg-slate-50/50 text-center">
+                    <Server className="h-6 w-6 text-slate-400 mx-auto mb-3" aria-hidden="true" />
+                    <p className="text-sm font-semibold text-slate-700">
+                      Ready to inspect mail server infrastructure
+                    </p>
+                    <p className="mt-1 text-sm text-slate-500">
+                      Enter any target domain or click a preset above to run a live DNS & MX handshake check.
+                    </p>
                   </div>
                 )}
 
