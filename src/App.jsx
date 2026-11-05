@@ -913,10 +913,10 @@ export default function App() {
                   <div className="border border-dashed border-slate-200 rounded-2xl p-8 bg-slate-50/50 text-center">
                     <Server className="h-6 w-6 text-slate-400 mx-auto mb-3" aria-hidden="true" />
                     <p className="text-sm font-semibold text-slate-700">
-                      Ready to inspect mail server infrastructure
+                      Test your target company's mail setup in real-time
                     </p>
                     <p className="mt-1 text-sm text-slate-500">
-                      Enter any target domain or click a preset above to run a live DNS & MX handshake check.
+                      See if their mail server blocks cold outreach or accepts live handshakes before you waste sending credits.
                     </p>
                   </div>
                 )}
