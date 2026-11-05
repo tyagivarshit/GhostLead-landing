@@ -41,9 +41,9 @@ const FAST_EASE = [0.16, 1, 0.3, 1];
 const FAST_TRANSITION = { duration: 0.25, ease: FAST_EASE };
 const MODAL_SPRING = { type: 'spring', stiffness: 280, damping: 26 };
 const MODAL_TIERS = [
-  { id: 'Starter', name: 'Starter', price: 69 },
-  { id: 'Pro', name: 'Pro', price: 149 },
-  { id: 'Agency', name: 'Agency', price: 299 },
+  { id: 'Starter', name: 'Starter', price: 69, credits: '7,500 Credits' },
+  { id: 'Pro', name: 'Pro', price: 149, credits: '22,000 Credits', popular: true },
+  { id: 'Agency', name: 'Agency', price: 299, credits: '50,000 Credits' },
 ];
 
 // Chrome Browser Extension Icon
@@ -265,7 +265,7 @@ export default function App() {
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalHeadline, setModalHeadline] = useState("Lock Your Wave 1 Early-Bird Slot");
+  const [modalHeadline, setModalHeadline] = useState("Lock Your Early Founder Access");
   const [isLimitGateModal, setIsLimitGateModal] = useState(false);
   const [selectedTier, setSelectedTier] = useState('Pro');
   const [emailInput, setEmailInput] = useState('');
@@ -273,7 +273,7 @@ export default function App() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [isDuplicate, setIsDuplicate] = useState(false);
-  const [reservationToken, setReservationToken] = useState('#GL-W1-024');
+  const [reservationToken, setReservationToken] = useState('#GL-EB-024');
 
   // Isolated 60FPS Confetti
   const triggerConfettiCelebration = () => {
@@ -306,8 +306,8 @@ export default function App() {
     setSelectedTier(tier);
     const defaultHeadline = waveMetrics.isClosed
       ? "Join Public Launch Waitlist"
-      : `Lock Your ${waveMetrics.waveName} Early-Bird Slot`;
-    setModalHeadline(customHeadline || defaultHeadline);
+      : "Lock Your Early Founder Access";
+    setModalHeadline((customHeadline && !customHeadline.includes('Wave')) ? customHeadline : defaultHeadline);
     setIsLimitGateModal(false);
     setIsSubmitted(false);
     setIsSubmitting(false);
@@ -318,7 +318,7 @@ export default function App() {
 
   const setIsWaitlistOpen = (open) => {
     if (open) {
-      openModal('Pro', waveMetrics.isClosed ? 'Join Public Launch Waitlist' : `Claim ${waveMetrics.waveName} Extension Access`);
+      openModal('Pro', waveMetrics.isClosed ? 'Join Public Launch Waitlist' : 'Lock Your Early Founder Access');
     } else {
       setIsModalOpen(false);
     }
@@ -1166,20 +1166,10 @@ export default function App() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 30, scale: 0.98 }}
               transition={MODAL_SPRING}
-              className="relative w-full max-w-lg bg-white/95 backdrop-blur-2xl rounded-t-[28px] sm:rounded-[28px] p-6 sm:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] border border-black/[0.06] z-10 max-h-[90vh] md:max-h-none overflow-y-auto md:overflow-visible [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden transform-gpu will-change-transform text-[#1d1d1f]"
+              className="relative w-full max-w-lg bg-white/95 backdrop-blur-2xl rounded-t-[28px] sm:rounded-[28px] p-6 sm:p-8 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.15)] border border-slate-200/80 z-10 max-h-[90vh] md:max-h-none overflow-y-auto md:overflow-visible [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden transform-gpu will-change-transform text-slate-900"
             >
               {/* Drag Handle on Mobile */}
               <div className="w-12 h-1.5 bg-slate-300 rounded-full mx-auto mb-4 sm:hidden flex-shrink-0" />
-
-              {/* Close Button */}
-              <button 
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-                className="absolute top-5 right-5 text-slate-400 hover:text-[#1d1d1f] p-2 rounded-full hover:bg-black/[0.04] transition-colors z-20 cursor-pointer"
-                aria-label="Close modal"
-              >
-                <X className="w-5 h-5" />
-              </button>
 
               {!isSubmitted ? (
                 <>
@@ -1190,27 +1180,33 @@ export default function App() {
                     </div>
                   )}
 
-                  <div className="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center mb-3 sm:mb-3.5">
-                    <Lock className="w-5 h-5 text-blue-600" />
+                  {/* Header: Title (left) + Close Button (right) */}
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight leading-snug">
+                        {isLimitGateModal
+                          ? "You've experienced real-time verification speed."
+                          : modalHeadline}
+                      </h3>
+                      <p className="mt-1.5 sm:mt-2 text-sm text-slate-500 leading-relaxed">
+                        {isLimitGateModal
+                          ? "Lock your lifetime spot at the lowest early-bird rate today before slots close to get unlimited verification."
+                          : "Reserve your lifetime spot at the lowest early-bird rate. Zero upfront payment today."}
+                      </p>
+                    </div>
+                    <button 
+                      type="button"
+                      onClick={() => setIsModalOpen(false)}
+                      className="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer flex-shrink-0 -mr-1 -mt-1"
+                      aria-label="Close modal"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
                   </div>
-
-                  <h3 className="text-xl sm:text-2xl font-semibold text-[#1d1d1f] tracking-tight leading-snug pr-6">
-                    {isLimitGateModal
-                      ? "You've experienced real-time verification speed."
-                      : modalHeadline}
-                  </h3>
-                  
-                  <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-[#86868b] leading-relaxed">
-                    {isLimitGateModal
-                      ? `Lock your ${waveMetrics.isClosed ? 'standard launch waitlist rate' : `${waveMetrics.waveName} early-bird lifetime rate`} today before slots close to get unlimited verification.`
-                      : waveMetrics.isClosed
-                        ? waveMetrics.soldOutMessage
-                        : `Reserve your ${waveMetrics.waveName} early-bird rate before this tier locks. Zero upfront payment today.`}
-                  </p>
 
                   {/* Plan Selection Pills */}
                   <div className="my-3.5 sm:my-4">
-                    <label className="block text-[11px] font-semibold text-[#86868b] uppercase tracking-wider mb-1.5">
+                    <label className="block text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
                       Selected Tier:
                     </label>
                     <div className="grid grid-cols-3 gap-2">
@@ -1221,20 +1217,33 @@ export default function App() {
                             key={tier.id}
                             type="button"
                             onClick={() => setSelectedTier(tier.id)}
-                            className={`p-2 sm:p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                            className={`p-2 sm:p-2.5 rounded-xl text-center transition-all cursor-pointer flex flex-col items-center justify-between min-h-[92px] ${
                               isCurrent
-                                ? 'bg-slate-900 border-blue-500 ring-2 ring-blue-500/20 text-white shadow-xs'
-                                : 'bg-slate-50 border-black/[0.05] text-slate-600 hover:bg-slate-100'
+                                ? 'border-2 border-blue-600 bg-blue-50/50 shadow-sm ring-1 ring-blue-500/20'
+                                : 'border border-slate-200 bg-white hover:border-slate-300'
                             }`}
                           >
-                            <div className={`text-xs font-semibold ${isCurrent ? 'text-white' : 'text-slate-800'}`}>
-                              {tier.name}
+                            <div className="w-full">
+                              {tier.popular ? (
+                                <span className="text-[10px] font-semibold text-blue-600 block leading-tight mb-0.5">
+                                  Most Popular
+                                </span>
+                              ) : (
+                                <span className="text-[10px] block leading-tight mb-0.5 invisible select-none">
+                                  &nbsp;
+                                </span>
+                              )}
+                              <div className="text-xs font-semibold text-slate-800">
+                                {tier.name}
+                              </div>
                             </div>
-                            <div className={`text-sm font-bold mt-0.5 ${isCurrent ? 'text-white' : 'text-[#1d1d1f]'}`}>
-                              ${tier.price}
-                            </div>
-                            <div className={`text-[10px] truncate ${isCurrent ? 'text-slate-300' : 'text-[#86868b]'}`}>
-                              [Wave 1 Active]
+                            <div className="w-full mt-1">
+                              <div className="text-sm sm:text-base font-bold text-slate-900 leading-tight">
+                                ${tier.price}
+                              </div>
+                              <div className="text-[10px] sm:text-xs text-slate-600 mt-0.5 leading-tight truncate">
+                                {tier.credits}
+                              </div>
                             </div>
                           </button>
                         );
@@ -1252,7 +1261,7 @@ export default function App() {
                     )}
 
                     <div>
-                      <label className="block text-xs font-semibold text-[#86868b] uppercase tracking-wider mb-1">
+                      <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
                         Work Email Address
                       </label>
                       <input 
@@ -1262,33 +1271,28 @@ export default function App() {
                         value={emailInput}
                         onChange={(e) => setEmailInput(e.target.value)}
                         placeholder="founder@company.com"
-                        className="w-full px-4 py-2.5 sm:py-3 rounded-xl border border-slate-200/90 bg-slate-50 focus:bg-white focus:outline-none focus:border-[#1d1d1f] focus:ring-2 focus:ring-black/5 text-sm text-[#1d1d1f] placeholder:text-slate-400 transition-all disabled:bg-slate-100 disabled:text-slate-400 font-sans"
+                        className="w-full px-4 py-2.5 sm:py-3 rounded-xl border border-slate-200 bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-sm text-slate-900 placeholder:text-slate-400 transition-all disabled:bg-slate-100 disabled:text-slate-400 font-sans"
                       />
                     </div>
 
                     <button 
                       type="submit"
                       disabled={isSubmitting}
-                      className="transform-gpu will-change-transform w-full min-h-[44px] sm:min-h-[46px] py-2.5 sm:py-3 px-4 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-medium text-xs sm:text-sm rounded-full transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer active:scale-98 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                      className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-semibold shadow-md shadow-blue-500/20 py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center gap-2">
                           <RefreshCw className="w-4 h-4 animate-spin flex-shrink-0" />
                           <span>Securing Your Slot...</span>
                         </span>
-                      ) : waveMetrics.isClosed ? (
-                        <>
-                          <span>Join Launch Waitlist</span>
-                          <ArrowRight className="w-4 h-4 flex-shrink-0" />
-                        </>
                       ) : (
-                        <span>Claim Wave 1 Slot (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 149}) →</span>
+                        <span>Lock Pre-Booking (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 149}) →</span>
                       )}
                     </button>
                   </form>
 
                   {/* Trust Notes */}
-                  <div className="mt-3.5 pt-2.5 border-t border-black/[0.05] flex items-center justify-center gap-3 text-[11px] text-[#86868b] text-center">
+                  <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-center gap-3 text-[11px] text-slate-500 text-center">
                     <span className="flex items-center gap-1">
                       <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
                       Zero credit card charged today
@@ -1299,47 +1303,56 @@ export default function App() {
                 </>
               ) : (
                 /* Instant Confirmation Screen */
-                <div className="text-center py-2 sm:py-4">
+                <div className="relative text-center py-2 sm:py-4">
+                  <button 
+                    type="button"
+                    onClick={() => { setIsModalOpen(false); setIsSubmitted(false); }}
+                    className="absolute -top-1 -right-1 text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+                    aria-label="Close modal"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+
                   <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center mb-3 border border-emerald-100">
                     <CheckCircle2 className="w-7 h-7" />
                   </div>
                   
-                  <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-black/[0.04] text-[#6e6e73] text-xs font-semibold mb-2 border border-black/[0.04]">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold mb-2 border border-slate-200">
                     Reservation Token {reservationToken}
                   </div>
 
-                  <h3 className="text-2xl font-semibold text-[#1d1d1f] tracking-tight">
+                  <h3 className="text-2xl font-bold text-slate-900 tracking-tight">
                     {isDuplicate ? "Slot Already Secured!" : "Slot Reserved!"}
                   </h3>
                   
                   {isDuplicate ? (
                     <p className="mt-1.5 text-xs sm:text-sm text-amber-800 bg-amber-50 border border-amber-200 px-3 py-2 rounded-xl leading-relaxed max-w-sm mx-auto">
-                      Good news! This email is already on the {waveMetrics.isClosed ? 'standard launch' : `${waveMetrics.waveName} early-bird`} waitlist. We have verified your spot and refreshed your priority token.
+                      Good news! This email is already on the early-bird waitlist. We have verified your spot and refreshed your priority token.
                     </p>
                   ) : (
-                    <p className="mt-1.5 text-xs sm:text-sm text-[#86868b] leading-relaxed max-w-sm mx-auto">
-                      We will notify you 2 hours prior to public launch to lock your {waveMetrics.isClosed ? 'launch spot' : 'early-bird rate'}.
+                    <p className="mt-1.5 text-xs sm:text-sm text-slate-500 leading-relaxed max-w-sm mx-auto">
+                      We will notify you 2 hours prior to public launch to lock your early-bird rate.
                     </p>
                   )}
 
-                  <div className="mt-4 p-3.5 sm:p-4 rounded-2xl bg-slate-50/80 border border-black/[0.05] text-xs text-left text-slate-700 space-y-2">
+                  <div className="mt-4 p-3.5 sm:p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-left text-slate-700 space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-[#86868b]">Selected Tier:</span>
-                      <span className="font-semibold text-blue-700">{selectedTier} (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 149} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
+                      <span className="text-slate-500">Selected Tier:</span>
+                      <span className="font-semibold text-blue-600">{selectedTier} (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 149} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#86868b]">Contact Email:</span>
-                      <span className="font-mono font-semibold text-[#1d1d1f] break-all">{emailInput}</span>
+                      <span className="text-slate-500">Contact Email:</span>
+                      <span className="font-mono font-semibold text-slate-900 break-all">{emailInput}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#86868b]">{waveMetrics.isClosed ? 'Waitlist Status:' : `${waveMetrics.waveName} Discount:`}</span>
+                      <span className="text-slate-500">{waveMetrics.isClosed ? 'Waitlist Status:' : 'Early-Bird Discount:'}</span>
                       <span className="font-semibold text-emerald-600">{waveMetrics.isClosed ? 'Standard Waitlist Confirmed' : 'Locked In'}</span>
                     </div>
                   </div>
 
                   <button 
                     onClick={() => { setIsModalOpen(false); setIsSubmitted(false); }}
-                    className="transform-gpu will-change-transform mt-5 w-full py-3 sm:py-3.5 px-4 bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm rounded-full transition-all shadow-sm cursor-pointer active:scale-98"
+                    className="mt-5 w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl transition-all shadow-md shadow-blue-500/20 cursor-pointer active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   >
                     Done & Return to Site
                   </button>
