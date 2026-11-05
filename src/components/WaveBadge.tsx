@@ -4,40 +4,34 @@ interface WaveBadgeProps {
 }
 
 export default function WaveBadge({
-  href = '#reserve',
+  href = '#pricing',
   className = '',
 }: WaveBadgeProps) {
   return (
     <a
       href={href}
-      aria-label="[Wave 1 Beta] 30 Founder Passes Left — 70% Off Lifetime Access. Lock $0 Spot."
-      className={`group inline-flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 sm:gap-2.5 rounded-full border border-slate-700/80 bg-slate-900/50 px-3.5 py-1.5 text-xs text-slate-300 backdrop-blur-md transition-all duration-300 hover:border-slate-600 hover:shadow-lg hover:shadow-emerald-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${className}`.trim()}
+      aria-label="Early Founder Access — 30 Slots Only • From $49. Lock $0 Spot."
+      className={`group inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-sky-200/80 bg-sky-50/80 hover:bg-sky-100/90 backdrop-blur-sm shadow-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${className}`.trim()}
     >
-      {/* Left: Animated live indicator */}
-      <span className="relative flex h-2 w-2 flex-shrink-0" aria-hidden="true">
-        <span className="animate-ping motion-reduce:animate-none absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-      </span>
-
       {/* Left text */}
-      <span className="font-medium text-slate-200">
-        [Wave 1 Beta] 30 Founder Passes Left
+      <span className="text-xs sm:text-sm font-semibold text-slate-800 tracking-tight">
+        Early Founder Access
       </span>
 
-      {/* Separator */}
-      <span className="hidden sm:inline-block h-3 w-[1px] bg-slate-700" aria-hidden="true" />
+      {/* Divider */}
+      <span aria-hidden="true" className="h-3.5 w-[1px] bg-slate-300" />
 
       {/* Middle text */}
-      <span className="text-slate-400">
-        70% Off Lifetime Access
+      <span className="text-xs sm:text-sm font-normal text-slate-600">
+        30 Slots Only • From $49
       </span>
 
       {/* Right action */}
-      <span className="inline-flex items-center gap-1 font-medium text-emerald-400">
+      <span className="text-xs sm:text-sm font-semibold text-blue-600 group-hover:text-blue-700 ml-1 inline-flex items-center gap-1">
         <span>Lock $0 Spot</span>
         <span
-          className="inline-block transition-transform duration-300 group-hover:translate-x-1"
           aria-hidden="true"
+          className="transition-transform duration-200 group-hover:translate-x-0.5"
         >
           →
         </span>
