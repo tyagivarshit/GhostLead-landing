@@ -118,17 +118,6 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
           className="hidden md:flex items-center gap-6 lg:gap-7 text-xs sm:text-sm font-medium"
         >
           <a 
-            href="/" 
-            onClick={(e) => handleNavClick(e, 'home')}
-            className={`transition-colors cursor-pointer ${
-              currentView === 'home'
-                ? 'text-[#1d1d1f] font-semibold'
-                : 'text-slate-600 hover:text-black'
-            }`}
-          >
-            Home
-          </a>
-          <a 
             href="/#sandbox" 
             onClick={(e) => handleNavClick(e, 'home', '#sandbox')}
             className="text-slate-600 hover:text-black transition-colors cursor-pointer"
@@ -190,17 +179,6 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
             className="pointer-events-auto md:hidden w-full max-w-5xl mt-2 p-3 sm:p-4 rounded-2xl bg-white/95 backdrop-blur-2xl border border-black/[0.06] shadow-xl space-y-2 transform-gpu will-change-transform"
           >
             <div className="flex flex-col space-y-1">
-              <a
-                href="/"
-                onClick={(e) => handleNavClick(e, 'home')}
-                className={`flex items-center px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                  currentView === 'home'
-                    ? 'text-[#1d1d1f] bg-slate-100/90 font-semibold'
-                    : 'text-slate-700 hover:text-[#1d1d1f] hover:bg-slate-100/80'
-                }`}
-              >
-                Home
-              </a>
               <a
                 href="/#sandbox"
                 onClick={(e) => handleNavClick(e, 'home', '#sandbox')}
