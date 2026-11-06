@@ -114,7 +114,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
         <button 
           type="button"
           onClick={() => handleSelect('starter')}
-          className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-2.5 px-4 rounded-full font-medium text-xs sm:text-sm bg-slate-100 hover:bg-slate-200/80 text-[#1d1d1f] border border-black/[0.04] transition-all cursor-pointer flex items-center justify-center active:scale-98"
+          className="w-full mt-7 cursor-pointer flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-3 px-6 rounded-xl transition-all duration-200 border border-slate-200/80"
         >
           Claim Starter Slot ($69)
         </button>
@@ -195,7 +195,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
         <button 
           type="button"
           onClick={() => handleSelect('pro')}
-          className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-3 px-4 rounded-full font-medium text-xs sm:text-sm bg-[#1d1d1f] hover:bg-black text-white transition-all shadow-sm cursor-pointer flex items-center justify-center active:scale-98"
+          className="w-full mt-7 cursor-pointer flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
         >
           Claim Pro Slot ($129)
         </button>
@@ -270,7 +270,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
         <button 
           type="button"
           onClick={() => handleSelect('agency')}
-          className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-2.5 px-4 rounded-full font-medium text-xs sm:text-sm bg-slate-100 hover:bg-slate-200/80 text-[#1d1d1f] border border-black/[0.04] transition-all cursor-pointer flex items-center justify-center active:scale-98"
+          className="w-full mt-7 cursor-pointer flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-3 px-6 rounded-xl transition-all duration-200 border border-slate-200/80"
         >
           Claim Agency Slot ($249)
         </button>
