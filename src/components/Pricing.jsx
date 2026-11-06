@@ -1,21 +1,53 @@
 import { Check, Sparkles } from 'lucide-react';
 import { getPricingPlans } from '../lib/pricingPlans';
 
+const STARTER_FEATURES = [
+  '7,500 Non-Expiring Verification Credits',
+  '2 Concurrency Slots (Parallel processing)',
+  'Max 2,500 rows / day abuse limit',
+  'LinkedIn Extension Capture',
+  'Client CSV UI & Batch Validator',
+  'Pattern Cache Engine',
+];
+
+const PRO_FEATURES = [
+  '22,000 Non-Expiring Verification Credits',
+  '4 Concurrency Slots',
+  'Max 8,000 rows / day abuse limit',
+  'Everything in Starter, plus:',
+  'Priority Drip Lane',
+  'Instantly & Smartlead 1-Click Sync',
+  'Domain Health Protection',
+];
+
+const AGENCY_FEATURES = [
+  '50,000 Non-Expiring Verification Credits',
+  '8 Concurrency Slots',
+  'Max 15,000 rows / day abuse limit',
+  'Everything in Pro, plus:',
+  'Full API Rail Access & Custom Webhooks',
+  '3 Team Member Seats',
+  'Dedicated High-Throughput Queue',
+];
+
 /**
  * Dynamic Pricing Cards Component displaying Non-Expiring LTD Token Stack with Wave-based price escalation.
  * 
  * @param {{
  *   totalCount?: number,
- *   onSelectPlan: (tier: 'Starter' | 'Pro' | 'Agency') => void
+ *   onSelectPlan?: (tier: 'Starter' | 'Pro' | 'Agency') => void,
+ *   onOpenModal?: (tier: 'Starter' | 'Pro' | 'Agency') => void
  * }} props
  */
-export function Pricing({ totalCount = 0, onSelectPlan }) {
+export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
   const plansData = getPricingPlans(totalCount);
   const { activeWaveTag, isClosed, Starter, Pro, Agency } = plansData;
 
   const handleSelect = (tierId) => {
     if (typeof onSelectPlan === 'function') {
       onSelectPlan(tierId);
+    } else if (typeof onOpenModal === 'function') {
+      onOpenModal(tierId);
     }
   };
 
@@ -43,11 +75,9 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
           </div>
           
           <div className="mt-4 flex items-baseline gap-1.5">
-            {Starter.price === 69 && (
-              <span className="line-through text-slate-400 text-sm font-medium mr-2">$199</span>
-            )}
-            <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">{Starter.formattedPrice}</span>
-            <span className="text-[#86868b] text-sm font-medium">{Starter.priceSuffix}</span>
+            <span className="line-through text-slate-400 text-sm font-medium mr-2">$199</span>
+            <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">$69</span>
+            <span className="text-[#86868b] text-sm font-medium">/ lifetime</span>
           </div>
           <p className="text-xs text-[#86868b] mt-1">
             {Starter.subtitle}
@@ -66,7 +96,7 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
               What's included:
             </div>
             <ul className="space-y-2.5 text-xs sm:text-sm text-[#6e6e73]">
-              {Starter.features.map((feat, idx) => (
+              {STARTER_FEATURES.map((feat, idx) => (
                 <li key={idx} className="flex items-center gap-2.5">
                   <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                   <span>{feat}</span>
@@ -81,7 +111,7 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
           onClick={() => handleSelect('Starter')}
           className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-2.5 px-4 rounded-full font-medium text-xs sm:text-sm bg-slate-100 hover:bg-slate-200/80 text-[#1d1d1f] border border-black/[0.04] transition-all cursor-pointer flex items-center justify-center active:scale-98"
         >
-          {Starter.ctaText}
+          Lock Starter Spot ($0)
         </button>
       </div>
 
@@ -111,8 +141,9 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
           </div>
           
           <div className="mt-4 flex items-baseline gap-1.5">
-            <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">{Pro.formattedPrice}</span>
-            <span className="text-[#86868b] text-sm font-medium">{Pro.priceSuffix}</span>
+            <span className="line-through text-slate-400 text-sm font-medium mr-2">$349</span>
+            <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">$149</span>
+            <span className="text-[#86868b] text-sm font-medium">/ lifetime</span>
           </div>
           <p className="text-xs text-purple-600 font-medium mt-1">
             {Pro.subtitle}
@@ -131,7 +162,7 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
               What's included:
             </div>
             <ul className="space-y-2.5 text-xs sm:text-sm text-[#6e6e73]">
-              {Pro.features.map((feat, idx) => {
+              {PRO_FEATURES.map((feat, idx) => {
                 if (feat.startsWith('Everything in')) {
                   return (
                     <li key={idx} className="pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-purple-600 flex items-center gap-1.5">
@@ -156,7 +187,7 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
           onClick={() => handleSelect('Pro')}
           className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-3 px-4 rounded-full font-medium text-xs sm:text-sm bg-[#1d1d1f] hover:bg-black text-white transition-all shadow-sm cursor-pointer flex items-center justify-center active:scale-98"
         >
-          {Pro.ctaText}
+          Lock Pro Spot ($0)
         </button>
       </div>
 
@@ -180,8 +211,9 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
           </div>
           
           <div className="mt-4 flex items-baseline gap-1.5">
-            <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">{Agency.formattedPrice}</span>
-            <span className="text-[#86868b] text-sm font-medium">{Agency.priceSuffix}</span>
+            <span className="line-through text-slate-400 text-sm font-medium mr-2">$699</span>
+            <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">$299</span>
+            <span className="text-[#86868b] text-sm font-medium">/ lifetime</span>
           </div>
           <p className="text-xs text-rose-600 font-medium mt-1">
             {Agency.subtitle}
@@ -200,7 +232,7 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
               What's included:
             </div>
             <ul className="space-y-2.5 text-xs sm:text-sm text-[#6e6e73]">
-              {Agency.features.map((feat, idx) => {
+              {AGENCY_FEATURES.map((feat, idx) => {
                 if (feat.startsWith('Everything in')) {
                   return (
                     <li key={idx} className="pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-[#1d1d1f] flex items-center gap-1.5">
@@ -225,13 +257,13 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
           onClick={() => handleSelect('Agency')}
           className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-2.5 px-4 rounded-full font-medium text-xs sm:text-sm bg-slate-100 hover:bg-slate-200/80 text-[#1d1d1f] border border-black/[0.04] transition-all cursor-pointer flex items-center justify-center active:scale-98"
         >
-          {Agency.ctaText}
+          Lock Agency Slot ($0)
         </button>
       </div>
 
     </div>
     <p className="text-center text-sm text-slate-500 mt-6">
-      $0 due today to lock slot
+      $0 due today to lock slot • Non-expiring lifetime balance
     </p>
   </div>
   );
