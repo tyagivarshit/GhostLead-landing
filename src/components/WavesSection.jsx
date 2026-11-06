@@ -17,7 +17,6 @@ export function WavesSection({ totalCount = 0 }) {
   // WAVE 1 (30 slots total)
   const isWave1Active = count < 30;
   const isWave1SoldOut = count >= 30;
-  const wave1Remaining = Math.max(0, 30 - count);
   const wave1Percent = isWave1SoldOut ? 100 : Math.round((count / 30) * 100);
 
   // WAVE 2 (70 slots total, activates when totalCount >= 30)
@@ -35,7 +34,6 @@ export function WavesSection({ totalCount = 0 }) {
   const isWave3Locked = count < 100;
   const isWave3Active = count >= 100 && count < 150;
   const isWave3SoldOut = count >= 150;
-  const wave3Remaining = Math.max(0, 150 - count);
   const wave3Percent = isWave3SoldOut 
     ? 100 
     : isWave3Active 
@@ -82,15 +80,16 @@ export function WavesSection({ totalCount = 0 }) {
         </div>
 
         <div className="font-semibold text-[#1d1d1f] text-base sm:text-lg mt-2">
-          Wave 1: Early-Bird
+          Wave 1: Founder Access
+        </div>
+
+        <div className="flex items-baseline mt-2">
+          <span className="line-through text-slate-400 text-sm font-medium mr-2">$199</span>
+          <span className="text-2xl font-extrabold text-blue-600">$69</span>
         </div>
 
         <div className="text-xs text-[#86868b] mt-1 min-h-[1.5rem]">
-          {isWave1Active ? (
-            <>Only <strong className="text-blue-600 font-semibold">{`${wave1Remaining} / 30`}</strong> slots remaining</>
-          ) : (
-            <>All <strong className="text-[#1d1d1f] font-semibold">30 / 30</strong> slots claimed in this phase.</>
-          )}
+          Save 65% • Lock for $0 today
         </div>
 
         {/* Progress Bar */}
@@ -148,7 +147,7 @@ export function WavesSection({ totalCount = 0 }) {
             ) : (
               <>
                 <Lock className="w-3 h-3 text-[#86868b]" />
-                UPCOMING
+                PENDING ACTIVATION
               </>
             )}
           </span>
@@ -166,7 +165,12 @@ export function WavesSection({ totalCount = 0 }) {
         </div>
 
         <div className="font-semibold text-[#1d1d1f] text-base sm:text-lg mt-2">
-          Wave 2: Standard
+          Wave 2: Growth Tier
+        </div>
+
+        <div className="flex items-baseline gap-2 mt-2">
+          <span className="text-2xl font-extrabold text-[#1d1d1f]">$119</span>
+          <span className="text-xs text-[#86868b] font-medium">Pending Activation</span>
         </div>
 
         <div className="text-xs text-[#86868b] mt-1 min-h-[1.5rem]">
@@ -254,17 +258,16 @@ export function WavesSection({ totalCount = 0 }) {
         </div>
 
         <div className="font-semibold text-[#1d1d1f] text-base sm:text-lg mt-2">
-          Wave 3: Final Lockdown
+          Wave 3: Final Retail LTD
+        </div>
+
+        <div className="flex items-baseline gap-2 mt-2">
+          <span className="text-2xl font-extrabold text-[#1d1d1f]">$199</span>
+          <span className="text-xs text-[#86868b] font-medium">Locked</span>
         </div>
 
         <div className="text-xs text-[#86868b] mt-1 min-h-[1.5rem]">
-          {isWave3Locked ? (
-            '50 Slots • Permanent maximum LTD before SaaS transition.'
-          ) : isWave3SoldOut ? (
-            <>All <strong className="text-[#1d1d1f] font-semibold">50 / 50</strong> slots claimed.</>
-          ) : (
-            <>Only <strong className="text-purple-700 font-semibold">{`${wave3Remaining} / 50`}</strong> slots remaining</>
-          )}
+          Final LTD before switching to monthly recurring
         </div>
 
         {/* Progress Bar */}

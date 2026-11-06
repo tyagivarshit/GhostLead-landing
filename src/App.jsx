@@ -1242,6 +1242,11 @@ export default function App() {
                             </div>
                             <div className="w-full mt-1">
                               <div className="text-sm sm:text-base font-bold text-slate-900 leading-tight">
+                                {tier.price === 69 && (
+                                  <span className="line-through text-slate-400 text-sm font-medium mr-2">
+                                    $199
+                                  </span>
+                                )}
                                 ${tier.price}
                               </div>
                               <div className="text-[10px] sm:text-xs text-slate-600 mt-0.5 leading-tight truncate">
@@ -1252,6 +1257,9 @@ export default function App() {
                         );
                       })}
                     </div>
+                    <p className="text-center text-sm text-slate-500 mt-2.5">
+                      $0 due today to lock slot
+                    </p>
                   </div>
 
                   {/* Form */}

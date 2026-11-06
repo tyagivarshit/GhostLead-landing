@@ -20,7 +20,8 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch" data-testid="pricing-cards">
+    <div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch" data-testid="pricing-cards">
       
       {/* Starter Card */}
       <div 
@@ -42,6 +43,9 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
           </div>
           
           <div className="mt-4 flex items-baseline gap-1.5">
+            {Starter.price === 69 && (
+              <span className="line-through text-slate-400 text-sm font-medium mr-2">$199</span>
+            )}
             <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">{Starter.formattedPrice}</span>
             <span className="text-[#86868b] text-sm font-medium">{Starter.priceSuffix}</span>
           </div>
@@ -226,6 +230,10 @@ export function Pricing({ totalCount = 0, onSelectPlan }) {
       </div>
 
     </div>
+    <p className="text-center text-sm text-slate-500 mt-6">
+      $0 due today to lock slot
+    </p>
+  </div>
   );
 }
 
