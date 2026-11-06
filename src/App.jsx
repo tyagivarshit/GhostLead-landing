@@ -25,6 +25,9 @@ import { Navbar, GhostIcon } from './components/Navbar';
 import { PricingPage } from './components/PricingPage';
 import { LegalPolicyView } from './components/LegalPolicyView';
 import { Footer } from './components/Footer';
+import Comparison from './components/Comparison';
+import LtdBanner from './components/LtdBanner';
+import Faq from './components/Faq';
 
 export { Pricing, Navbar, PricingPage, LegalPolicyView, Footer, GhostIcon };
 
@@ -1224,6 +1227,15 @@ export default function App() {
 
         </div>
       </section>
+
+      {/* Comparison Section */}
+      <Comparison />
+
+      {/* High-urgency LTD Banner */}
+      <LtdBanner onOpenModal={openModal} />
+
+      {/* FAQ Accordion */}
+      <Faq />
 
       </motion.div>
     )}
