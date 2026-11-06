@@ -1030,13 +1030,13 @@ export default function App() {
                 <ChromeIcon className="w-5 h-5 text-blue-600" />
               </div>
               <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
-                LinkedIn Native
+                LINKEDIN SAFETY
               </div>
               <h3 className="text-xl font-semibold text-[#1d1d1f]">
-                One-Click Extension Capture
+                Scrape Leads Without Account Restrictions
               </h3>
               <p className="mt-2.5 text-sm text-[#86868b] leading-relaxed">
-                Target any decision-maker on LinkedIn and instantly grab their verified active address without switching tabs. Reveal direct emails directly beside their profile in real time.
+                Prospect aggressively with built-in human pacing that keeps your LinkedIn account completely safe. Grab entire search pages in one click without opening dozens of tabs.
               </p>
             </div>
 
@@ -1066,13 +1066,13 @@ export default function App() {
                 <ShieldCheck className="w-5 h-5 text-blue-600" />
               </div>
               <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
-                Domain Health
+                ZERO WASTE
               </div>
               <h3 className="text-xl font-semibold text-[#1d1d1f]">
-                Zero-Bounce Protection
+                0% Bounces. $0 Charged for Dead Emails.
               </h3>
               <p className="mt-2.5 text-sm text-[#86868b] leading-relaxed">
-                Every address undergoes direct real-time mailbox validation before you add it to your campaigns. Say goodbye to 20-30% bounce rates from stale databases and keep your sender score flawless.
+                Stop burning money on stale database dumps. We only charge credits for 100% deliverable emails—risky and invalid mailboxes are completely free so your sender reputation stays bulletproof.
               </p>
             </div>
 
@@ -1102,13 +1102,13 @@ export default function App() {
                 <Download className="w-5 h-5 text-blue-600" />
               </div>
               <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
-                Seamless Export
+                OUTBOUND READY
               </div>
               <h3 className="text-xl font-semibold text-[#1d1d1f]">
-                Direct CSV & CRM Export
+                Export Clean Data Ready for Instantly & Smartlead
               </h3>
               <p className="mt-2.5 text-sm text-[#86868b] leading-relaxed">
-                Export high-confidence lead files ready to plug straight into Instantly, Smartlead, HubSpot, or your cold outreach sequencer with zero manual cleanups or column rearranging.
+                Skip manual spreadsheet cleanups. Download pre-formatted CSVs mapped perfectly for your email sequencer, complete with verified titles and companies for maximum reply rates.
               </p>
             </div>
 
