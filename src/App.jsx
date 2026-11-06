@@ -8,7 +8,7 @@ import {
   Flame,
   Check,
   Lock,
-  Download,
+  ChevronDown,
   X,
   AlertCircle,
   RefreshCw,
@@ -1002,16 +1002,13 @@ export default function App() {
       </section>
 
       {/* ========================================================= */}
-      {/* 5. FEATURES BENTO GRID (SPACIOUS 3-CARD ROW)              */}
+      {/* ========================================================= */}
+      {/* 5. FEATURES SECTION (3 ALTERNATING ZIG-ZAG ROWS)          */}
       {/* ========================================================= */}
       <section id="features" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 sm:scroll-mt-28">
         
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-semibold tracking-wide text-blue-600 mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            BUILT FOR PROSPECTORS & AGENCIES
-          </div>
+        <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl text-slate-900 font-extrabold tracking-tight leading-tight">
             Zero-Bounce Cold Lead Extraction Directly on LinkedIn
           </h2>
@@ -1020,115 +1017,229 @@ export default function App() {
           </p>
         </div>
 
-        {/* 3 Spacious Cards Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        {/* 3 Stacked Zig-Zag Rows */}
+        <div className="space-y-24 lg:space-y-32">
           
-          {/* Card 1: One-Click Extension Capture */}
-          <div className="transform-gpu will-change-transform bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-[24px] border border-black/[0.06] shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
-            <div>
-              <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-5">
-                <ChromeIcon className="w-5 h-5 text-blue-600" />
+          {/* Row 1: LINKEDIN SAFETY */}
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            {/* Copy Column */}
+            <div className="w-full lg:w-1/2 space-y-4">
+              <div>
+                <span className="inline-flex rounded-full bg-blue-50 text-blue-600 border border-blue-100 px-3 py-1 text-xs font-semibold tracking-wide">
+                  LINKEDIN SAFETY
+                </span>
               </div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
-                LINKEDIN SAFETY
-              </div>
-              <h3 className="text-xl font-semibold text-[#1d1d1f]">
+              <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
                 Scrape Leads Without Account Restrictions
               </h3>
-              <p className="mt-2.5 text-sm text-[#86868b] leading-relaxed">
-                Prospect aggressively with built-in human pacing that keeps your LinkedIn account completely safe. Grab entire search pages in one click without opening dozens of tabs.
-              </p>
+              <ul className="space-y-3 pt-2">
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    Prospect aggressively with built-in human pacing that keeps your LinkedIn account completely safe.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    Grab entire search pages in one click without opening dozens of tabs.
+                  </span>
+                </li>
+              </ul>
             </div>
 
-            <div className="mt-6 p-4 rounded-2xl bg-slate-50/80 border border-black/[0.04] text-xs text-slate-700">
-              <div className="flex items-center justify-between pb-2 border-b border-black/[0.04]">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                  <span className="font-medium text-[#1d1d1f]">LinkedIn Profile Widget</span>
+            {/* Visual Panel Column */}
+            <div className="w-full lg:w-1/2" aria-hidden="true">
+              <div className="relative mx-auto w-full max-w-md [perspective:1200px] [transform-style:preserve-3d]">
+                {/* Offset Ghost Layer to fake depth */}
+                <div 
+                  className="absolute inset-0 rounded-2xl border border-white/10 bg-slate-800/60 pointer-events-none translate-x-2.5 translate-y-2.5 scale-[0.98] lg:[transform:rotateX(8deg)_rotateY(-12deg)] motion-reduce:transform-none" 
+                  aria-hidden="true" 
+                />
+
+                {/* Main Dark Glass Panel */}
+                <div className="relative rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur p-5 space-y-3 text-left transition-transform duration-500 lg:[transform:rotateX(8deg)_rotateY(-12deg)] hover:lg:[transform:rotateX(4deg)_rotateY(-6deg)] motion-reduce:transition-none motion-reduce:transform-none shadow-[0_40px_100px_rgba(59,130,246,0.2)]">
+                  {/* Header row */}
+                  <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                    <span className="text-sm text-slate-200">Safe Zone</span>
+                    <div className="w-9 h-5 rounded-full bg-emerald-500 p-0.5 shadow-[0_0_12px_rgba(16,185,129,0.6)] flex items-center justify-end">
+                      <div className="w-4 h-4 rounded-full bg-white shadow-xs" />
+                    </div>
+                  </div>
+
+                  {/* Text + Bar */}
+                  <div className="space-y-2 py-1">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                      <span className="text-xs text-slate-300">Today: 18 / 50 • Human-paced</span>
+                    </div>
+                    <div className="w-full bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                      <div className="bg-gradient-to-r from-blue-500 to-sky-400 h-full w-[36%]" />
+                    </div>
+                  </div>
+
+                  {/* Floating Badge */}
+                  <div className="pt-2 sm:pt-0 sm:absolute sm:-bottom-3 sm:-right-3">
+                    <span className="inline-flex items-center rounded-full border border-emerald-400/30 bg-emerald-500/15 text-emerald-300 backdrop-blur px-3 py-1 text-xs font-medium shadow-lg whitespace-normal sm:whitespace-nowrap text-center">
+                      Save Status: Already Saved • $0 Charged
+                    </span>
+                  </div>
                 </div>
-                <span className="text-[10px] font-medium text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200/50">
-                  1-Click
-                </span>
-              </div>
-              <div className="mt-2.5 flex items-center justify-between">
-                <span className="font-mono text-slate-600">brian@airbnb.com</span>
-                <span className="font-semibold text-emerald-600 flex items-center gap-1 text-[11px]">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> 99.8% Safe
-                </span>
               </div>
             </div>
           </div>
 
-          {/* Card 2: Zero-Bounce Protection */}
-          <div className="transform-gpu will-change-transform bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-[24px] border border-black/[0.06] shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
-            <div>
-              <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-5">
-                <ShieldCheck className="w-5 h-5 text-blue-600" />
+          {/* Row 2: ZERO WASTE */}
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20">
+            {/* Copy Column */}
+            <div className="w-full lg:w-1/2 space-y-4">
+              <div>
+                <span className="inline-flex rounded-full bg-teal-50 text-teal-600 border border-teal-100 px-3 py-1 text-xs font-semibold tracking-wide">
+                  ZERO WASTE
+                </span>
               </div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
-                ZERO WASTE
-              </div>
-              <h3 className="text-xl font-semibold text-[#1d1d1f]">
+              <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
                 0% Bounces. $0 Charged for Dead Emails.
               </h3>
-              <p className="mt-2.5 text-sm text-[#86868b] leading-relaxed">
-                Stop burning money on stale database dumps. We only charge credits for 100% deliverable emails—risky and invalid mailboxes are completely free so your sender reputation stays bulletproof.
-              </p>
+              <ul className="space-y-3 pt-2">
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    Stop burning money on stale database dumps.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    We only charge credits for 100% deliverable emails—risky and invalid mailboxes are completely free so your sender reputation stays bulletproof.
+                  </span>
+                </li>
+              </ul>
             </div>
 
-            <div className="mt-6 p-4 rounded-2xl bg-slate-50/80 border border-black/[0.04] text-xs text-slate-700">
-              <div className="flex items-center justify-between pb-2 border-b border-black/[0.04]">
-                <span className="font-medium text-[#1d1d1f]">Deliverability Comparison</span>
-                <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/50">
-                  99% vs 76%
-                </span>
-              </div>
-              <div className="mt-2.5 space-y-1.5">
-                <div className="flex justify-between items-center text-[11px]">
-                  <span className="text-slate-500">GhostLead Bounces</span>
-                  <span className="font-semibold text-emerald-600">&lt; 0.6%</span>
-                </div>
-                <div className="w-full bg-slate-200/70 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-emerald-500 h-full w-[99.4%]" />
+            {/* Visual Panel Column */}
+            <div className="w-full lg:w-1/2" aria-hidden="true">
+              <div className="relative mx-auto w-full max-w-md [perspective:1200px] [transform-style:preserve-3d]">
+                {/* Offset Ghost Layer to fake depth (mirrored tilt) */}
+                <div 
+                  className="absolute inset-0 rounded-2xl border border-white/10 bg-slate-800/60 pointer-events-none -translate-x-2.5 translate-y-2.5 scale-[0.98] lg:[transform:rotateX(8deg)_rotateY(12deg)] motion-reduce:transform-none" 
+                  aria-hidden="true" 
+                />
+
+                {/* Main Dark Glass Panel */}
+                <div className="relative rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur p-5 space-y-3 text-left transition-transform duration-500 lg:[transform:rotateX(8deg)_rotateY(12deg)] hover:lg:[transform:rotateX(4deg)_rotateY(6deg)] motion-reduce:transition-none motion-reduce:transform-none shadow-[0_40px_100px_rgba(20,184,166,0.2)]">
+                  {/* Shield Indicator + Verified Active Mailbox */}
+                  <div className="flex items-center gap-3">
+                    <div className="h-12 w-12 rounded-xl bg-teal-500/15 border border-teal-400/30 text-teal-300 flex items-center justify-center shrink-0">
+                      <ShieldCheck className="h-6 w-6 text-teal-300" aria-hidden="true" />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                      <span className="text-sm font-medium text-slate-200">Verified Active Mailbox</span>
+                    </div>
+                  </div>
+
+                  {/* Red dot + Bounce Screened • $0 */}
+                  <div className="flex items-center gap-2 py-1 text-sm text-slate-300">
+                    <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
+                    <span>Bounce Screened • $0</span>
+                  </div>
+
+                  {/* Bottom status bar */}
+                  <div className="rounded-lg border border-teal-400/20 bg-teal-500/10 px-3 py-2 text-xs text-teal-200 font-medium">
+                    No Credit Used - Catch-All filtered
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Card 3: Direct CSV & CRM Export */}
-          <div className="transform-gpu will-change-transform bg-white/90 backdrop-blur-xl p-6 sm:p-8 rounded-[24px] border border-black/[0.06] shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
-            <div>
-              <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-5">
-                <Download className="w-5 h-5 text-blue-600" />
+          {/* Row 3: OUTBOUND READY */}
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            {/* Copy Column */}
+            <div className="w-full lg:w-1/2 space-y-4">
+              <div>
+                <span className="inline-flex rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100 px-3 py-1 text-xs font-semibold tracking-wide">
+                  OUTBOUND READY
+                </span>
               </div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-[#86868b] mb-1">
-                OUTBOUND READY
-              </div>
-              <h3 className="text-xl font-semibold text-[#1d1d1f]">
-                Export Clean Data Ready for Instantly & Smartlead
+              <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+                Export Clean Data Ready for Instantly &amp; Smartlead
               </h3>
-              <p className="mt-2.5 text-sm text-[#86868b] leading-relaxed">
-                Skip manual spreadsheet cleanups. Download pre-formatted CSVs mapped perfectly for your email sequencer, complete with verified titles and companies for maximum reply rates.
-              </p>
+              <ul className="space-y-3 pt-2">
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    Skip manual spreadsheet cleanups.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    Download pre-formatted CSVs mapped perfectly for your email sequencer, complete with verified titles and companies for maximum reply rates.
+                  </span>
+                </li>
+              </ul>
             </div>
 
-            <div className="mt-6 p-4 rounded-2xl bg-slate-50/80 border border-black/[0.04] text-xs text-slate-700">
-              <div className="flex items-center justify-between pb-2 border-b border-black/[0.04]">
-                <span className="font-medium text-[#1d1d1f]">1-Click Integration Formats</span>
-                <span className="text-[10px] font-medium text-[#1d1d1f] bg-black/[0.04] px-2.5 py-0.5 rounded-full border border-black/[0.04]">
-                  Instant
-                </span>
-              </div>
-              <div className="mt-2.5 flex flex-wrap gap-2">
-                <span className="px-2.5 py-1 rounded-full bg-white border border-black/[0.06] font-mono text-[10px] font-medium text-slate-700 shadow-2xs">
-                  Instantly.ai
-                </span>
-                <span className="px-2.5 py-1 rounded-full bg-white border border-black/[0.06] font-mono text-[10px] font-medium text-slate-700 shadow-2xs">
-                  Smartlead
-                </span>
-                <span className="px-2.5 py-1 rounded-full bg-white border border-black/[0.06] font-mono text-[10px] font-medium text-slate-700 shadow-2xs">
-                  Clean CSV
-                </span>
+            {/* Visual Panel Column */}
+            <div className="w-full lg:w-1/2" aria-hidden="true">
+              <div className="relative mx-auto w-full max-w-md [perspective:1200px] [transform-style:preserve-3d]">
+                {/* Ambient glow behind panel */}
+                <div 
+                  className="absolute -inset-6 -z-10 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none" 
+                  aria-hidden="true" 
+                />
+
+                {/* Offset Ghost Layer to fake depth */}
+                <div 
+                  className="absolute inset-0 rounded-2xl border border-white/10 bg-slate-800/60 pointer-events-none translate-x-2.5 translate-y-2.5 scale-[0.98] lg:[transform:rotateX(8deg)_rotateY(-12deg)] motion-reduce:transform-none" 
+                  aria-hidden="true" 
+                />
+
+                {/* Main Dark Glass Panel */}
+                <div className="relative rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur p-5 space-y-3 text-left transition-transform duration-500 lg:[transform:rotateX(8deg)_rotateY(-12deg)] hover:lg:[transform:rotateX(4deg)_rotateY(-6deg)] motion-reduce:transition-none motion-reduce:transform-none shadow-[0_40px_100px_rgba(99,102,241,0.25)]">
+                  {/* Faux Select */}
+                  <div className="flex items-center justify-between rounded-lg border border-white/15 bg-gradient-to-b from-slate-700 to-slate-800 px-3 py-2 text-sm text-slate-100">
+                    <span>CSV Format Preset: Instantly.ai</span>
+                    <ChevronDown className="h-4 w-4 text-slate-300 shrink-0 ml-2" aria-hidden="true" />
+                  </div>
+
+                  {/* Layered Stack Under It */}
+                  <div className="space-y-1.5 pt-1">
+                    <div className="flex items-center justify-between rounded-lg border border-white/10 bg-slate-800/70 px-3 py-2 text-xs text-slate-300 relative z-20">
+                      <span>Cleaned Name</span>
+                      <span className="text-slate-400 font-mono text-[11px]">instantly.com</span>
+                    </div>
+                    <div className="flex items-center justify-between rounded-lg border border-white/10 bg-slate-800/70 px-3 py-2 text-xs text-slate-300 -mt-1 translate-x-1.5 scale-[0.98] relative z-10">
+                      <span>Verified Direct Work Email</span>
+                      <span className="text-slate-400 font-mono text-[11px]">deliverable</span>
+                    </div>
+                    <div className="flex items-center justify-between rounded-lg border border-white/10 bg-slate-800/70 px-3 py-2 text-xs text-slate-300 -mt-1 translate-x-3 scale-[0.96] relative z-0">
+                      <span>Validated Title &amp; Company</span>
+                      <span className="text-slate-400 font-mono text-[11px]">ready</span>
+                    </div>
+                  </div>
+
+                  {/* Bottom block (static span, not a button) */}
+                  <div className="pt-1">
+                    <span className="inline-flex rounded-lg bg-gradient-to-r from-indigo-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30">
+                      348 Leads Ready (.csv) ↓
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
