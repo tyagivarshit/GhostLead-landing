@@ -5,7 +5,6 @@ import {
   Sparkles,
   CheckCircle2,
   Zap,
-  Flame,
   Check,
   Lock,
   ChevronDown,
@@ -20,7 +19,6 @@ import confetti from 'canvas-confetti';
 import { registerWaitlistUser, supabase } from './lib/supabase';
 import { calculateWaveMetrics } from './lib/waveMetrics';
 import WaveBadge from './components/WaveBadge';
-import { WavesSection } from './components/WavesSection';
 import { Pricing } from './components/Pricing';
 import { getPricingPlans } from './lib/pricingPlans';
 import { Navbar, GhostIcon } from './components/Navbar';
@@ -28,7 +26,7 @@ import { PricingPage } from './components/PricingPage';
 import { LegalPolicyView } from './components/LegalPolicyView';
 import { Footer } from './components/Footer';
 
-export { WavesSection, Pricing, Navbar, PricingPage, LegalPolicyView, Footer, GhostIcon };
+export { Pricing, Navbar, PricingPage, LegalPolicyView, Footer, GhostIcon };
 
 // 6-Hour Rolling Sandbox Window
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
@@ -982,26 +980,6 @@ export default function App() {
 
       </section>
 
-      {/* ========================================================= */}
-      {/* 4.5 SCARCITY WAVES TRACKER                                */}
-      {/* ========================================================= */}
-      <section className="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] text-[#6e6e73] text-[11px] font-semibold border border-black/[0.04] mb-3">
-            <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-            Strict Scarcity Wave Release
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-semibold text-[#1d1d1f] tracking-tight">
-            Lifetime Wave Progression
-          </h2>
-          <p className="mt-2.5 text-sm sm:text-base text-[#86868b]">
-            Strictly capped to the first 150 accounts across 3 waves before shifting to monthly SaaS.
-          </p>
-        </div>
-        <WavesSection totalCount={totalCount} />
-      </section>
-
-      {/* ========================================================= */}
       {/* ========================================================= */}
       {/* 5. FEATURES SECTION (3 ALTERNATING ZIG-ZAG ROWS)          */}
       {/* ========================================================= */}
