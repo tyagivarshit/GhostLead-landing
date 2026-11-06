@@ -16,8 +16,6 @@ export function WavesSection({ totalCount = 0 }) {
 
   // WAVE 1 (30 slots total)
   const isWave1Active = count < 30;
-  const isWave1SoldOut = count >= 30;
-  const wave1Percent = isWave1SoldOut ? 100 : Math.round((count / 30) * 100);
 
   // WAVE 2 (70 slots total, activates when totalCount >= 30)
   const isWave2Upcoming = count < 30;
@@ -88,30 +86,8 @@ export function WavesSection({ totalCount = 0 }) {
           <span className="text-2xl font-extrabold text-blue-600">$69</span>
         </div>
 
-        <div className="text-xs text-[#86868b] mt-1 min-h-[1.5rem]">
-          Save 65% • Lock for $0 today
-        </div>
-
-        {/* Progress Bar */}
-        <div 
-          className="mt-3 w-full h-1.5 rounded-full overflow-hidden bg-black/[0.04]"
-          role="progressbar"
-          aria-valuenow={wave1Percent}
-          aria-valuemin={0}
-          aria-valuemax={100}
-        >
-          <div 
-            className={`h-full transition-all duration-500 rounded-full ${
-              isWave1Active ? 'bg-gradient-to-r from-blue-600 to-sky-500' : 'bg-slate-300'
-            }`}
-            style={{ width: `${wave1Percent}%` }} 
-          />
-        </div>
-
-        <div className={`text-[10px] font-medium text-right mt-1.5 ${
-          isWave1Active ? 'text-blue-600' : 'text-[#86868b]'
-        }`}>
-          {`${wave1Percent}% Claimed`}
+        <div className="text-xs text-[#86868b] mt-1">
+          30 Slots Available • Lock for $0
         </div>
       </div>
 

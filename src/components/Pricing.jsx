@@ -118,10 +118,10 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
       {/* Pro Card (Founder's Choice / Highlighted) */}
       <div 
         data-testid="pricing-card-pro"
-        className="rounded-[28px] p-6 sm:p-8 bg-white/95 backdrop-blur-xl border-2 border-purple-500/40 ring-1 ring-purple-500/20 shadow-lg flex flex-col justify-between relative hover:shadow-xl transition-all transform-gpu will-change-transform"
+        className="rounded-[28px] p-6 sm:p-8 bg-white/95 backdrop-blur-xl border-2 border-blue-500 shadow-xl shadow-blue-500/10 flex flex-col justify-between relative hover:shadow-xl transition-all transform-gpu will-change-transform"
       >
         {/* Founder's Choice Pill */}
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1d1d1f] text-white text-[11px] font-semibold px-4 py-1 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1.5 whitespace-nowrap">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-sky-500 text-white text-[11px] font-semibold px-4 py-1 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1.5 whitespace-nowrap">
           <Sparkles className="w-3 h-3 text-amber-300" />
           Founder's Choice
         </div>
@@ -129,7 +129,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
         <div>
           <div className="flex justify-between items-center gap-2">
             <span className="text-xl font-semibold text-[#1d1d1f]">{Pro.name}</span>
-            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 border border-purple-200/60 inline-flex items-center gap-1.5 flex-shrink-0">
+            <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full text-blue-600 bg-blue-50 border border-blue-200 inline-flex items-center gap-1.5 flex-shrink-0">
               {!isClosed && (
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -145,14 +145,14 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
             <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">$149</span>
             <span className="text-[#86868b] text-sm font-medium">/ lifetime</span>
           </div>
-          <p className="text-xs text-purple-600 font-medium mt-1">
+          <p className="text-xs text-blue-600 font-medium mt-1">
             {Pro.subtitle}
           </p>
 
           {/* Dynamic Wave Escalation Badge */}
-          <div className="mt-5 py-2.5 px-3.5 rounded-2xl bg-purple-50/60 border border-purple-100 flex items-center justify-between text-xs">
-            <span className="font-medium text-purple-900">Price Escalation</span>
-            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-purple-600 text-white">
+          <div className="mt-5 py-2.5 px-3.5 rounded-2xl bg-blue-50/60 border border-blue-100 flex items-center justify-between text-xs">
+            <span className="font-medium text-blue-900">Price Escalation</span>
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full text-blue-600 bg-blue-50 border border-blue-200">
               {Pro.nextJumpNotice}
             </span>
           </div>
@@ -165,8 +165,8 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
               {PRO_FEATURES.map((feat, idx) => {
                 if (feat.startsWith('Everything in')) {
                   return (
-                    <li key={idx} className="pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-purple-600 flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
+                    <li key={idx} className="pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
                       <span>{feat}</span>
                     </li>
                   );

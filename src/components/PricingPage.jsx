@@ -55,10 +55,10 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: 0.05 }}
-          className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-[#1d1d1f] leading-[1.15]"
+          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.15]"
         >
           Non-Expiring Lifetime Token Stack.
-          <span className="block mt-1 sm:mt-2 text-[#86868b] font-normal">
+          <span className="block mt-1 sm:mt-2 text-slate-600 font-semibold">
             One-time payment. Never pay monthly.
           </span>
         </motion.h1>
@@ -86,7 +86,7 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan }) {
           </span>
           <span className="flex items-center gap-1.5">
             <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-            Live SMTP Handshake
+            0% Bounce Guarantee
           </span>
           <span className="flex items-center gap-1.5">
             <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
