@@ -991,10 +991,10 @@ export default function App() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl text-slate-900 font-extrabold tracking-tight leading-tight">
-            Zero-Bounce Cold Lead Extraction Directly on LinkedIn
+            Turn LinkedIn Profiles into Verified, Ready-to-Send Leads
           </h2>
           <p className="mt-3 text-base sm:text-lg text-[#86868b]">
-            Everything your sales team and agency need to land directly in primary inboxes without risking domain blacklists.
+            Everything you need to prospect safely, eliminate bounces, and export clean data without manual work.
           </p>
         </div>
 
