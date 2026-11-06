@@ -137,6 +137,11 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan }) {
           <Pricing totalCount={totalCount} onSelectPlan={onSelectPlan} onOpenModal={onSelectPlan} />
         </div>
 
+        {/* Public Launch Transition Notice */}
+        <p className="text-sm text-slate-500 text-center max-w-3xl mx-auto mt-6">
+          Notice: Public launch transitions permanently to monthly recurring billing ($39/mo, $79/mo, $159/mo). Wave 1 spots guarantee lifetime status.
+        </p>
+
         {/* Spacing wrapper between pricing cards container and footer */}
         <div className="pt-16 pb-12" />
       </section>

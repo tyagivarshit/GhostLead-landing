@@ -2,32 +2,32 @@ import { Check, Sparkles } from 'lucide-react';
 import { getPricingPlans } from '../lib/pricingPlans';
 
 const STARTER_FEATURES = [
-  '7,500 Non-Expiring Verification Credits',
-  '2 Concurrency Slots (Parallel processing)',
-  'Max 2,500 rows / day abuse limit',
-  'LinkedIn Extension Capture',
-  'Client CSV UI & Batch Validator',
-  'Pattern Cache Engine',
+  { text: '10,000 Non-Expiring Verification Credits', note: 'effective $0.0069/lead' },
+  { text: '2 Concurrency Slots (Parallel processing)' },
+  { text: 'Max 2,500 rows / day abuse limit' },
+  { text: 'Extension & Batch CSV Mapper' },
+  { text: 'Built-in Domain & Pattern Cache' },
+  { text: 'Zero-Waste Credit Guarantee ($0 on risky/bounces)' },
 ];
 
 const PRO_FEATURES = [
-  '22,000 Non-Expiring Verification Credits',
-  '4 Concurrency Slots',
-  'Max 8,000 rows / day abuse limit',
-  'Everything in Starter, plus:',
-  'Priority Drip Lane',
-  'Instantly & Smartlead 1-Click Sync',
-  'Domain Health Protection',
+  { text: '25,000 Non-Expiring Verification Credits', note: 'effective $0.0051/lead' },
+  { text: '4 Concurrency Slots' },
+  { text: 'Max 8,000 rows / day abuse limit' },
+  { text: 'Everything in Starter, plus:', isHeader: true },
+  { text: 'Priority Drip Processing Lane' },
+  { text: 'Instantly & Smartlead 1-Click Sync' },
+  { text: 'Mailbox Health & Deliverability Insights' },
 ];
 
 const AGENCY_FEATURES = [
-  '50,000 Non-Expiring Verification Credits',
-  '8 Concurrency Slots',
-  'Max 15,000 rows / day abuse limit',
-  'Everything in Pro, plus:',
-  'Full API Rail Access & Custom Webhooks',
-  '3 Team Member Seats',
-  'Dedicated High-Throughput Queue',
+  { text: '60,000 Non-Expiring Verification Credits', note: 'effective $0.0041/lead' },
+  { text: '8 Concurrency Slots' },
+  { text: 'Max 15,000 rows / day abuse limit' },
+  { text: 'Everything in Pro, plus:', isHeader: true },
+  { text: 'Full API Rail Access & Custom Webhooks' },
+  { text: '3 Team Member Seats' },
+  { text: 'Dedicated High-Throughput Queue' },
 ];
 
 /**
@@ -87,7 +87,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
           <div className="mt-5 py-2.5 px-3.5 rounded-2xl bg-slate-50/80 border border-black/[0.04] flex items-center justify-between text-xs">
             <span className="font-medium text-[#6e6e73]">Price Escalation</span>
             <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60">
-              {Starter.nextJumpNotice}
+              +$20 in Wave 2 ($89)
             </span>
           </div>
 
@@ -97,9 +97,14 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
             </div>
             <ul className="space-y-2.5 text-xs sm:text-sm text-[#6e6e73]">
               {STARTER_FEATURES.map((feat, idx) => (
-                <li key={idx} className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                  <span>{feat}</span>
+                <li key={idx} className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <span>{feat.text}</span>
+                    {feat.note && (
+                      <span className="block text-xs text-[#86868b]">{feat.note}</span>
+                    )}
+                  </div>
                 </li>
               ))}
             </ul>
@@ -108,10 +113,10 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
 
         <button 
           type="button"
-          onClick={() => handleSelect('Starter')}
+          onClick={() => handleSelect('starter')}
           className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-2.5 px-4 rounded-full font-medium text-xs sm:text-sm bg-slate-100 hover:bg-slate-200/80 text-[#1d1d1f] border border-black/[0.04] transition-all cursor-pointer flex items-center justify-center active:scale-98"
         >
-          Lock Starter Spot ($0)
+          Claim Starter Slot ($69)
         </button>
       </div>
 
@@ -142,7 +147,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
           
           <div className="mt-4 flex items-baseline gap-1.5">
             <span className="line-through text-slate-400 text-sm font-medium mr-2">$349</span>
-            <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">$149</span>
+            <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">$129</span>
             <span className="text-[#86868b] text-sm font-medium">/ lifetime</span>
           </div>
           <p className="text-xs text-blue-600 font-medium mt-1">
@@ -153,7 +158,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
           <div className="mt-5 py-2.5 px-3.5 rounded-2xl bg-blue-50/60 border border-blue-100 flex items-center justify-between text-xs">
             <span className="font-medium text-blue-900">Price Escalation</span>
             <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full text-blue-600 bg-blue-50 border border-blue-200">
-              {Pro.nextJumpNotice}
+              +$40 in Wave 2 ($169)
             </span>
           </div>
 
@@ -163,18 +168,23 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
             </div>
             <ul className="space-y-2.5 text-xs sm:text-sm text-[#6e6e73]">
               {PRO_FEATURES.map((feat, idx) => {
-                if (feat.startsWith('Everything in')) {
+                if (feat.isHeader) {
                   return (
                     <li key={idx} className="pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-blue-600 flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
-                      <span>{feat}</span>
+                      <span>{feat.text}</span>
                     </li>
                   );
                 }
                 return (
-                  <li key={idx} className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                    <span>{feat}</span>
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span>{feat.text}</span>
+                      {feat.note && (
+                        <span className="block text-xs text-[#86868b]">{feat.note}</span>
+                      )}
+                    </div>
                   </li>
                 );
               })}
@@ -184,10 +194,10 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
 
         <button 
           type="button"
-          onClick={() => handleSelect('Pro')}
+          onClick={() => handleSelect('pro')}
           className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-3 px-4 rounded-full font-medium text-xs sm:text-sm bg-[#1d1d1f] hover:bg-black text-white transition-all shadow-sm cursor-pointer flex items-center justify-center active:scale-98"
         >
-          Lock Pro Spot ($0)
+          Claim Pro Slot ($129)
         </button>
       </div>
 
@@ -212,7 +222,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
           
           <div className="mt-4 flex items-baseline gap-1.5">
             <span className="line-through text-slate-400 text-sm font-medium mr-2">$699</span>
-            <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">$299</span>
+            <span className="text-4xl sm:text-5xl font-semibold text-[#1d1d1f]">$249</span>
             <span className="text-[#86868b] text-sm font-medium">/ lifetime</span>
           </div>
           <p className="text-xs text-rose-600 font-medium mt-1">
@@ -223,7 +233,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
           <div className="mt-5 py-2.5 px-3.5 rounded-2xl bg-slate-50/80 border border-black/[0.04] flex items-center justify-between text-xs">
             <span className="font-medium text-[#6e6e73]">Price Escalation</span>
             <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60">
-              {Agency.nextJumpNotice}
+              +$100 in Wave 2 ($349)
             </span>
           </div>
 
@@ -233,18 +243,23 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
             </div>
             <ul className="space-y-2.5 text-xs sm:text-sm text-[#6e6e73]">
               {AGENCY_FEATURES.map((feat, idx) => {
-                if (feat.startsWith('Everything in')) {
+                if (feat.isHeader) {
                   return (
                     <li key={idx} className="pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-[#1d1d1f] flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5 text-purple-600 flex-shrink-0" />
-                      <span>{feat}</span>
+                      <span>{feat.text}</span>
                     </li>
                   );
                 }
                 return (
-                  <li key={idx} className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                    <span>{feat}</span>
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <span>{feat.text}</span>
+                      {feat.note && (
+                        <span className="block text-xs text-[#86868b]">{feat.note}</span>
+                      )}
+                    </div>
                   </li>
                 );
               })}
@@ -254,10 +269,10 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
 
         <button 
           type="button"
-          onClick={() => handleSelect('Agency')}
+          onClick={() => handleSelect('agency')}
           className="transform-gpu will-change-transform mt-7 w-full min-h-[44px] py-2.5 px-4 rounded-full font-medium text-xs sm:text-sm bg-slate-100 hover:bg-slate-200/80 text-[#1d1d1f] border border-black/[0.04] transition-all cursor-pointer flex items-center justify-center active:scale-98"
         >
-          Lock Agency Slot ($0)
+          Claim Agency Slot ($249)
         </button>
       </div>
 

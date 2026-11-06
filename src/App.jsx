@@ -41,9 +41,9 @@ const FAST_EASE = [0.16, 1, 0.3, 1];
 const FAST_TRANSITION = { duration: 0.25, ease: FAST_EASE };
 const MODAL_SPRING = { type: 'spring', stiffness: 280, damping: 26 };
 const MODAL_TIERS = [
-  { id: 'Starter', name: 'Starter', price: 69, credits: '7,500 Credits' },
-  { id: 'Pro', name: 'Pro', price: 149, credits: '22,000 Credits', popular: true },
-  { id: 'Agency', name: 'Agency', price: 299, credits: '50,000 Credits' },
+  { id: 'Starter', name: 'Starter', price: 69, credits: '10,000 Credits' },
+  { id: 'Pro', name: 'Pro', price: 129, credits: '25,000 Credits', popular: true },
+  { id: 'Agency', name: 'Agency', price: 249, credits: '60,000 Credits' },
 ];
 
 // Chrome Browser Extension Icon
@@ -303,7 +303,10 @@ export default function App() {
   };
 
   const openModal = (tier = 'Pro', customHeadline = null) => {
-    setSelectedTier(tier);
+    const matchedTier = MODAL_TIERS.find(
+      (t) => t.id.toLowerCase() === String(tier || '').toLowerCase()
+    );
+    setSelectedTier(matchedTier ? matchedTier.id : 'Pro');
     const defaultHeadline = waveMetrics.isClosed
       ? "Join Public Launch Waitlist"
       : "Lock Your Early Founder Access";
@@ -1398,7 +1401,7 @@ export default function App() {
                           <span>Securing Your Slot...</span>
                         </span>
                       ) : (
-                        <span>Lock Pre-Booking (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 149}) →</span>
+                        <span>Lock Pre-Booking (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 129}) →</span>
                       )}
                     </button>
                   </form>
@@ -1450,7 +1453,7 @@ export default function App() {
                   <div className="mt-4 p-3.5 sm:p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-left text-slate-700 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-slate-500">Selected Tier:</span>
-                      <span className="font-semibold text-blue-600">{selectedTier} (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 149} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
+                      <span className="font-semibold text-blue-600">{selectedTier} (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 129} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500">Contact Email:</span>

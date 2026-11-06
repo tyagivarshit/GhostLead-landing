@@ -21,7 +21,6 @@ export function WavesSection({ totalCount = 0 }) {
   const isWave2Upcoming = count < 30;
   const isWave2Active = count >= 30 && count < 100;
   const isWave2SoldOut = count >= 100;
-  const wave2Remaining = Math.max(0, 100 - count);
   const wave2Percent = isWave2SoldOut 
     ? 100 
     : isWave2Active 
@@ -80,6 +79,9 @@ export function WavesSection({ totalCount = 0 }) {
         <div className="font-semibold text-[#1d1d1f] text-base sm:text-lg mt-2">
           Wave 1: Founder Access
         </div>
+        <div className="text-xs text-[#86868b] mt-0.5">
+          30 Total Slots • Active Now
+        </div>
 
         <div className="flex items-baseline mt-2">
           <span className="line-through text-slate-400 text-sm font-medium mr-2">$199</span>
@@ -87,7 +89,7 @@ export function WavesSection({ totalCount = 0 }) {
         </div>
 
         <div className="text-xs text-[#86868b] mt-1">
-          30 Slots Available • Lock for $0
+          Save 65% • Lock for $0 today
         </div>
       </div>
 
@@ -141,22 +143,20 @@ export function WavesSection({ totalCount = 0 }) {
         </div>
 
         <div className="font-semibold text-[#1d1d1f] text-base sm:text-lg mt-2">
-          Wave 2: Growth Tier
+          Wave 2: Standard LTD
+        </div>
+        <div className="text-xs text-[#86868b] mt-0.5">
+          70 Total Slots • Unlocks after Wave 1
         </div>
 
-        <div className="flex items-baseline gap-2 mt-2">
-          <span className="text-2xl font-extrabold text-[#1d1d1f]">$119</span>
-          <span className="text-xs text-[#86868b] font-medium">Pending Activation</span>
+        <div className="flex items-baseline mt-2">
+          <span className="line-through text-slate-400 text-sm font-medium mr-2">$199</span>
+          <span className="text-2xl font-extrabold text-[#1d1d1f]">$89</span>
+          <span className="text-xs text-[#86868b] font-medium ml-1.5">(planned)</span>
         </div>
 
         <div className="text-xs text-[#86868b] mt-1 min-h-[1.5rem]">
-          {isWave2Upcoming ? (
-            '70 Total Slots • Unlocks immediately once Wave 1 ends'
-          ) : isWave2SoldOut ? (
-            <>All <strong className="text-[#1d1d1f] font-semibold">70 / 70</strong> slots claimed in this phase.</>
-          ) : (
-            <>Only <strong className="text-purple-700 font-semibold">{`${wave2Remaining} / 70`}</strong> slots remaining</>
-          )}
+          +$20 price escalation
         </div>
 
         {/* Progress Bar */}
@@ -234,16 +234,20 @@ export function WavesSection({ totalCount = 0 }) {
         </div>
 
         <div className="font-semibold text-[#1d1d1f] text-base sm:text-lg mt-2">
-          Wave 3: Final Retail LTD
+          Wave 3: Final Lockdown
+        </div>
+        <div className="text-xs text-[#86868b] mt-0.5">
+          Last 50 Slots • Starter tier killed
         </div>
 
-        <div className="flex items-baseline gap-2 mt-2">
+        <div className="flex items-baseline mt-2">
+          <span className="line-through text-slate-400 text-sm font-medium mr-2">$349</span>
           <span className="text-2xl font-extrabold text-[#1d1d1f]">$199</span>
-          <span className="text-xs text-[#86868b] font-medium">Locked</span>
+          <span className="text-xs text-[#86868b] font-medium ml-1.5">(final)</span>
         </div>
 
         <div className="text-xs text-[#86868b] mt-1 min-h-[1.5rem]">
-          Final LTD before switching to monthly recurring
+          Final LTD tier before shifting to $39-$159/mo
         </div>
 
         {/* Progress Bar */}
