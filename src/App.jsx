@@ -986,7 +986,7 @@ export default function App() {
       </section>
 
       {/* ========================================================= */}
-      {/* 5. FEATURES SECTION (3 ALTERNATING ZIG-ZAG ROWS)          */}
+      {/* 5. FEATURES SECTION (4 ALTERNATING ZIG-ZAG ROWS)          */}
       {/* ========================================================= */}
       <section id="features" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 sm:scroll-mt-28">
         
@@ -1000,7 +1000,7 @@ export default function App() {
           </p>
         </div>
 
-        {/* 3 Stacked Zig-Zag Rows */}
+        {/* 4 Stacked Zig-Zag Rows */}
         <div className="space-y-24 lg:space-y-32">
           
           {/* Row 1: Zero Ban Risk */}
@@ -1362,6 +1362,75 @@ export default function App() {
                       <span className="text-slate-400">Email Pattern Found:</span>
                       <span className="font-mono font-semibold text-emerald-300">{'{first}.{last}'}</span>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Row 4: ZERO WASTE */}
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20">
+            {/* Copy Column */}
+            <div className="w-full lg:w-1/2 space-y-4">
+              <div>
+                <span className="inline-flex rounded-full bg-teal-50 text-teal-600 border border-teal-100 px-3 py-1 text-xs font-semibold tracking-wide">
+                  ZERO WASTE
+                </span>
+              </div>
+              <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+                0% Bounces. $0 Charged for Dead Emails.
+              </h3>
+              <ul className="space-y-3 pt-2">
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    Stop burning money on stale database dumps.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    We only charge credits for 100% deliverable emails—risky and invalid mailboxes are completely free so your sender reputation stays bulletproof.
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Visual Panel Column */}
+            <div className="w-full lg:w-1/2" aria-hidden="true">
+              <div className="relative mx-auto w-full max-w-md [perspective:1200px] [transform-style:preserve-3d]">
+                {/* Offset Ghost Layer to fake depth (mirrored tilt) */}
+                <div 
+                  className="absolute inset-0 rounded-2xl border border-white/10 bg-slate-800/60 pointer-events-none -translate-x-2.5 translate-y-2.5 scale-[0.98] lg:[transform:rotateX(8deg)_rotateY(12deg)] motion-reduce:transform-none" 
+                  aria-hidden="true" 
+                />
+
+                {/* Main Dark Glass Panel */}
+                <div className="relative rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur p-5 space-y-3 text-left transition-transform duration-500 lg:[transform:rotateX(8deg)_rotateY(12deg)] hover:lg:[transform:rotateX(4deg)_rotateY(6deg)] motion-reduce:transition-none motion-reduce:transform-none shadow-[0_40px_100px_rgba(20,184,166,0.2)]">
+                  {/* Shield Indicator + Verified Active Mailbox */}
+                  <div className="flex items-center gap-3">
+                    <div className="h-12 w-12 rounded-xl bg-teal-500/15 border border-teal-400/30 text-teal-300 flex items-center justify-center shrink-0">
+                      <ShieldCheck className="h-6 w-6 text-teal-300" aria-hidden="true" />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                      <span className="text-sm font-medium text-slate-200">Verified Active Mailbox</span>
+                    </div>
+                  </div>
+
+                  {/* Red dot + Bounce Screened • $0 */}
+                  <div className="flex items-center gap-2 py-1 text-sm text-slate-300">
+                    <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
+                    <span>Bounce Screened • $0</span>
+                  </div>
+
+                  {/* Bottom status bar */}
+                  <div className="rounded-lg border border-teal-400/20 bg-teal-500/10 px-3 py-2 text-xs text-teal-200 font-medium">
+                    No Credit Used - Catch-All filtered
                   </div>
                 </div>
               </div>
