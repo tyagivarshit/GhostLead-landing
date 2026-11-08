@@ -14,7 +14,7 @@ const STARTER_FEATURES = [
 
 const PRO_FEATURES = [
   { text: '15,000 Lifetime Verified Deliverable Prospects (Non-expiring)' },
-  { text: 'Everything in Starter, plus:', isHeader: true },
+  { text: 'Everything in Solo, plus:', isHeader: true },
   { text: '4 Concurrent Mailbox Probing Channels' },
   { text: '4,000 Daily Prospect Ingestion Limit' },
   { text: 'Background CSV Processing Queue (runs even if browser is closed)' },
@@ -116,10 +116,10 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
 
         <button 
           type="button"
-          onClick={() => handleSelect('starter')}
+          onClick={() => handleSelect('solo')}
           className="w-full mt-7 cursor-pointer flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-3 px-6 rounded-xl transition-all duration-200 border border-slate-200/80"
         >
-          Claim Starter Slot ($69)
+          Claim Solo Slot ($69)
         </button>
       </div>
 

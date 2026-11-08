@@ -80,7 +80,7 @@ export function WavesSection({ totalCount = 0 }) {
           Wave 1: Founder Access
         </div>
         <div className="text-xs text-[#86868b] mt-0.5">
-          30 Total Slots • Starter $69 / Pro $129 / Agency $249
+          30 Total Slots • Solo $69 / Pro $129 / Agency $249
         </div>
 
         <div className="flex items-baseline mt-2">
@@ -146,7 +146,7 @@ export function WavesSection({ totalCount = 0 }) {
           Wave 2: Standard LTD
         </div>
         <div className="text-xs text-[#86868b] mt-0.5">
-          70 Total Slots • Starter $89 / Pro $169 / Agency $349
+          70 Total Slots • Solo $89 / Pro $169 / Agency $349
         </div>
 
         <div className="flex items-baseline mt-2">
@@ -229,7 +229,7 @@ export function WavesSection({ totalCount = 0 }) {
               ? 'WAVE 3: FINAL PHASE' 
               : isWave3SoldOut 
                 ? 'ALL LTD SLOTS CLAIMED' 
-                : 'Starter Tier Decommissioned'}
+                : 'Solo Tier Decommissioned'}
           </span>
         </div>
 
@@ -237,7 +237,7 @@ export function WavesSection({ totalCount = 0 }) {
           Wave 3: Final Lockdown
         </div>
         <div className="text-xs text-[#86868b] mt-0.5">
-          Last 50 Slots • Pro $249 / Agency $399
+          Last 50 Slots • Pro $249 / Agency $399 (Solo Tier Decommissioned)
         </div>
 
         <div className="flex items-baseline mt-2">

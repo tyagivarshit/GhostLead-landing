@@ -41,9 +41,9 @@ const FAST_EASE = [0.16, 1, 0.3, 1];
 const FAST_TRANSITION = { duration: 0.25, ease: FAST_EASE };
 const MODAL_SPRING = { type: 'spring', stiffness: 280, damping: 26 };
 const MODAL_TIERS = [
-  { id: 'Starter', name: 'Starter', price: 69, credits: '5,000 Credits' },
-  { id: 'Pro', name: 'Pro', price: 129, credits: '15,000 Credits', popular: true },
-  { id: 'Agency', name: 'Agency', price: 249, credits: '35,000 Credits' },
+  { id: 'Solo', name: 'Solo', anchor: '$199', price: 69, credits: '5,000 Credits' },
+  { id: 'Pro', name: 'Pro', anchor: '$349', price: 129, credits: '15,000 Credits', popular: true },
+  { id: 'Agency', name: 'Agency', anchor: '$699', price: 249, credits: '35,000 Credits' },
 ];
 
 // Chrome Browser Extension Icon
@@ -1346,10 +1346,8 @@ export default function App() {
                             </div>
                             <div className="w-full mt-1">
                               <div className="text-sm sm:text-base font-bold text-slate-900 leading-tight">
-                                {tier.price === 69 && (
-                                  <span className="line-through text-slate-400 text-sm font-medium mr-2">
-                                    $199
-                                  </span>
+                                {tier.anchor && (
+                                  <span className="line-through text-slate-400 mr-1.5">{tier.anchor}</span>
                                 )}
                                 ${tier.price}
                               </div>
