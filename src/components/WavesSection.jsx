@@ -80,7 +80,7 @@ export function WavesSection({ totalCount = 0 }) {
           Wave 1: Founder Access
         </div>
         <div className="text-xs text-[#86868b] mt-0.5">
-          30 Total Slots • Active Now
+          30 Total Slots • Starter $69 / Pro $129 / Agency $249
         </div>
 
         <div className="flex items-baseline mt-2">
@@ -138,7 +138,7 @@ export function WavesSection({ totalCount = 0 }) {
               ? 'WAVE 2: ACTIVE NOW' 
               : isWave2SoldOut 
                 ? 'SOLD OUT (70/70)' 
-                : 'Pending Activation'}
+                : 'Unlocks after Wave 1'}
           </span>
         </div>
 
@@ -146,7 +146,7 @@ export function WavesSection({ totalCount = 0 }) {
           Wave 2: Standard LTD
         </div>
         <div className="text-xs text-[#86868b] mt-0.5">
-          70 Total Slots • Unlocks after Wave 1
+          70 Total Slots • Starter $89 / Pro $169 / Agency $349
         </div>
 
         <div className="flex items-baseline mt-2">
@@ -229,7 +229,7 @@ export function WavesSection({ totalCount = 0 }) {
               ? 'WAVE 3: FINAL PHASE' 
               : isWave3SoldOut 
                 ? 'ALL LTD SLOTS CLAIMED' 
-                : 'Locked'}
+                : 'Starter Tier Decommissioned'}
           </span>
         </div>
 
@@ -237,12 +237,12 @@ export function WavesSection({ totalCount = 0 }) {
           Wave 3: Final Lockdown
         </div>
         <div className="text-xs text-[#86868b] mt-0.5">
-          Last 50 Slots • Starter tier killed
+          Last 50 Slots • Pro $249 / Agency $399
         </div>
 
         <div className="flex items-baseline mt-2">
           <span className="line-through text-slate-400 text-sm font-medium mr-2">$349</span>
-          <span className="text-2xl font-extrabold text-[#1d1d1f]">$199</span>
+          <span className="text-2xl font-extrabold text-[#1d1d1f]">$249</span>
           <span className="text-xs text-[#86868b] font-medium ml-1.5">(final)</span>
         </div>
 

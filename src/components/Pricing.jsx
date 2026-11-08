@@ -2,32 +2,35 @@ import { Check, Sparkles } from 'lucide-react';
 import { getPricingPlans } from '../lib/pricingPlans';
 
 const STARTER_FEATURES = [
-  { text: '10,000 Non-Expiring Verification Credits', note: 'effective $0.0069/lead' },
-  { text: '2 Concurrency Slots (Parallel processing)' },
-  { text: 'Max 2,500 rows / day abuse limit' },
-  { text: 'Extension & Batch CSV Mapper' },
-  { text: 'Built-in Domain & Pattern Cache' },
-  { text: 'Zero-Waste Credit Guarantee ($0 on risky/bounces)' },
+  { text: '5,000 Lifetime Verified Deliverable Prospects (Non-expiring)' },
+  { text: 'In-Page LinkedIn Multi-Capture (10 profiles per view)' },
+  { text: '2 Concurrent Mailbox Probing Channels' },
+  { text: '1,000 Daily Prospect Ingestion Limit' },
+  { text: 'Dynamic CSV Mapping & Ingestion Rail' },
+  { text: 'Native 1-Click Exports: Instantly.ai, Smartlead, Lemlist' },
+  { text: 'LinkedIn Human-Pacing Activity Meter' },
+  { text: '1 User Seat' },
 ];
 
 const PRO_FEATURES = [
-  { text: '25,000 Non-Expiring Verification Credits', note: 'effective $0.0051/lead' },
-  { text: '4 Concurrency Slots' },
-  { text: 'Max 8,000 rows / day abuse limit' },
+  { text: '15,000 Lifetime Verified Deliverable Prospects (Non-expiring)' },
   { text: 'Everything in Starter, plus:', isHeader: true },
-  { text: 'Priority Drip Processing Lane' },
-  { text: 'Instantly & Smartlead 1-Click Sync' },
-  { text: 'Mailbox Health & Deliverability Insights' },
+  { text: '4 Concurrent Mailbox Probing Channels' },
+  { text: '4,000 Daily Prospect Ingestion Limit' },
+  { text: 'Background CSV Processing Queue (runs even if browser is closed)' },
+  { text: 'Company Email Pattern Detector ({first}.{last} heuristic)' },
+  { text: 'Live MX Host Telemetry (Google Workspace vs Microsoft 365)' },
+  { text: '1 User Seat' },
 ];
 
 const AGENCY_FEATURES = [
-  { text: '60,000 Non-Expiring Verification Credits', note: 'effective $0.0041/lead' },
-  { text: '8 Concurrency Slots' },
-  { text: 'Max 15,000 rows / day abuse limit' },
+  { text: '35,000 Lifetime Verified Deliverable Prospects (Non-expiring)' },
   { text: 'Everything in Pro, plus:', isHeader: true },
-  { text: 'Full API Rail Access & Custom Webhooks' },
-  { text: '3 Team Member Seats' },
-  { text: 'Dedicated High-Throughput Queue' },
+  { text: '3 Team Operator Seats Included (Unified workspace & shared credit ledger)' },
+  { text: '8 Concurrent Mailbox Probing Channels (High-throughput priority queue)' },
+  { text: '10,000 Daily Prospect Ingestion Limit' },
+  { text: 'Low-Latency Real-Time Webhooks (Zapier, Make, HubSpot sync)' },
+  { text: 'Programmatic Enrichment API Rail (POST /api/v1/enrich)' },
 ];
 
 /**

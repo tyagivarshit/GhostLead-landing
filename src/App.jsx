@@ -41,9 +41,9 @@ const FAST_EASE = [0.16, 1, 0.3, 1];
 const FAST_TRANSITION = { duration: 0.25, ease: FAST_EASE };
 const MODAL_SPRING = { type: 'spring', stiffness: 280, damping: 26 };
 const MODAL_TIERS = [
-  { id: 'Starter', name: 'Starter', price: 69, credits: '10,000 Credits' },
-  { id: 'Pro', name: 'Pro', price: 129, credits: '25,000 Credits', popular: true },
-  { id: 'Agency', name: 'Agency', price: 249, credits: '60,000 Credits' },
+  { id: 'Starter', name: 'Starter', price: 69, credits: '5,000 Credits' },
+  { id: 'Pro', name: 'Pro', price: 129, credits: '15,000 Credits', popular: true },
+  { id: 'Agency', name: 'Agency', price: 249, credits: '35,000 Credits' },
 ];
 
 // Chrome Browser Extension Icon
