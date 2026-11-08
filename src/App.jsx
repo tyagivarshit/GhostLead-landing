@@ -7,7 +7,6 @@ import {
   Zap,
   Check,
   Lock,
-  ChevronDown,
   X,
   AlertCircle,
   RefreshCw,
@@ -1004,25 +1003,28 @@ export default function App() {
         {/* 3 Stacked Zig-Zag Rows */}
         <div className="space-y-24 lg:space-y-32">
           
-          {/* Row 1: LINKEDIN SAFETY */}
+          {/* Row 1: Zero Ban Risk */}
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
             {/* Copy Column */}
             <div className="w-full lg:w-1/2 space-y-4">
               <div>
                 <span className="inline-flex rounded-full bg-blue-50 text-blue-600 border border-blue-100 px-3 py-1 text-xs font-semibold tracking-wide">
-                  LINKEDIN SAFETY
+                  Zero Ban Risk • Human-Paced Scrape Engine
                 </span>
               </div>
               <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-                Scrape Leads Without Account Restrictions
+                Prospect entire LinkedIn searches &amp; people directories in one click
               </h3>
+              <p className="text-base text-slate-600 leading-relaxed">
+                Collect valid B2B contacts directly from your browser without opening endless tabs, triggering velocity alarms, or risking LinkedIn account safety. Every profile is scanned with human-paced natural behaviors.
+              </p>
               <ul className="space-y-3 pt-2">
                 <li className="flex items-start gap-3">
                   <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
                     <Check className="h-3 w-3 stroke-[2.5]" />
                   </span>
                   <span className="text-base text-slate-600">
-                    Prospect aggressively with built-in human pacing that keeps your LinkedIn account completely safe.
+                    10-profile search view capture in sub-5 seconds
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -1030,7 +1032,15 @@ export default function App() {
                     <Check className="h-3 w-3 stroke-[2.5]" />
                   </span>
                   <span className="text-base text-slate-600">
-                    Grab entire search pages in one click without opening dozens of tabs.
+                    Dynamic scroll &amp; pacing injection checks
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    Direct profile-to-prospect data matching
                   </span>
                 </li>
               </ul>
@@ -1039,6 +1049,12 @@ export default function App() {
             {/* Visual Panel Column */}
             <div className="w-full lg:w-1/2" aria-hidden="true">
               <div className="relative mx-auto w-full max-w-md [perspective:1200px] [transform-style:preserve-3d]">
+                {/* Glow */}
+                <div 
+                  className="absolute -inset-6 -z-10 rounded-full bg-blue-500/20 blur-3xl pointer-events-none" 
+                  aria-hidden="true" 
+                />
+
                 {/* Offset Ghost Layer to fake depth */}
                 <div 
                   className="absolute inset-0 rounded-2xl border border-white/10 bg-slate-800/60 pointer-events-none translate-x-2.5 translate-y-2.5 scale-[0.98] lg:[transform:rotateX(8deg)_rotateY(-12deg)] motion-reduce:transform-none" 
@@ -1047,29 +1063,73 @@ export default function App() {
 
                 {/* Main Dark Glass Panel */}
                 <div className="relative rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur p-5 space-y-3 text-left transition-transform duration-500 lg:[transform:rotateX(8deg)_rotateY(-12deg)] hover:lg:[transform:rotateX(4deg)_rotateY(-6deg)] motion-reduce:transition-none motion-reduce:transform-none shadow-[0_40px_100px_rgba(59,130,246,0.2)]">
-                  {/* Header row */}
-                  <div className="flex items-center justify-between pb-2 border-b border-white/10">
-                    <span className="text-sm text-slate-200">Safe Zone</span>
-                    <div className="w-9 h-5 rounded-full bg-emerald-500 p-0.5 shadow-[0_0_12px_rgba(16,185,129,0.6)] flex items-center justify-end">
-                      <div className="w-4 h-4 rounded-full bg-white shadow-xs" />
+                  {/* Top bar (3 small dots + faux address pill with 'Search results • People') */}
+                  <div className="flex items-center justify-between pb-2.5 border-b border-white/10">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                     </div>
+                    <div className="rounded-md bg-slate-800 border border-white/10 px-2.5 py-0.5 text-[10px] text-slate-300">
+                      Search results • People
+                    </div>
+                    <div className="w-10" />
                   </div>
 
-                  {/* Text + Bar */}
+                  {/* 3 skeleton profile cards (initials circle + two grey bars, selected with emerald outline + overlay chip) */}
                   <div className="space-y-2 py-1">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
-                      <span className="text-xs text-slate-300">Today: 18 / 50 • Human-paced</span>
+                    {/* Selected Card 1 */}
+                    <div className="relative rounded-xl border border-emerald-500/60 bg-emerald-950/20 p-2.5 flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-7 h-7 rounded-full bg-slate-800 border border-emerald-500/40 text-emerald-300 flex items-center justify-center text-[10px] font-bold">
+                          JD
+                        </div>
+                        <div className="space-y-1.5">
+                          <div className="w-24 sm:w-28 h-2 rounded bg-slate-600" />
+                          <div className="w-16 sm:w-20 h-1.5 rounded bg-slate-700" />
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center rounded-full bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
+                        +10 Prospects
+                      </span>
                     </div>
-                    <div className="w-full bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-gradient-to-r from-blue-500 to-sky-400 h-full w-[36%]" />
+
+                    {/* Selected Card 2 */}
+                    <div className="relative rounded-xl border border-emerald-500/60 bg-emerald-950/20 p-2.5 flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-7 h-7 rounded-full bg-slate-800 border border-emerald-500/40 text-emerald-300 flex items-center justify-center text-[10px] font-bold">
+                          MR
+                        </div>
+                        <div className="space-y-1.5">
+                          <div className="w-28 sm:w-32 h-2 rounded bg-slate-600" />
+                          <div className="w-20 sm:w-24 h-1.5 rounded bg-slate-700" />
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center rounded-full bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
+                        +10 Prospects
+                      </span>
+                    </div>
+
+                    {/* Card 3 (Unselected Skeleton) */}
+                    <div className="rounded-xl border border-white/5 bg-slate-800/40 p-2.5 flex items-center justify-between">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-7 h-7 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-[10px] font-semibold text-slate-400">
+                          SL
+                        </div>
+                        <div className="space-y-1.5">
+                          <div className="w-20 sm:w-24 h-2 rounded bg-slate-700" />
+                          <div className="w-14 sm:w-16 h-1.5 rounded bg-slate-800" />
+                        </div>
+                      </div>
+                      <div className="w-4 h-4 rounded border border-white/10 bg-slate-800/60" />
                     </div>
                   </div>
 
-                  {/* Floating Badge */}
+                  {/* Floating Badge (overlapping bottom-right edge) */}
                   <div className="pt-2 sm:pt-0 sm:absolute sm:-bottom-3 sm:-right-3">
-                    <span className="inline-flex items-center rounded-full border border-emerald-400/30 bg-emerald-500/15 text-emerald-300 backdrop-blur px-3 py-1 text-xs font-medium shadow-lg whitespace-normal sm:whitespace-nowrap text-center">
-                      Save Status: Already Saved • $0 Charged
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/15 text-emerald-300 backdrop-blur px-3 py-1 text-xs font-medium shadow-lg whitespace-normal sm:whitespace-nowrap text-center">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                      Safe: Capturing 10 Leads
                     </span>
                   </div>
                 </div>
@@ -1077,25 +1137,28 @@ export default function App() {
             </div>
           </div>
 
-          {/* Row 2: ZERO WASTE */}
+          {/* Row 2: Auto-Mapped Headers */}
           <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-20">
             {/* Copy Column */}
             <div className="w-full lg:w-1/2 space-y-4">
               <div>
-                <span className="inline-flex rounded-full bg-teal-50 text-teal-600 border border-teal-100 px-3 py-1 text-xs font-semibold tracking-wide">
-                  ZERO WASTE
+                <span className="inline-flex rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100 px-3 py-1 text-xs font-semibold tracking-wide">
+                  Auto-Mapped Headers • CSV Injection Guard
                 </span>
               </div>
               <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-                0% Bounces. $0 Charged for Dead Emails.
+                Upload unformatted CSV lists and export outbound-ready presets
               </h3>
+              <p className="text-base text-slate-600 leading-relaxed">
+                Upload bulk CSV files containing unaligned data columns from 1,000 to 10,000 rows. Our local parsing sandbox automatically standardizes headers, checks syntax, and formats ready-to-import lists mapped specifically for Instantly, Smartlead, and Lemlist.
+              </p>
               <ul className="space-y-3 pt-2">
                 <li className="flex items-start gap-3">
                   <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
                     <Check className="h-3 w-3 stroke-[2.5]" />
                   </span>
                   <span className="text-base text-slate-600">
-                    Stop burning money on stale database dumps.
+                    Intuitive client-side header mapping engine
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -1103,7 +1166,15 @@ export default function App() {
                     <Check className="h-3 w-3 stroke-[2.5]" />
                   </span>
                   <span className="text-base text-slate-600">
-                    We only charge credits for 100% deliverable emails—risky and invalid mailboxes are completely free so your sender reputation stays bulletproof.
+                    Automatic name formatting and sanitization
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    Instant presets exported with safety standards
                   </span>
                 </li>
               </ul>
@@ -1112,6 +1183,12 @@ export default function App() {
             {/* Visual Panel Column */}
             <div className="w-full lg:w-1/2" aria-hidden="true">
               <div className="relative mx-auto w-full max-w-md [perspective:1200px] [transform-style:preserve-3d]">
+                {/* Glow */}
+                <div 
+                  className="absolute -inset-6 -z-10 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none" 
+                  aria-hidden="true" 
+                />
+
                 {/* Offset Ghost Layer to fake depth (mirrored tilt) */}
                 <div 
                   className="absolute inset-0 rounded-2xl border border-white/10 bg-slate-800/60 pointer-events-none -translate-x-2.5 translate-y-2.5 scale-[0.98] lg:[transform:rotateX(8deg)_rotateY(12deg)] motion-reduce:transform-none" 
@@ -1119,52 +1196,82 @@ export default function App() {
                 />
 
                 {/* Main Dark Glass Panel */}
-                <div className="relative rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur p-5 space-y-3 text-left transition-transform duration-500 lg:[transform:rotateX(8deg)_rotateY(12deg)] hover:lg:[transform:rotateX(4deg)_rotateY(6deg)] motion-reduce:transition-none motion-reduce:transform-none shadow-[0_40px_100px_rgba(20,184,166,0.2)]">
-                  {/* Shield Indicator + Verified Active Mailbox */}
-                  <div className="flex items-center gap-3">
-                    <div className="h-12 w-12 rounded-xl bg-teal-500/15 border border-teal-400/30 text-teal-300 flex items-center justify-center shrink-0">
-                      <ShieldCheck className="h-6 w-6 text-teal-300" aria-hidden="true" />
+                <div className="relative rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur p-5 space-y-3 text-left transition-transform duration-500 lg:[transform:rotateX(8deg)_rotateY(12deg)] hover:lg:[transform:rotateX(4deg)_rotateY(6deg)] motion-reduce:transition-none motion-reduce:transform-none shadow-[0_40px_100px_rgba(99,102,241,0.25)]">
+                  {/* Dashed drop zone */}
+                  <div className="rounded-xl border border-dashed border-white/20 bg-slate-800/40 p-3 text-center space-y-0.5">
+                    <div className="text-xs font-medium text-slate-200">
+                      Drop Unformatted B2B CSV here
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
-                      <span className="text-sm font-medium text-slate-200">Verified Active Mailbox</span>
+                    <div className="text-[11px] text-slate-400">
+                      1k-10k rows
                     </div>
                   </div>
 
-                  {/* Red dot + Bounce Screened • $0 */}
-                  <div className="flex items-center gap-2 py-1 text-sm text-slate-300">
-                    <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
-                    <span>Bounce Screened • $0</span>
+                  {/* Two pipeline step chips */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-slate-800/60 px-2.5 py-1 text-xs text-slate-300">
+                      <Check className="h-3 w-3 text-emerald-400 stroke-[2.5]" />
+                      <span>Deduplicating names</span>
+                    </div>
+                    <div className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-slate-800/60 px-2.5 py-1 text-xs text-slate-300">
+                      <Check className="h-3 w-3 text-emerald-400 stroke-[2.5]" />
+                      <span>Denoising data</span>
+                    </div>
                   </div>
 
-                  {/* Bottom status bar */}
-                  <div className="rounded-lg border border-teal-400/20 bg-teal-500/10 px-3 py-2 text-xs text-teal-200 font-medium">
-                    No Credit Used - Catch-All filtered
+                  {/* Three export preset chips side by side */}
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="rounded-lg border border-indigo-400/40 bg-indigo-500/15 px-2 py-1.5 text-center text-[11px] sm:text-xs font-semibold text-indigo-300 shadow-sm truncate">
+                      Instantly.ai
+                    </div>
+                    <div className="rounded-lg border border-white/10 bg-slate-800/60 px-2 py-1.5 text-center text-[11px] sm:text-xs text-slate-300 truncate">
+                      Smartlead
+                    </div>
+                    <div className="rounded-lg border border-white/10 bg-slate-800/60 px-2 py-1.5 text-center text-[11px] sm:text-xs text-slate-300 truncate">
+                      Lemlist
+                    </div>
+                  </div>
+
+                  {/* 1-Click Outbound Ready check tag */}
+                  <div>
+                    <span className="inline-flex items-center gap-1.5 rounded-lg border border-teal-400/20 bg-teal-500/10 px-3 py-1.5 text-xs font-medium text-teal-200">
+                      <Check className="h-3 w-3 text-teal-300 stroke-[2.5]" />
+                      <span>1-Click Outbound Ready</span>
+                    </span>
+                  </div>
+
+                  {/* Small shield row: CSV Injection protection: On */}
+                  <div className="flex items-center gap-2 text-xs text-slate-400 pt-1 border-t border-white/10">
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                    <span>CSV Injection protection: On</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Row 3: OUTBOUND READY */}
+          {/* Row 3: Sub-100ms Diagnostics */}
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
             {/* Copy Column */}
             <div className="w-full lg:w-1/2 space-y-4">
               <div>
-                <span className="inline-flex rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100 px-3 py-1 text-xs font-semibold tracking-wide">
-                  OUTBOUND READY
+                <span className="inline-flex rounded-full bg-teal-50 text-teal-600 border border-teal-100 px-3 py-1 text-xs font-semibold tracking-wide">
+                  Sub-100ms Diagnostics Cache Hits
                 </span>
               </div>
               <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-                Export Clean Data Ready for Instantly &amp; Smartlead
+                Inspect mail infrastructure and identify target setup in real-time
               </h3>
+              <p className="text-base text-slate-600 leading-relaxed">
+                Know your target&apos;s technical setup before sending. Gain sub-100ms insights into exact target email formatting ({'{first}.{last}'} heuristic) and real-time host mail providers like Google Workspace or Microsoft 365, all verified in flight.
+              </p>
               <ul className="space-y-3 pt-2">
                 <li className="flex items-start gap-3">
                   <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
                     <Check className="h-3 w-3 stroke-[2.5]" />
                   </span>
                   <span className="text-base text-slate-600">
-                    Skip manual spreadsheet cleanups.
+                    Real-time active host verification telemetry
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -1172,7 +1279,15 @@ export default function App() {
                     <Check className="h-3 w-3 stroke-[2.5]" />
                   </span>
                   <span className="text-base text-slate-600">
-                    Download pre-formatted CSVs mapped perfectly for your email sequencer, complete with verified titles and companies for maximum reply rates.
+                    Automated {'{first}.{last}'} heuristic detector (95% Confidence)
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-600" aria-hidden="true">
+                    <Check className="h-3 w-3 stroke-[2.5]" />
+                  </span>
+                  <span className="text-base text-slate-600">
+                    Google Workspace vs Microsoft 365 active detection
                   </span>
                 </li>
               </ul>
@@ -1181,9 +1296,9 @@ export default function App() {
             {/* Visual Panel Column */}
             <div className="w-full lg:w-1/2" aria-hidden="true">
               <div className="relative mx-auto w-full max-w-md [perspective:1200px] [transform-style:preserve-3d]">
-                {/* Ambient glow behind panel */}
+                {/* Glow */}
                 <div 
-                  className="absolute -inset-6 -z-10 rounded-full bg-indigo-500/20 blur-3xl pointer-events-none" 
+                  className="absolute -inset-6 -z-10 rounded-full bg-teal-500/20 blur-3xl pointer-events-none" 
                   aria-hidden="true" 
                 />
 
@@ -1194,34 +1309,59 @@ export default function App() {
                 />
 
                 {/* Main Dark Glass Panel */}
-                <div className="relative rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur p-5 space-y-3 text-left transition-transform duration-500 lg:[transform:rotateX(8deg)_rotateY(-12deg)] hover:lg:[transform:rotateX(4deg)_rotateY(-6deg)] motion-reduce:transition-none motion-reduce:transform-none shadow-[0_40px_100px_rgba(99,102,241,0.25)]">
-                  {/* Faux Select */}
-                  <div className="flex items-center justify-between rounded-lg border border-white/15 bg-gradient-to-b from-slate-700 to-slate-800 px-3 py-2 text-sm text-slate-100">
-                    <span>CSV Format Preset: Instantly.ai</span>
-                    <ChevronDown className="h-4 w-4 text-slate-300 shrink-0 ml-2" aria-hidden="true" />
+                <div className="relative rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur p-5 space-y-3 text-left transition-transform duration-500 lg:[transform:rotateX(8deg)_rotateY(-12deg)] hover:lg:[transform:rotateX(4deg)_rotateY(-6deg)] motion-reduce:transition-none motion-reduce:transform-none shadow-[0_40px_100px_rgba(20,184,166,0.2)]">
+                  {/* Header: Domain Verification + company.com */}
+                  <div className="flex items-center justify-between pb-2 border-b border-white/10">
+                    <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Domain Verification</span>
+                    <span className="font-mono text-xs font-medium text-slate-200">company.com</span>
                   </div>
 
-                  {/* Layered Stack Under It */}
-                  <div className="space-y-1.5 pt-1">
-                    <div className="flex items-center justify-between rounded-lg border border-white/10 bg-slate-800/70 px-3 py-2 text-xs text-slate-300 relative z-20">
-                      <span>Cleaned Name</span>
-                      <span className="text-slate-400 font-mono text-[11px]">instantly.com</span>
+                  {/* Green-dot line: MX server connectivity active */}
+                  <div className="flex items-center gap-2 py-0.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                    <span className="text-xs font-medium text-emerald-300">MX server connectivity active</span>
+                  </div>
+
+                  {/* 3-step vertical timeline with check dots */}
+                  <div className="space-y-2 pl-1 border-l border-emerald-500/30 ml-2 py-0.5">
+                    <div className="flex items-center gap-2.5 -ml-[7px]">
+                      <span className="w-3 h-3 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shrink-0">
+                        <Check className="h-2 w-2 stroke-[3]" />
+                      </span>
+                      <span className="text-xs text-slate-300">DNS lookup</span>
                     </div>
-                    <div className="flex items-center justify-between rounded-lg border border-white/10 bg-slate-800/70 px-3 py-2 text-xs text-slate-300 -mt-1 translate-x-1.5 scale-[0.98] relative z-10">
-                      <span>Verified Direct Work Email</span>
-                      <span className="text-slate-400 font-mono text-[11px]">deliverable</span>
+                    <div className="flex items-center gap-2.5 -ml-[7px]">
+                      <span className="w-3 h-3 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shrink-0">
+                        <Check className="h-2 w-2 stroke-[3]" />
+                      </span>
+                      <span className="text-xs text-slate-300">MX records resolved</span>
                     </div>
-                    <div className="flex items-center justify-between rounded-lg border border-white/10 bg-slate-800/70 px-3 py-2 text-xs text-slate-300 -mt-1 translate-x-3 scale-[0.96] relative z-0">
-                      <span>Validated Title &amp; Company</span>
-                      <span className="text-slate-400 font-mono text-[11px]">ready</span>
+                    <div className="flex items-center gap-2.5 -ml-[7px]">
+                      <span className="w-3 h-3 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shrink-0">
+                        <Check className="h-2 w-2 stroke-[3]" />
+                      </span>
+                      <span className="text-xs text-slate-300">Host detected</span>
                     </div>
                   </div>
 
-                  {/* Bottom block (static span, not a button) */}
-                  <div className="pt-1">
-                    <span className="inline-flex rounded-lg bg-gradient-to-r from-indigo-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-500/30">
-                      348 Leads Ready (.csv) ↓
-                    </span>
+                  {/* Two provider status cards side by side */}
+                  <div className="grid grid-cols-2 gap-2 pt-0.5">
+                    <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/20 p-2.5 flex items-center justify-between">
+                      <span className="text-xs font-medium text-slate-200">Google Workspace</span>
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                    </div>
+                    <div className="rounded-xl border border-white/5 bg-slate-800/30 p-2.5 flex items-center justify-between opacity-50">
+                      <span className="text-xs font-medium text-slate-400">Microsoft 365</span>
+                      <span className="w-2 h-2 rounded-full bg-slate-600 shrink-0" />
+                    </div>
+                  </div>
+
+                  {/* Chip: Email Pattern Found with {first}.{last} */}
+                  <div className="pt-0.5">
+                    <div className="inline-flex items-center gap-2 rounded-lg border border-teal-400/30 bg-teal-500/10 px-3 py-1.5 text-xs text-teal-200">
+                      <span className="text-slate-400">Email Pattern Found:</span>
+                      <span className="font-mono font-semibold text-emerald-300">{'{first}.{last}'}</span>
+                    </div>
                   </div>
                 </div>
               </div>
