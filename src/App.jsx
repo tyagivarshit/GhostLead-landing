@@ -552,12 +552,11 @@ export default function App() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={FAST_TRANSITION}
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.15]"
+          className="text-4xl sm:text-[clamp(1.75rem,3.8vw,2.5rem)] font-extrabold tracking-tight text-slate-900 text-center mx-auto leading-[1.15] max-w-4xl"
         >
-          <span>Stop burning sending domains and credits</span>
-          <span className="block bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
-            on dead mailboxes.
-          </span>
+          Stop burning sending domains and credits
+          <br className="hidden sm:inline" />
+          <span className="text-blue-600">on dead mailboxes.</span>
         </motion.h1>
 
         {/* Value Explanation (Human & Direct, max 2 lines) */}
