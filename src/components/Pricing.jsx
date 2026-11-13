@@ -58,17 +58,17 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
                 {Starter.priceSuffix}
               </span>
             </div>
-            <p className="text-xs text-[#86868b] mt-1">
+            <p className="text-xs text-[#86868b] mt-1 md:min-h-[2rem]">
               {Starter.subtitle}
             </p>
 
             {/* Non-Expiring Badge & Fair-Use Note */}
             <div className="mt-3">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold border border-emerald-200/70">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold border border-emerald-200/70 whitespace-nowrap">
                 <Check className="w-3 h-3 text-emerald-600" />
                 {creditLabel}
               </span>
-              <p className="text-[11px] text-slate-400 mt-1 pl-0.5">
+              <p className="text-[11px] text-slate-400 mt-1 pl-0.5 md:min-h-[2.5rem]">
                 {fairUseNote}
               </p>
             </div>
@@ -76,7 +76,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
             {/* Dynamic Wave Escalation Badge */}
             <div className="mt-4 py-2 px-3 rounded-2xl bg-slate-50/80 border border-black/[0.04] flex items-center justify-between text-xs">
               <span className="font-medium text-[#6e6e73]">Price Escalation</span>
-              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60">
+              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60 whitespace-nowrap">
                 {Starter.nextJumpNotice}
               </span>
             </div>
@@ -170,17 +170,17 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
                 {Pro.priceSuffix}
               </span>
             </div>
-            <p className="text-xs text-blue-600 font-medium mt-1">
+            <p className="text-xs text-blue-600 font-medium mt-1 md:min-h-[2rem]">
               {Pro.subtitle}
             </p>
 
             {/* Non-Expiring Badge & Fair-Use Note */}
             <div className="mt-3">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold border border-emerald-200/70">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold border border-emerald-200/70 whitespace-nowrap">
                 <Check className="w-3 h-3 text-emerald-600" />
                 {creditLabel}
               </span>
-              <p className="text-[11px] text-slate-400 mt-1 pl-0.5">
+              <p className="text-[11px] text-slate-400 mt-1 pl-0.5 md:min-h-[2.5rem]">
                 {fairUseNote}
               </p>
             </div>
@@ -188,7 +188,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
             {/* Dynamic Wave Escalation Badge */}
             <div className="mt-4 py-2 px-3 rounded-2xl bg-blue-50/60 border border-blue-100 flex items-center justify-between text-xs">
               <span className="font-medium text-blue-900">Price Escalation</span>
-              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full text-blue-600 bg-blue-50 border border-blue-200">
+              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full text-blue-600 bg-blue-50 border border-blue-200 whitespace-nowrap">
                 {Pro.nextJumpNotice}
               </span>
             </div>
@@ -286,17 +286,17 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
                 {Agency.priceSuffix}
               </span>
             </div>
-            <p className="text-xs text-rose-600 font-medium mt-1">
+            <p className="text-xs text-rose-600 font-medium mt-1 md:min-h-[2rem]">
               {Agency.subtitle}
             </p>
 
             {/* Non-Expiring Badge & Fair-Use Note */}
             <div className="mt-3">
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold border border-emerald-200/70">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-semibold border border-emerald-200/70 whitespace-nowrap">
                 <Check className="w-3 h-3 text-emerald-600" />
                 {creditLabel}
               </span>
-              <p className="text-[11px] text-slate-400 mt-1 pl-0.5">
+              <p className="text-[11px] text-slate-400 mt-1 pl-0.5 md:min-h-[2.5rem]">
                 {fairUseNote}
               </p>
             </div>
@@ -304,7 +304,7 @@ export function Pricing({ totalCount = 0, onSelectPlan, onOpenModal }) {
             {/* Dynamic Wave Escalation Badge */}
             <div className="mt-4 py-2 px-3 rounded-2xl bg-slate-50/80 border border-black/[0.04] flex items-center justify-between text-xs">
               <span className="font-medium text-[#6e6e73]">Price Escalation</span>
-              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60">
+              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60 whitespace-nowrap">
                 {Agency.nextJumpNotice}
               </span>
             </div>

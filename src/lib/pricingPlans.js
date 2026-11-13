@@ -4,22 +4,45 @@
  * 
  * Wave Escalation Schedule:
  * - Wave 1 (totalCount < 30):
- *     Solo: $79 (One-time)    | 6,000 Credits (5,000 + 1,000 Wave 1 bonus)   | Next jump: "+$10 in Wave 2 ($89)"
- *     Pro: $139 (One-time)    | 16,000 Credits (15,000 + 1,000 Wave 1 bonus) | Next jump: "+$30 in Wave 2 ($169)"
- *     Agency: $269 (One-time) | 45,000 Credits (40,000 + 5,000 Wave 1 bonus) | Next jump: "+$80 in Wave 2 ($349)"
+ *     Solo: $79 (One-time)    | 6,000 Credits (5,000 + 1,000 Wave 1 bonus)   | Next jump: "+$20 in Wave 2 ($99)"
+ *     Pro: $139 (One-time)    | 16,000 Credits (15,000 + 1,000 Wave 1 bonus) | Next jump: "+$40 in Wave 2 ($179)"
+ *     Agency: $269 (One-time) | 45,000 Credits (40,000 + 5,000 Wave 1 bonus) | Next jump: "+$100 in Wave 2 ($369)"
  * - Wave 2 (30 <= totalCount < 100):
- *     Solo: $89 (One-time)    | 4,000 Credits  | Next jump: "Solo Tier Decommissioned in Wave 3"
- *     Pro: $169 (One-time)    | 12,500 Credits | Next jump: "+$80 in Wave 3 ($249)"
- *     Agency: $349 (One-time) | 30,000 Credits | Next jump: "+$50 in Wave 3 ($399)"
+ *     Solo: $99 (One-time)    | 4,000 Credits  | Next jump: "Solo Tier Decommissioned in Wave 3"
+ *     Pro: $179 (One-time)    | 12,500 Credits | Next jump: "+$90 in Wave 3 ($269)"
+ *     Agency: $369 (One-time) | 30,000 Credits | Next jump: "+$30 in Wave 3 ($399)"
  * - Wave 3 (100 <= totalCount < 150):
  *     Solo: Closed (Decommissioned)
- *     Pro: $249 (One-time)    | 11,000 Credits | Next jump: "Shifts to $79/mo on launch"
+ *     Pro: $269 (One-time)    | 11,000 Credits | Next jump: "Shifts to $79/mo on launch"
  *     Agency: $399 (One-time) | 27,000 Credits | Next jump: "Shifts to $159/mo on launch"
  * - Closed / SaaS (totalCount >= 150):
  *     Solo: $39 / month
  *     Pro: $79 / month
  *     Agency: $159 / month
  */
+
+export const WAVE_SCHEDULE = {
+  wave1: {
+    solo: { price: 79, anchor: 199 },
+    pro: { price: 139, anchor: 349 },
+    agency: { price: 269, anchor: 699 },
+  },
+  wave2: {
+    solo: { price: 99, anchor: 199 },
+    pro: { price: 179, anchor: 349 },
+    agency: { price: 369, anchor: 699 },
+  },
+  wave3: {
+    solo: { price: null, anchor: 199, decommissioned: true },
+    pro: { price: 269, anchor: 349 },
+    agency: { price: 399, anchor: 699 },
+  },
+  saas: {
+    solo: { price: 39 },
+    pro: { price: 79 },
+    agency: { price: 159 },
+  },
+};
 
 export const CREDIT_PROTECTION_GUARANTEES = [
   {
@@ -36,9 +59,9 @@ export const CARD_LIFETIME_LABEL = 'Never Expire — Use at Your Own Pace';
 export const CARD_FAIR_USE_NOTE = 'Daily fair-use limits apply to protect 99%+ deliverability.';
 
 export const MODAL_TIERS = [
-  { id: 'Solo', name: 'Solo', anchor: '$199', price: 79, credits: '6,000 Credits' },
-  { id: 'Pro', name: 'Pro', anchor: '$349', price: 139, credits: '16,000 Credits', popular: true },
-  { id: 'Agency', name: 'Agency', anchor: '$699', price: 269, credits: '45,000 Credits' },
+  { id: 'Solo', name: 'Solo', anchor: '$199', price: WAVE_SCHEDULE.wave1.solo.price, credits: '6,000 Credits' },
+  { id: 'Pro', name: 'Pro', anchor: '$349', price: WAVE_SCHEDULE.wave1.pro.price, credits: '16,000 Credits', popular: true },
+  { id: 'Agency', name: 'Agency', anchor: '$699', price: WAVE_SCHEDULE.wave1.agency.price, credits: '45,000 Credits' },
 ];
 
 /**
@@ -63,14 +86,14 @@ export function getPricingPlans(totalCount = 0) {
         tierKey: 'solo',
         name: 'Solo LTD',
         badge: 'Solo',
-        price: 79,
-        formattedPrice: '$79',
+        price: WAVE_SCHEDULE.wave1.solo.price,
+        formattedPrice: `$${WAVE_SCHEDULE.wave1.solo.price}`,
         anchorPrice: 199,
         formattedAnchorPrice: '$199',
         priceSuffix: '/ lifetime',
         subtitle: 'One-time payment • Never pay monthly',
-        nextJumpNotice: '+$10 in Wave 2 ($89)',
-        ctaText: 'Claim Solo Slot ($79)',
+        nextJumpNotice: `+$${WAVE_SCHEDULE.wave2.solo.price - WAVE_SCHEDULE.wave1.solo.price} in Wave 2 ($${WAVE_SCHEDULE.wave2.solo.price})`,
+        ctaText: `Claim Solo Slot ($${WAVE_SCHEDULE.wave1.solo.price})`,
         creditsText: '6,000 never-expiring credits (5,000 + 1,000 Wave 1 bonus)',
         features: [
           '6,000 Lifetime Verified Deliverable Prospects (5,000 + 1,000 Wave 1 Bonus)',
@@ -88,14 +111,14 @@ export function getPricingPlans(totalCount = 0) {
         tierKey: 'pro',
         name: 'Pro LTD',
         badge: 'Pro',
-        price: 139,
-        formattedPrice: '$139',
+        price: WAVE_SCHEDULE.wave1.pro.price,
+        formattedPrice: `$${WAVE_SCHEDULE.wave1.pro.price}`,
         anchorPrice: 349,
         formattedAnchorPrice: '$349',
         priceSuffix: '/ lifetime',
         subtitle: 'One-time payment • Stack credits forever',
-        nextJumpNotice: '+$30 in Wave 2 ($169)',
-        ctaText: 'Claim Pro Slot ($139)',
+        nextJumpNotice: `+$${WAVE_SCHEDULE.wave2.pro.price - WAVE_SCHEDULE.wave1.pro.price} in Wave 2 ($${WAVE_SCHEDULE.wave2.pro.price})`,
+        ctaText: `Claim Pro Slot ($${WAVE_SCHEDULE.wave1.pro.price})`,
         creditsText: '16,000 never-expiring credits (15,000 + 1,000 Wave 1 bonus)',
         popular: true,
         features: [
@@ -114,14 +137,14 @@ export function getPricingPlans(totalCount = 0) {
         tierKey: 'agency',
         name: 'Agency LTD',
         badge: 'Agency',
-        price: 269,
-        formattedPrice: '$269',
+        price: WAVE_SCHEDULE.wave1.agency.price,
+        formattedPrice: `$${WAVE_SCHEDULE.wave1.agency.price}`,
         anchorPrice: 699,
         formattedAnchorPrice: '$699',
         priceSuffix: '/ lifetime',
         subtitle: 'One-time payment • Maximum speed & volume',
-        nextJumpNotice: '+$80 in Wave 2 ($349)',
-        ctaText: 'Claim Agency Slot ($269)',
+        nextJumpNotice: `+$${WAVE_SCHEDULE.wave2.agency.price - WAVE_SCHEDULE.wave1.agency.price} in Wave 2 ($${WAVE_SCHEDULE.wave2.agency.price})`,
+        ctaText: `Claim Agency Slot ($${WAVE_SCHEDULE.wave1.agency.price})`,
         creditsText: '45,000 never-expiring credits (40,000 + 5,000 Wave 1 bonus)',
         features: [
           '45,000 Lifetime Verified Deliverable Prospects (40,000 + 5,000 Wave 1 Bonus)',
@@ -149,14 +172,14 @@ export function getPricingPlans(totalCount = 0) {
         tierKey: 'solo',
         name: 'Solo LTD',
         badge: 'Solo',
-        price: 89,
-        formattedPrice: '$89',
+        price: WAVE_SCHEDULE.wave2.solo.price,
+        formattedPrice: `$${WAVE_SCHEDULE.wave2.solo.price}`,
         anchorPrice: 199,
         formattedAnchorPrice: '$199',
         priceSuffix: '/ lifetime',
         subtitle: 'One-time payment • Never pay monthly',
         nextJumpNotice: 'Solo Tier Decommissioned in Wave 3',
-        ctaText: 'Claim Solo Slot ($89)',
+        ctaText: `Claim Solo Slot ($${WAVE_SCHEDULE.wave2.solo.price})`,
         creditsText: '4,000 Lifetime Verified Deliverable Prospects',
         features: [
           '4,000 Lifetime Verified Deliverable Prospects (Non-expiring)',
@@ -174,14 +197,14 @@ export function getPricingPlans(totalCount = 0) {
         tierKey: 'pro',
         name: 'Pro LTD',
         badge: 'Pro',
-        price: 169,
-        formattedPrice: '$169',
+        price: WAVE_SCHEDULE.wave2.pro.price,
+        formattedPrice: `$${WAVE_SCHEDULE.wave2.pro.price}`,
         anchorPrice: 349,
         formattedAnchorPrice: '$349',
         priceSuffix: '/ lifetime',
         subtitle: 'One-time payment • Stack credits forever',
-        nextJumpNotice: '+$80 in Wave 3 ($249)',
-        ctaText: 'Claim Pro Slot ($169)',
+        nextJumpNotice: `+$${WAVE_SCHEDULE.wave3.pro.price - WAVE_SCHEDULE.wave2.pro.price} in Wave 3 ($${WAVE_SCHEDULE.wave3.pro.price})`,
+        ctaText: `Claim Pro Slot ($${WAVE_SCHEDULE.wave2.pro.price})`,
         creditsText: '12,500 Lifetime Verified Deliverable Prospects',
         popular: true,
         features: [
@@ -200,14 +223,14 @@ export function getPricingPlans(totalCount = 0) {
         tierKey: 'agency',
         name: 'Agency LTD',
         badge: 'Agency',
-        price: 349,
-        formattedPrice: '$349',
+        price: WAVE_SCHEDULE.wave2.agency.price,
+        formattedPrice: `$${WAVE_SCHEDULE.wave2.agency.price}`,
         anchorPrice: 699,
         formattedAnchorPrice: '$699',
         priceSuffix: '/ lifetime',
         subtitle: 'One-time payment • Maximum speed & volume',
-        nextJumpNotice: '+$50 in Wave 3 ($399)',
-        ctaText: 'Claim Agency Slot ($349)',
+        nextJumpNotice: `+$${WAVE_SCHEDULE.wave3.agency.price - WAVE_SCHEDULE.wave2.agency.price} in Wave 3 ($${WAVE_SCHEDULE.wave3.agency.price})`,
+        ctaText: `Claim Agency Slot ($${WAVE_SCHEDULE.wave2.agency.price})`,
         creditsText: '30,000 Lifetime Verified Deliverable Prospects',
         features: [
           '30,000 Lifetime Verified Deliverable Prospects (Non-expiring)',
@@ -235,8 +258,8 @@ export function getPricingPlans(totalCount = 0) {
         tierKey: 'solo',
         name: 'Solo LTD',
         badge: 'Solo',
-        price: 89,
-        formattedPrice: '$89',
+        price: WAVE_SCHEDULE.wave2.solo.price,
+        formattedPrice: `$${WAVE_SCHEDULE.wave2.solo.price}`,
         anchorPrice: 199,
         formattedAnchorPrice: '$199',
         priceSuffix: '/ lifetime',
@@ -254,14 +277,14 @@ export function getPricingPlans(totalCount = 0) {
         tierKey: 'pro',
         name: 'Pro LTD',
         badge: 'Pro',
-        price: 249,
-        formattedPrice: '$249',
+        price: WAVE_SCHEDULE.wave3.pro.price,
+        formattedPrice: `$${WAVE_SCHEDULE.wave3.pro.price}`,
         anchorPrice: 349,
         formattedAnchorPrice: '$349',
         priceSuffix: '/ lifetime',
         subtitle: 'One-time payment • Stack credits forever',
-        nextJumpNotice: 'Shifts to $79/mo on launch',
-        ctaText: 'Claim Pro Slot ($249)',
+        nextJumpNotice: `Shifts to $${WAVE_SCHEDULE.saas.pro.price}/mo on launch`,
+        ctaText: `Claim Pro Slot ($${WAVE_SCHEDULE.wave3.pro.price})`,
         creditsText: '11,000 Lifetime Verified Deliverable Prospects',
         popular: true,
         features: [
@@ -280,14 +303,14 @@ export function getPricingPlans(totalCount = 0) {
         tierKey: 'agency',
         name: 'Agency LTD',
         badge: 'Agency',
-        price: 399,
-        formattedPrice: '$399',
+        price: WAVE_SCHEDULE.wave3.agency.price,
+        formattedPrice: `$${WAVE_SCHEDULE.wave3.agency.price}`,
         anchorPrice: 699,
         formattedAnchorPrice: '$699',
         priceSuffix: '/ lifetime',
         subtitle: 'One-time payment • Maximum speed & volume',
-        nextJumpNotice: 'Shifts to $159/mo on launch',
-        ctaText: 'Claim Agency Slot ($399)',
+        nextJumpNotice: `Shifts to $${WAVE_SCHEDULE.saas.agency.price}/mo on launch`,
+        ctaText: `Claim Agency Slot ($${WAVE_SCHEDULE.wave3.agency.price})`,
         creditsText: '27,000 Lifetime Verified Deliverable Prospects',
         features: [
           '27,000 Lifetime Verified Deliverable Prospects (Non-expiring)',

@@ -1,4 +1,5 @@
 import { Lock } from 'lucide-react';
+import { WAVE_SCHEDULE } from '../lib/pricingPlans';
 
 /**
  * 3 Wave Cards section completely dynamic and reactive to live Supabase waitlist count.
@@ -80,12 +81,12 @@ export function WavesSection({ totalCount = 0 }) {
           Wave 1: Founder Access
         </div>
         <div className="text-xs text-[#86868b] mt-0.5">
-          30 Total Slots • Solo $79 / Pro $139 / Agency $269
+          30 Total Slots • Solo ${WAVE_SCHEDULE.wave1.solo.price} / Pro ${WAVE_SCHEDULE.wave1.pro.price} / Agency ${WAVE_SCHEDULE.wave1.agency.price}
         </div>
 
         <div className="flex items-baseline mt-2">
           <span className="line-through text-slate-400 text-sm font-medium mr-2">$199</span>
-          <span className="text-2xl font-extrabold text-blue-600">$79</span>
+          <span className="text-2xl font-extrabold text-blue-600">${WAVE_SCHEDULE.wave1.solo.price}</span>
         </div>
 
         <div className="text-xs text-[#86868b] mt-1">
@@ -146,17 +147,17 @@ export function WavesSection({ totalCount = 0 }) {
           Wave 2: Standard LTD
         </div>
         <div className="text-xs text-[#86868b] mt-0.5">
-          70 Total Slots • Solo $89 / Pro $169 / Agency $349
+          70 Total Slots • Solo ${WAVE_SCHEDULE.wave2.solo.price} / Pro ${WAVE_SCHEDULE.wave2.pro.price} / Agency ${WAVE_SCHEDULE.wave2.agency.price}
         </div>
 
         <div className="flex items-baseline mt-2">
           <span className="line-through text-slate-400 text-sm font-medium mr-2">$199</span>
-          <span className="text-2xl font-extrabold text-[#1d1d1f]">$89</span>
+          <span className="text-2xl font-extrabold text-[#1d1d1f]">${WAVE_SCHEDULE.wave2.solo.price}</span>
           <span className="text-xs text-[#86868b] font-medium ml-1.5">(planned)</span>
         </div>
 
         <div className="text-xs text-[#86868b] mt-1 min-h-[1.5rem]">
-          +$10 price escalation
+          +${WAVE_SCHEDULE.wave2.solo.price - WAVE_SCHEDULE.wave1.solo.price} price escalation
         </div>
 
         {/* Progress Bar */}
@@ -237,12 +238,12 @@ export function WavesSection({ totalCount = 0 }) {
           Wave 3: Final Lockdown
         </div>
         <div className="text-xs text-[#86868b] mt-0.5">
-          Last 50 Slots • Pro $249 / Agency $399 (Solo Tier Decommissioned)
+          Last 50 Slots • Pro ${WAVE_SCHEDULE.wave3.pro.price} / Agency ${WAVE_SCHEDULE.wave3.agency.price} (Solo Tier Decommissioned)
         </div>
 
         <div className="flex items-baseline mt-2">
           <span className="line-through text-slate-400 text-sm font-medium mr-2">$349</span>
-          <span className="text-2xl font-extrabold text-[#1d1d1f]">$249</span>
+          <span className="text-2xl font-extrabold text-[#1d1d1f]">${WAVE_SCHEDULE.wave3.pro.price}</span>
           <span className="text-xs text-[#86868b] font-medium ml-1.5">(final)</span>
         </div>
 
