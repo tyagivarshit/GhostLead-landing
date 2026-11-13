@@ -27,8 +27,11 @@ import { Footer } from './components/Footer';
 import Comparison from './components/Comparison';
 import LtdBanner from './components/LtdBanner';
 import Faq from './components/Faq';
+import { DfyAgencySection } from './components/DfyAgencySection';
+import { AgencyPage } from './components/AgencyPage';
+import { PilotModal } from './components/PilotModal';
 
-export { Pricing, Navbar, PricingPage, LegalPolicyView, Footer, GhostIcon };
+export { Pricing, Navbar, PricingPage, LegalPolicyView, Footer, GhostIcon, DfyAgencySection, AgencyPage, PilotModal };
 
 // API Base URL (defaults to production backend)
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_BACKEND_URL || 'https://ghostlead.automexiaai.in';
@@ -189,11 +192,14 @@ export default function App() {
   const waveMetrics = calculateWaveMetrics(totalCount);
   const pricingPlans = getPricingPlans(totalCount);
 
-  // Dedicated Routing View State ('home' | 'pricing' | 'legal')
+  // Dedicated Routing View State ('home' | 'pricing' | 'legal' | 'agency')
   const getInitialView = () => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname.toLowerCase();
-      if (path === '/pricing' || path === '/pricing/' || window.location.hash === '#pricing') {
+      if (path === '/agency' || path === '/agency/') {
+        return 'agency';
+      }
+      if (path === '/pricing' || path === '/pricing/') {
         return 'pricing';
       }
       if (
@@ -215,7 +221,9 @@ export default function App() {
     const handlePopState = () => {
       if (typeof window !== 'undefined') {
         const path = window.location.pathname.toLowerCase();
-        if (path === '/pricing' || path === '/pricing/') {
+        if (path === '/agency' || path === '/agency/') {
+          setCurrentView('agency');
+        } else if (path === '/pricing' || path === '/pricing/') {
           setCurrentView('pricing');
         } else if (
           path === '/legal' || path === '/legal/' ||
@@ -234,13 +242,24 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Handle auto-scroll to specific legal section on view change or direct deep link load
+  // Manage document title for /agency view with clean restore on leaving
   useEffect(() => {
-    if (currentView === 'legal' && typeof window !== 'undefined') {
+    if (currentView === 'agency') {
+      const prevTitle = document.title;
+      document.title = 'GhostLead for Agencies — Done-For-You Data Desk';
+      return () => {
+        document.title = prevTitle;
+      };
+    }
+  }, [currentView]);
+
+  // Handle auto-scroll to specific section on view change or direct deep link load
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
       const path = window.location.pathname.toLowerCase();
       const hash = window.location.hash.toLowerCase();
       let targetSelector = hash;
-      if (!targetSelector) {
+      if (currentView === 'legal' && !targetSelector) {
         if (path.includes('/terms')) targetSelector = '#terms';
         else if (path.includes('/refund')) targetSelector = '#refund';
         else if (path.includes('/privacy')) targetSelector = '#privacy';
@@ -250,8 +269,12 @@ export default function App() {
           const el = document.querySelector(targetSelector);
           if (el) {
             el.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'instant' });
           }
-        }, 120);
+        }, 100);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
     }
   }, [currentView]);
@@ -262,6 +285,8 @@ export default function App() {
     let targetPath = '/';
     if (view === 'pricing') {
       targetPath = '/pricing';
+    } else if (view === 'agency') {
+      targetPath = '/agency';
     } else if (view === 'legal') {
       if (hash === '#terms') {
         targetPath = '/terms';
@@ -297,6 +322,15 @@ export default function App() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
+  };
+
+  // DFY Pilot Modal State
+  const [isPilotModalOpen, setIsPilotModalOpen] = useState(false);
+  const [pilotTier, setPilotTier] = useState('growth');
+
+  const openPilotModal = (tierId = 'growth') => {
+    setPilotTier(tierId || 'growth');
+    setIsPilotModalOpen(true);
   };
 
   // Modal State
@@ -559,6 +593,20 @@ export default function App() {
                 waveMetrics={waveMetrics}
                 onSelectPlan={openModal}
                 onNavigateHome={(hash) => navigateTo('home', hash)}
+              />
+            </motion.div>
+          ) : currentView === 'agency' ? (
+            <motion.div
+              key="agency-page"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.22, ease: FAST_EASE }}
+              className="w-full"
+            >
+              <AgencyPage
+                onOpenPilotModal={openPilotModal}
+                onNavigate={navigateTo}
               />
             </motion.div>
           ) : (
@@ -1480,6 +1528,13 @@ export default function App() {
       {/* High-urgency LTD Banner */}
       <LtdBanner onOpenModal={openModal} />
 
+      {/* DFY Agency Section */}
+      <DfyAgencySection
+        currentView="home"
+        onOpenPilotModal={openPilotModal}
+        onNavigate={navigateTo}
+      />
+
       {/* FAQ Accordion */}
       <Faq />
 
@@ -1491,7 +1546,7 @@ export default function App() {
       {/* ========================================================= */}
       {/* 6. FOOTER                                                 */}
       {/* ========================================================= */}
-      <Footer onNavigate={navigateTo} />
+      <Footer currentView={currentView} onNavigate={navigateTo} />
 
       {/* ========================================================= */}
       {/* 8. PRE-REGISTRATION MODAL (60FPS FAST ACCELERATION)        */}
@@ -1748,6 +1803,15 @@ export default function App() {
           </div>
         )}
       </AnimatePresence>
+
+      {/* ========================================================= */}
+      {/* 9. DFY 50-LEAD FREE PILOT MODAL                           */}
+      {/* ========================================================= */}
+      <PilotModal
+        isOpen={isPilotModalOpen}
+        initialTierId={pilotTier}
+        onClose={() => setIsPilotModalOpen(false)}
+      />
 
     </div>
   );

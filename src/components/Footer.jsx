@@ -1,15 +1,32 @@
 /**
- * Universal Footer Component with Clean Brand & Legal Navigation.
+ * Universal Footer Component with Clean Brand, Agency & Legal Navigation.
  * 
  * @param {{
- *   onNavigate: (view: 'home' | 'pricing' | 'legal', hash?: string, tab?: 'terms' | 'privacy') => void
+ *   currentView?: 'home' | 'agency' | 'pricing' | 'legal',
+ *   onNavigate: (view: 'home' | 'agency' | 'pricing' | 'legal', hash?: string, tab?: 'terms' | 'privacy') => void
  * }} props
  */
-export function Footer({ onNavigate }) {
+export function Footer({ currentView = 'home', onNavigate }) {
   const handleNav = (e, view, hash = '', tab = null) => {
     e.preventDefault();
     if (typeof onNavigate === 'function') {
       onNavigate(view, hash, tab);
+    }
+  };
+
+  const handleAgencyClick = (e) => {
+    e.preventDefault();
+    if (currentView === 'home') {
+      if (typeof onNavigate === 'function') {
+        onNavigate('home', '#dfy-agency');
+      } else {
+        const el = document.querySelector('#dfy-agency');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      if (typeof onNavigate === 'function') {
+        onNavigate('agency');
+      }
     }
   };
 
@@ -70,8 +87,22 @@ export function Footer({ onNavigate }) {
             © 2026 GhostLead. All rights reserved.
           </p>
 
-          {/* Right: Legal Links */}
-          <div className="flex items-center gap-4">
+          {/* Right: Legal & Offer Links */}
+          <div className="flex flex-wrap items-center gap-4">
+            <a 
+              href="/pricing" 
+              onClick={(e) => handleNav(e, 'pricing')} 
+              className="text-xs text-zinc-400 hover:text-zinc-300 transition-colors"
+            >
+              Pricing
+            </a>
+            <a 
+              href={currentView === 'home' ? '#dfy-agency' : '/agency'} 
+              onClick={handleAgencyClick} 
+              className="text-xs text-zinc-400 hover:text-zinc-300 transition-colors"
+            >
+              For Agencies (DFY)
+            </a>
             <a 
               href="/privacy" 
               onClick={(e) => handleNav(e, 'legal', '#privacy')} 

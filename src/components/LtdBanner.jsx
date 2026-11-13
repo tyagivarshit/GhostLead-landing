@@ -1,6 +1,6 @@
 export default function LtdBanner({ onOpenModal }) {
   return (
-    <section className="mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-24">
+    <section id="pricing" className="mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-24 scroll-mt-24 sm:scroll-mt-28">
       <div className="relative overflow-hidden rounded-3xl border border-blue-500/40 bg-slate-900 px-6 py-12 sm:px-12 sm:py-16 text-center shadow-[0_30px_80px_rgba(59,130,246,0.25)]">
         {/* Soft decorative glow */}
         <div

@@ -64,3 +64,108 @@ export async function registerWaitlistUser(email, tier = 'Pro') {
     };
   }
 }
+
+/**
+ * Submits a 50-Lead Free Pilot request for the DFY Agency offer.
+ * Inserts into `dfy_leads` table without `.select()`.
+ * If `dfy_leads` does not exist (code 42P01 or PGRST205),
+ * automatically falls back to inserting into `waitlist` with tier dfy_starter|dfy_growth|dfy_scale.
+ *
+ * @param {{
+ *   email: string,
+ *   targetIcp: string,
+ *   volume: string,
+ *   tier: string,
+ *   notes?: string,
+ *   sourcePath?: string
+ * }} data
+ * @returns {Promise<{ success: boolean, error?: string, isDuplicate?: boolean, fallback?: boolean }>}
+ */
+export async function submitDfyPilotLead({ email, targetIcp, volume, tier, notes = '', sourcePath = '' }) {
+  const cleanEmail = String(email || '').trim().toLowerCase();
+  const cleanIcp = String(targetIcp || '').trim();
+  const cleanVolume = String(volume || '').trim();
+  const cleanTier = String(tier || '').trim();
+  const cleanNotes = String(notes || '').trim() || null;
+  const path = sourcePath || (typeof window !== 'undefined' ? window.location.pathname : '/agency');
+
+  // Map tier to waitlist fallback format: dfy_starter | dfy_growth | dfy_scale
+  const tierLower = cleanTier.toLowerCase();
+  let fallbackTier = 'dfy_growth';
+  if (tierLower.includes('starter')) {
+    fallbackTier = 'dfy_starter';
+  } else if (tierLower.includes('scale')) {
+    fallbackTier = 'dfy_scale';
+  }
+
+  if (!isSupabaseConfigured || !supabase) {
+    console.warn(
+      '[GhostLead DFY] Supabase is not configured with real credentials yet. Falling back to local simulation.'
+    );
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    return { success: true, fallback: false };
+  }
+
+  try {
+    // 1. Primary insert into dfy_leads table (NO .select())
+    const { error } = await supabase
+      .from('dfy_leads')
+      .insert([
+        {
+          email: cleanEmail,
+          target_icp: cleanIcp,
+          volume: cleanVolume,
+          tier: cleanTier,
+          notes: cleanNotes,
+          source_path: path,
+        },
+      ]);
+
+    if (!error) {
+      return { success: true };
+    }
+
+    // 2. Check if error indicates missing table (PostgreSQL 42P01 or PostgREST PGRST205)
+    const isMissingTable =
+      error.code === '42P01' ||
+      error.code === 'PGRST205' ||
+      error.message?.includes('does not exist') ||
+      error.message?.includes('relation "public.dfy_leads" does not exist') ||
+      error.message?.includes('Could not find the table');
+
+    if (isMissingTable) {
+      console.warn(
+        `[GhostLead DFY] Table "dfy_leads" not found (code: ${error.code || 'unknown'}). Falling back to "waitlist" table.`
+      );
+
+      // Fallback insert to waitlist table
+      // (Waitlist schema has email and tier columns only; no metadata column)
+      const { error: waitlistError } = await supabase
+        .from('waitlist')
+        .insert([
+          {
+            email: cleanEmail,
+            tier: fallbackTier,
+          },
+        ]);
+
+      if (waitlistError) {
+        if (waitlistError.code === '23505' || waitlistError.message?.includes('duplicate key')) {
+          return { success: true, isDuplicate: true, fallback: true };
+        }
+        return { success: false, error: waitlistError.message, fallback: true };
+      }
+
+      return { success: true, fallback: true };
+    }
+
+    // Other PostgreSQL error (e.g. check constraint failure)
+    return { success: false, error: error.message };
+  } catch (err) {
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : 'Network error. Please try again.',
+    };
+  }
+}
+

@@ -82,6 +82,23 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
     }
   };
 
+  const handleAgencyClick = (e) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    if (currentView === 'home') {
+      if (typeof onNavigate === 'function') {
+        onNavigate('home', '#dfy-agency');
+      } else {
+        const el = document.querySelector('#dfy-agency');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      if (typeof onNavigate === 'function') {
+        onNavigate('agency');
+      }
+    }
+  };
+
   return (
     <div 
       ref={navRef}
@@ -146,6 +163,17 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
           >
             <span>Pricing</span>
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          </a>
+          <a 
+            href={currentView === 'home' ? '#dfy-agency' : '/agency'}
+            onClick={handleAgencyClick}
+            className={`transition-all flex items-center gap-1.5 cursor-pointer rounded-full px-3 py-1 -my-1 ${
+              currentView === 'agency'
+                ? 'text-indigo-600 bg-indigo-50/80 font-semibold border border-indigo-200/60 shadow-2xs'
+                : 'text-slate-600 hover:text-black'
+            }`}
+          >
+            <span>For Agencies (DFY)</span>
           </a>
         </nav>
 
@@ -219,6 +247,17 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
               >
                 <span>Pricing</span>
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              </a>
+              <a
+                href={currentView === 'home' ? '#dfy-agency' : '/agency'}
+                onClick={handleAgencyClick}
+                className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                  currentView === 'agency'
+                    ? 'text-indigo-600 bg-indigo-50/80 font-semibold'
+                    : 'text-slate-700 hover:text-[#1d1d1f] hover:bg-slate-100/80'
+                }`}
+              >
+                <span>For Agencies (DFY)</span>
               </a>
             </div>
 
