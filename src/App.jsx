@@ -27,11 +27,10 @@ import { Footer } from './components/Footer';
 import Comparison from './components/Comparison';
 import LtdBanner from './components/LtdBanner';
 import Faq from './components/Faq';
-import { DfyAgencySection } from './components/DfyAgencySection';
 import { AgencyPage } from './components/AgencyPage';
 import { PilotModal } from './components/PilotModal';
 
-export { Pricing, Navbar, PricingPage, LegalPolicyView, Footer, GhostIcon, DfyAgencySection, AgencyPage, PilotModal };
+export { Pricing, Navbar, PricingPage, LegalPolicyView, Footer, GhostIcon, AgencyPage, PilotModal };
 
 // API Base URL (defaults to production backend)
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_BACKEND_URL || 'https://ghostlead.automexiaai.in';
@@ -196,6 +195,11 @@ export default function App() {
   const getInitialView = () => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      if ((path === '/' || path === '') && hash === '#dfy-agency') {
+        window.history.replaceState({ view: 'agency' }, '', '/agency');
+        return 'agency';
+      }
       if (path === '/agency' || path === '/agency/') {
         return 'agency';
       }
@@ -221,7 +225,11 @@ export default function App() {
     const handlePopState = () => {
       if (typeof window !== 'undefined') {
         const path = window.location.pathname.toLowerCase();
-        if (path === '/agency' || path === '/agency/') {
+        const hash = window.location.hash.toLowerCase();
+        if ((path === '/' || path === '') && hash === '#dfy-agency') {
+          window.history.replaceState({ view: 'agency' }, '', '/agency');
+          setCurrentView('agency');
+        } else if (path === '/agency' || path === '/agency/') {
           setCurrentView('agency');
         } else if (path === '/pricing' || path === '/pricing/') {
           setCurrentView('pricing');
@@ -258,13 +266,18 @@ export default function App() {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname.toLowerCase();
       const hash = window.location.hash.toLowerCase();
+      if ((path === '/' || path === '') && hash === '#dfy-agency') {
+        window.history.replaceState({ view: 'agency' }, '', '/agency');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        return;
+      }
       let targetSelector = hash;
       if (currentView === 'legal' && !targetSelector) {
         if (path.includes('/terms')) targetSelector = '#terms';
         else if (path.includes('/refund')) targetSelector = '#refund';
         else if (path.includes('/privacy')) targetSelector = '#privacy';
       }
-      if (targetSelector) {
+      if (targetSelector && targetSelector !== '#dfy-agency') {
         setTimeout(() => {
           const el = document.querySelector(targetSelector);
           if (el) {
@@ -280,6 +293,10 @@ export default function App() {
   }, [currentView]);
 
   const navigateTo = (view, hash = '') => {
+    if (hash === '#dfy-agency' || view === 'agency') {
+      view = 'agency';
+      hash = '';
+    }
     setCurrentView(view);
 
     let targetPath = '/';
@@ -1527,13 +1544,6 @@ export default function App() {
 
       {/* High-urgency LTD Banner */}
       <LtdBanner onOpenModal={openModal} />
-
-      {/* DFY Agency Section */}
-      <DfyAgencySection
-        currentView="home"
-        onOpenPilotModal={openPilotModal}
-        onNavigate={navigateTo}
-      />
 
       {/* FAQ Accordion */}
       <Faq />

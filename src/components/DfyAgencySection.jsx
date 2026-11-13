@@ -2,7 +2,7 @@ import { Check, Sparkles, ShieldCheck, ArrowRight, Zap, Target } from 'lucide-re
 import { DFY_COPY, DFY_TIERS } from '../lib/dfyPlans';
 
 /**
- * "For Agencies (DFY — Done-For-You Data Desk)" section component.
+ * Data Desk section component.
  * Uses exact copy from DFY_COPY & DFY_TIERS in src/lib/dfyPlans.js.
  * 
  * @param {{
@@ -11,7 +11,7 @@ import { DFY_COPY, DFY_TIERS } from '../lib/dfyPlans';
  *   onNavigate?: (view: string, hash?: string) => void,
  * }} props
  */
-export function DfyAgencySection({ currentView = 'home', onOpenPilotModal, onNavigate }) {
+export function DfyAgencySection({ currentView = 'agency', onOpenPilotModal, onNavigate }) {
   const handleSecondaryClick = (e) => {
     e.preventDefault();
     if (currentView === 'home') {
@@ -34,31 +34,10 @@ export function DfyAgencySection({ currentView = 'home', onOpenPilotModal, onNav
     <section 
       id="dfy-agency" 
       data-testid="dfy-agency-section"
-      className="mx-auto max-w-6xl px-4 sm:px-6 py-20 sm:py-24 scroll-mt-24 sm:scroll-mt-28"
+      className="mx-auto max-w-6xl px-4 sm:px-6 pt-4 pb-16 sm:pt-6 sm:pb-20 scroll-mt-24 sm:scroll-mt-28"
     >
-      {/* Top Header & Copy */}
-      <div className="text-center max-w-4xl mx-auto space-y-4">
-        {/* Dark slate-900 badge with subtle gold/blue accent */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-800 shadow-sm text-slate-200 text-xs font-semibold tracking-wide">
-          <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
-          <span className="text-slate-100">{DFY_COPY.badge}</span>
-          <span className="hidden sm:inline text-slate-600">•</span>
-          <span className="hidden sm:inline text-sky-400 font-medium">Weekly Drops</span>
-        </div>
-
-        {/* H2 Heading */}
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-          {DFY_COPY.heading}
-        </h2>
-
-        {/* Subtitle */}
-        <p className="text-base sm:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed pt-1">
-          {DFY_COPY.subheading}
-        </p>
-      </div>
-
       {/* 3 Pillars Row */}
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {DFY_COPY.pillars.map((pillar, idx) => (
           <div
             key={pillar.title}

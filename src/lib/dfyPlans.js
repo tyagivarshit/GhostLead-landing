@@ -1,14 +1,9 @@
 /**
- * Single source of truth for the "For Agencies (DFY — Done-For-You Data Desk)" offer.
- * Used by both the main page section (#dfy-agency) and the standalone /agency view
- * to prevent drift.
+ * Single source of truth for the Data Desk (/agency) offer.
+ * Used by the standalone /agency view to prevent drift.
  */
 
 export const DFY_COPY = {
-  badge: 'WHITE-GLOVE DATA DESK • LIMITED TO 5 AGENCY PARTNERS',
-  heading: 'Don’t Have Time to Scrape & Clean Lists? Let Our Engine Do It For You.',
-  subheading:
-    'Skip the tools, VAs, and bounced emails. Our internal data team uses the GhostLead live-SMTP engine to deliver custom, <1% bounce decision-maker lists + AI icebreakers straight to your inbox or CRM every Monday.',
   pillars: [
     {
       step: '1',

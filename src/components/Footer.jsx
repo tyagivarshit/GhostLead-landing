@@ -16,17 +16,15 @@ export function Footer({ currentView = 'home', onNavigate }) {
 
   const handleAgencyClick = (e) => {
     e.preventDefault();
-    if (currentView === 'home') {
-      if (typeof onNavigate === 'function') {
-        onNavigate('home', '#dfy-agency');
-      } else {
-        const el = document.querySelector('#dfy-agency');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }
+    if (currentView === 'agency') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (typeof onNavigate === 'function') {
+      onNavigate('agency');
     } else {
-      if (typeof onNavigate === 'function') {
-        onNavigate('agency');
-      }
+      window.history.pushState({ view: 'agency' }, '', '/agency');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -97,11 +95,11 @@ export function Footer({ currentView = 'home', onNavigate }) {
               Pricing
             </a>
             <a 
-              href={currentView === 'home' ? '#dfy-agency' : '/agency'} 
+              href="/agency" 
               onClick={handleAgencyClick} 
               className="text-xs text-zinc-400 hover:text-zinc-300 transition-colors"
             >
-              For Agencies (DFY)
+              Data Desk
             </a>
             <a 
               href="/privacy" 

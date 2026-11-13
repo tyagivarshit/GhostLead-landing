@@ -85,17 +85,15 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
   const handleAgencyClick = (e) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
-    if (currentView === 'home') {
-      if (typeof onNavigate === 'function') {
-        onNavigate('home', '#dfy-agency');
-      } else {
-        const el = document.querySelector('#dfy-agency');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }
+    if (currentView === 'agency') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    if (typeof onNavigate === 'function') {
+      onNavigate('agency');
     } else {
-      if (typeof onNavigate === 'function') {
-        onNavigate('agency');
-      }
+      window.history.pushState({ view: 'agency' }, '', '/agency');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -165,7 +163,7 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
           </a>
           <a 
-            href={currentView === 'home' ? '#dfy-agency' : '/agency'}
+            href="/agency"
             onClick={handleAgencyClick}
             className={`transition-all flex items-center gap-1.5 cursor-pointer rounded-full px-3 py-1 -my-1 ${
               currentView === 'agency'
@@ -173,7 +171,7 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
                 : 'text-slate-600 hover:text-black'
             }`}
           >
-            <span>For Agencies (DFY)</span>
+            <span>Data Desk</span>
           </a>
         </nav>
 
@@ -249,7 +247,7 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
               </a>
               <a
-                href={currentView === 'home' ? '#dfy-agency' : '/agency'}
+                href="/agency"
                 onClick={handleAgencyClick}
                 className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                   currentView === 'agency'
@@ -257,7 +255,7 @@ export function Navbar({ waveMetrics, currentView = 'home', onNavigate, onOpenMo
                     : 'text-slate-700 hover:text-[#1d1d1f] hover:bg-slate-100/80'
                 }`}
               >
-                <span>For Agencies (DFY)</span>
+                <span>Data Desk</span>
               </a>
             </div>
 

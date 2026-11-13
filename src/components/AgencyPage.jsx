@@ -27,8 +27,6 @@ export function AgencyPage({ onOpenPilotModal, onNavigate }) {
         >
           <Sparkles className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" />
           <span>WHITE-GLOVE DATA INFRASTRUCTURE FOR AGENCIES</span>
-          <span className="hidden sm:inline text-slate-600">•</span>
-          <span className="hidden sm:inline text-sky-400 font-medium">Limited to 5 Partners</span>
         </motion.div>
 
         {/* Primary Page Headline */}
