@@ -19,7 +19,7 @@ import { registerWaitlistUser, supabase } from './lib/supabase';
 import { calculateWaveMetrics } from './lib/waveMetrics';
 import WaveBadge from './components/WaveBadge';
 import { Pricing } from './components/Pricing';
-import { getPricingPlans } from './lib/pricingPlans';
+import { getPricingPlans, MODAL_TIERS } from './lib/pricingPlans';
 import { Navbar, GhostIcon } from './components/Navbar';
 import { PricingPage } from './components/PricingPage';
 import { LegalPolicyView } from './components/LegalPolicyView';
@@ -30,6 +30,9 @@ import Faq from './components/Faq';
 
 export { Pricing, Navbar, PricingPage, LegalPolicyView, Footer, GhostIcon };
 
+// API Base URL (defaults to production backend)
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_BACKEND_URL || 'https://ghostlead.automexiaai.in';
+
 // 6-Hour Rolling Sandbox Window
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 const CHECKS_COUNT_KEY = 'ghostlead_sandbox_checks_count';
@@ -39,11 +42,6 @@ const LAST_RESET_KEY = 'ghostlead_sandbox_last_reset';
 const FAST_EASE = [0.16, 1, 0.3, 1];
 const FAST_TRANSITION = { duration: 0.25, ease: FAST_EASE };
 const MODAL_SPRING = { type: 'spring', stiffness: 280, damping: 26 };
-const MODAL_TIERS = [
-  { id: 'Solo', name: 'Solo', anchor: '$199', price: 69, credits: '5,000 Credits' },
-  { id: 'Pro', name: 'Pro', anchor: '$349', price: 129, credits: '15,000 Credits', popular: true },
-  { id: 'Agency', name: 'Agency', anchor: '$699', price: 249, credits: '35,000 Credits' },
-];
 
 // Chrome Browser Extension Icon
 function ChromeIcon({ className = "w-6 h-6" }) {
@@ -198,7 +196,12 @@ export default function App() {
       if (path === '/pricing' || path === '/pricing/' || window.location.hash === '#pricing') {
         return 'pricing';
       }
-      if (path === '/legal' || path === '/legal/' || path === '/terms' || path === '/terms/' || path === '/privacy' || path === '/privacy/') {
+      if (
+        path === '/legal' || path === '/legal/' ||
+        path === '/terms' || path === '/terms/' ||
+        path === '/privacy' || path === '/privacy/' ||
+        path === '/refund' || path === '/refund/'
+      ) {
         return 'legal';
       }
     }
@@ -214,7 +217,12 @@ export default function App() {
         const path = window.location.pathname.toLowerCase();
         if (path === '/pricing' || path === '/pricing/') {
           setCurrentView('pricing');
-        } else if (path === '/legal' || path === '/legal/' || path === '/terms' || path === '/terms/' || path === '/privacy' || path === '/privacy/') {
+        } else if (
+          path === '/legal' || path === '/legal/' ||
+          path === '/terms' || path === '/terms/' ||
+          path === '/privacy' || path === '/privacy/' ||
+          path === '/refund' || path === '/refund/'
+        ) {
           setCurrentView('legal');
         } else {
           setCurrentView('home');
@@ -226,6 +234,28 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  // Handle auto-scroll to specific legal section on view change or direct deep link load
+  useEffect(() => {
+    if (currentView === 'legal' && typeof window !== 'undefined') {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      let targetSelector = hash;
+      if (!targetSelector) {
+        if (path.includes('/terms')) targetSelector = '#terms';
+        else if (path.includes('/refund')) targetSelector = '#refund';
+        else if (path.includes('/privacy')) targetSelector = '#privacy';
+      }
+      if (targetSelector) {
+        setTimeout(() => {
+          const el = document.querySelector(targetSelector);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 120);
+      }
+    }
+  }, [currentView]);
+
   const navigateTo = (view, hash = '') => {
     setCurrentView(view);
 
@@ -233,7 +263,13 @@ export default function App() {
     if (view === 'pricing') {
       targetPath = '/pricing';
     } else if (view === 'legal') {
-      targetPath = hash === '#terms' ? '/terms' : '/privacy';
+      if (hash === '#terms') {
+        targetPath = '/terms';
+      } else if (hash === '#refund') {
+        targetPath = '/refund';
+      } else {
+        targetPath = '/privacy';
+      }
     } else if (hash) {
       targetPath = `/${hash}`;
     }
@@ -247,9 +283,10 @@ export default function App() {
         window.history.pushState({ view }, '', targetPath);
       }
 
-      if (hash) {
+      const scrollTarget = hash || (targetPath === '/terms' ? '#terms' : targetPath === '/refund' ? '#refund' : targetPath === '/privacy' ? '#privacy' : '');
+      if (scrollTarget) {
         setTimeout(() => {
-          const el = document.querySelector(hash);
+          const el = document.querySelector(scrollTarget);
           if (el) {
             el.scrollIntoView({ behavior: 'smooth' });
           } else {
@@ -365,9 +402,7 @@ export default function App() {
     let networkError = false;
 
     try {
-      const endpoint = import.meta.env.VITE_BACKEND_URL
-        ? `${import.meta.env.VITE_BACKEND_URL}/api/public/check-domain`
-        : 'https://ghostlead.automexiaai.in/api/public/check-domain';
+      const endpoint = `${API_BASE_URL}/api/public/check-domain`;
 
       res = await fetch(endpoint, {
         method: 'POST',
@@ -896,7 +931,7 @@ export default function App() {
                         <ChromeIcon className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" />
                         <p>
                           <strong className="text-[#1d1d1f] font-semibold">Live mail infrastructure verified.</strong>{' '}
-                          GhostLead executes this direct SMTP handshake right inside LinkedIn—guaranteeing 0% bounce and charging $0 for dead mailboxes.
+                          GhostLead executes this direct SMTP handshake right inside LinkedIn—protecting domain health and charging $0 for dead mailboxes.
                         </p>
                       </div>
                       <button
@@ -1377,7 +1412,7 @@ export default function App() {
                 </span>
               </div>
               <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-                0% Bounces. $0 Charged for Dead Emails.
+                Dead Emails Cost $0.
               </h3>
               <ul className="space-y-3 pt-2">
                 <li className="flex items-start gap-3">
@@ -1607,7 +1642,7 @@ export default function App() {
                           <span>Securing Your Slot...</span>
                         </span>
                       ) : (
-                        <span>Lock Pre-Booking (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 129}) →</span>
+                        <span>Lock Pre-Booking (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 139}) →</span>
                       )}
                     </button>
                   </form>
@@ -1659,7 +1694,7 @@ export default function App() {
                   <div className="mt-4 p-3.5 sm:p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-left text-slate-700 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-slate-500">Selected Tier:</span>
-                      <span className="font-semibold text-blue-600">{selectedTier} (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 129} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
+                      <span className="font-semibold text-blue-600">{selectedTier} (${MODAL_TIERS.find((t) => t.id === selectedTier)?.price || 139} {pricingPlans.isClosed ? 'Monthly' : 'Lifetime'})</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-500">Contact Email:</span>

@@ -1,8 +1,17 @@
+import { ShieldCheck, ArrowUpRight } from 'lucide-react';
+
 /**
  * Apple-Inspired Minimalist Legal Policy View.
- * Unified Terms of Service and Privacy Policy in an ultra-clean, crisp card aesthetic.
+ * Unified Terms of Service, Privacy Policy, and Refund Policy.
  */
 export function LegalPolicyView() {
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen w-full bg-[#fbfbfd] text-[#1d1d1f] pt-32 pb-24 px-4 sm:px-6 flex justify-center antialiased relative bg-[radial-gradient(circle_at_top,_rgba(240,240,245,0.8),_transparent_70%)]">
       
@@ -16,16 +25,41 @@ export function LegalPolicyView() {
           </div>
           
           <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#1d1d1f]">
-            Terms of Service & Privacy Policy
+            Terms of Service, Privacy & Refund Policy
           </h1>
           
           <p className="text-xs text-[#86868b] mt-2 font-normal">
-            Effective: October 2026 • GhostLead Platform Terms
+            Effective: November 2026 • GhostLead Platform Terms
           </p>
           
           <p className="text-[14px] leading-relaxed text-[#424245] font-normal mt-4">
-            This agreement sets forth the terms governing your access to and use of GhostLead services, applications, and APIs. By creating an account or utilizing the Service, you agree to these unified terms and our data protection standards.
+            This agreement sets forth the governing terms for access to and use of GhostLead services, data validation tools, Chrome extensions, and APIs. By creating an account, reserving a tier, or purchasing verification credits, you agree to these unified terms, data protection standards, and refund policies.
           </p>
+
+          {/* Quick Jump Navigation Tabs */}
+          <div className="flex flex-wrap gap-2 mt-6 pt-4 border-t border-black/[0.05]">
+            <button
+              type="button"
+              onClick={() => scrollTo('terms')}
+              className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors cursor-pointer"
+            >
+              Terms of Service ↓
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollTo('privacy')}
+              className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors cursor-pointer"
+            >
+              Privacy Policy ↓
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollTo('refund')}
+              className="px-3.5 py-1.5 rounded-full text-xs font-medium bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200/60 transition-colors cursor-pointer"
+            >
+              Refund Policy ↓
+            </button>
+          </div>
         </header>
 
         {/* Section Divider */}
@@ -65,17 +99,21 @@ export function LegalPolicyView() {
               1.3 Account Tiers & Fair Usage
             </h3>
             <p>
-              Access to verification capabilities is provisioned through credit tokens and account tiers. Token allocations, concurrency slots, and query throughput are governed strictly by your selected plan parameters. Users agree to operate within the established rate limits and volume allocations designated for their account tier.
+              Access to verification capabilities is provisioned through credit tokens and account tiers. Token allocations, concurrency slots, and query throughput are governed strictly by your selected plan parameters. Lifetime Deal (LTD) tokens never expire. Users agree to operate within published daily fair-use limits to protect 99%+ deliverability and global mail network reputation.
             </p>
           </div>
 
           {/* 1.4 Payment & Refund Policy */}
-          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
-            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mb-1 flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-blue-600 flex-shrink-0" />
               1.4 Payment Terms & Refund Policy
             </h3>
-            <p>
-              All purchases and token allocations are final and non-refundable unless explicitly mandated by applicable law. Service fees are billed according to published rates at the time of purchase.
+            <p className="font-medium text-slate-800">
+              All one-time LTD purchases are final, no cash refunds, and are covered by the 2-for-1 Hard Bounce Credit Replacement Guarantee. Contact: <a href="mailto:contact@ghostlead.co" className="text-blue-600 underline">contact@ghostlead.co</a>.
+            </p>
+            <p className="text-xs text-slate-600 mt-2">
+              Because tokens and computational mail verification capacity are provisioned immediately upon transaction, all lifetime deals and credit top-up pack purchases are strictly non-refundable one-time charges. In lieu of cash refunds, GhostLead protects every customer with the 2-for-1 Hard Bounce Credit Replacement Guarantee: if any email verified as deliverable by GhostLead results in a hard bounce during legitimate outreach, 2 replacement credits are automatically provided upon review. Additionally, unverified, risky, or invalid addresses incur zero charges ($0 charged).
             </p>
           </div>
 
@@ -191,6 +229,95 @@ export function LegalPolicyView() {
             </h3>
             <p>
               We may update this policy periodically to reflect operational or regulatory developments. Continued platform access following any updates constitutes acceptance of the modified terms. For inquiries regarding our privacy standards, please contact our support team.
+            </p>
+          </div>
+        </section>
+
+        {/* Section Divider */}
+        <div className="border-b border-black/[0.06] my-8" />
+
+        {/* ========================================================= */}
+        {/* PART III: REFUND POLICY (LIFETIME DEAL & TOP-UP)          */}
+        {/* ========================================================= */}
+        <section id="refund" className="scroll-mt-36">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-blue-50 text-blue-700 border border-blue-200/60 mb-3">
+            <ShieldCheck className="w-3.5 h-3.5" />
+            Credit Protection Policy
+          </div>
+
+          <h2 className="text-lg sm:text-xl font-semibold text-[#1d1d1f] tracking-tight mb-3">
+            3. Lifetime Deal (LTD) & Credit Refund Policy
+          </h2>
+
+          {/* Notice Box */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/70 border border-amber-200/80 text-amber-950 mb-6 space-y-2">
+            <p className="font-semibold text-sm">
+              All one-time LTD purchases are final, no cash refunds, and are covered by the 2-for-1 Hard Bounce Credit Replacement Guarantee. Contact: <a href="mailto:contact@ghostlead.co" className="underline font-bold">contact@ghostlead.co</a>.
+            </p>
+            <p className="text-xs text-amber-900 leading-relaxed">
+              Because Lifetime Deal purchases provision lifetime capacity with non-expiring tokens and immediate allocation of compute and SMTP validation slots, we do not offer cash refunds, money-back guarantees, or payment chargebacks. Instead, your balance is fully covered by our comprehensive credit-protection guarantees.
+            </p>
+          </div>
+
+          {/* 3.1 All One-Time Purchases Are Final */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              3.1 No Cash Refunds
+            </h3>
+            <p>
+              All purchases of Lifetime Deal slots (Solo, Pro, Agency) and optional non-expiring credit top-up packs are final sales. Once purchased, credit allocations are credited permanently to your account and never expire. No partial refunds, prorated credits, or cash returns are issued under any circumstance.
+            </p>
+          </div>
+
+          {/* 3.2 2-for-1 Hard Bounce Replacement Guarantee */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              3.2 2-for-1 Hard Bounce Credit Replacement Guarantee
+            </h3>
+            <p>
+              We stand behind the deliverability of verified emails. In lieu of cash refunds, GhostLead provides a 2-for-1 credit guarantee:
+            </p>
+            <ul className="list-disc pl-5 space-y-1.5 text-[#424245]">
+              <li>
+                If any email address verified as <strong>valid/deliverable</strong> by GhostLead results in a documented hard bounce during outreach sent within 14 days of verification, GhostLead will grant <strong>two (2) replacement credits</strong> for every one (1) bounced address back to your active ledger.
+              </li>
+              <li>
+                Soft bounces resulting from mailbox-full errors, temporary server downtimes, sending IP blacklisting, or aggressive campaign volume are not classified as hard bounces.
+              </li>
+            </ul>
+          </div>
+
+          {/* 3.3 Zero Charge for Catch-All & Invalid Emails */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              3.3 Catch-All & Invalid Emails Free Forever
+            </h3>
+            <p>
+              GhostLead guarantees a zero-waste credit ledger. You are only charged credits for verified, 100% deliverable addresses. Any lead identified as a catch-all domain, unverified mailbox, disposable address, or invalid syntax is processed completely free of charge (0 credits charged).
+            </p>
+          </div>
+
+          {/* 3.4 How to Submit a Guarantee Claim */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-2">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              3.4 Requesting Credit Adjustments
+            </h3>
+            <p>
+              To request replacement credits under the 2-for-1 Hard Bounce Credit Replacement Guarantee, simply export your bounce log from your sending provider (e.g., Instantly, Smartlead, Lemlist) and forward it to our deliverability team:
+            </p>
+            <div className="mt-3 p-3 rounded-xl bg-slate-100 border border-slate-200/80 flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-800">
+                Support & Guarantee Desk: contact@ghostlead.co
+              </span>
+              <a
+                href="mailto:contact@ghostlead.co?subject=2-for-1%20Bounce%20Guarantee%20Claim"
+                className="text-xs font-medium text-blue-600 hover:text-blue-700 inline-flex items-center gap-1"
+              >
+                Submit Request <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+            <p className="text-xs text-slate-500 mt-2">
+              Credit replacements are processed within 1–2 business days directly into your account balance.
             </p>
           </div>
         </section>

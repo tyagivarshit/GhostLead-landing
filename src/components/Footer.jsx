@@ -86,6 +86,13 @@ export function Footer({ onNavigate }) {
             >
               Terms of Service
             </a>
+            <a 
+              href="/refund" 
+              onClick={(e) => handleNav(e, 'legal', '#refund')} 
+              className="text-xs text-zinc-500 hover:text-zinc-400 transition-colors"
+            >
+              Refund Policy
+            </a>
           </div>
 
         </div>

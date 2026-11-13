@@ -80,16 +80,16 @@ export function WavesSection({ totalCount = 0 }) {
           Wave 1: Founder Access
         </div>
         <div className="text-xs text-[#86868b] mt-0.5">
-          30 Total Slots • Solo $69 / Pro $129 / Agency $249
+          30 Total Slots • Solo $79 / Pro $139 / Agency $269
         </div>
 
         <div className="flex items-baseline mt-2">
           <span className="line-through text-slate-400 text-sm font-medium mr-2">$199</span>
-          <span className="text-2xl font-extrabold text-blue-600">$69</span>
+          <span className="text-2xl font-extrabold text-blue-600">$79</span>
         </div>
 
         <div className="text-xs text-[#86868b] mt-1">
-          Save 65% • Lock for $0 today
+          Save 60% • Lock for $0 today
         </div>
       </div>
 
@@ -156,7 +156,7 @@ export function WavesSection({ totalCount = 0 }) {
         </div>
 
         <div className="text-xs text-[#86868b] mt-1 min-h-[1.5rem]">
-          +$20 price escalation
+          +$10 price escalation
         </div>
 
         {/* Progress Bar */}

@@ -68,7 +68,7 @@ export default function Comparison() {
             <li className="flex items-start gap-3">
               <Check className="mt-1 h-5 w-5 shrink-0 text-emerald-600" aria-hidden="true" />
               <span className="text-base text-slate-700">
-                0% guaranteed bounce rate for bulletproof deliverability
+                99%+ deliverability backed by 2-for-1 bounce credit replacement
               </span>
             </li>
             <li className="flex items-start gap-3">

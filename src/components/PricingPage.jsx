@@ -86,7 +86,7 @@ export function PricingPage({ totalCount = 0, waveMetrics, onSelectPlan }) {
           </span>
           <span className="flex items-center gap-1.5">
             <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-            0% Bounce Guarantee
+            2-for-1 Bounce Guarantee
           </span>
           <span className="flex items-center gap-1.5">
             <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
