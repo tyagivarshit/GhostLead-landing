@@ -652,9 +652,9 @@ export default function App() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={FAST_TRANSITION}
-          className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.15]"
+          className="text-3xl sm:text-[clamp(1.75rem,3.8vw,2.5rem)] font-extrabold tracking-tight text-slate-900 leading-[1.15] max-w-5xl mx-auto"
         >
-          Stop burning sending domains and credits
+          <span className="md:whitespace-nowrap">Stop burning sending domains and credits</span>
           <span className="block mt-1 sm:mt-2 text-slate-600 font-semibold">
             on dead mailboxes.
           </span>
