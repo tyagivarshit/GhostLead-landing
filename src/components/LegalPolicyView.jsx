@@ -103,17 +103,17 @@ export function LegalPolicyView() {
             </p>
           </div>
 
-          {/* 1.4 Payment & Refund Policy */}
-          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+          {/* 1.4 Payment Terms, DFY Retainers & Refund Policy */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-3 mb-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
             <h3 className="text-sm font-semibold text-[#1d1d1f] mb-1 flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-blue-600 flex-shrink-0" />
-              1.4 Payment Terms & Refund Policy
+              1.4 Payment Terms, DFY Retainers &amp; Refund Policy
             </h3>
-            <p className="font-medium text-slate-800">
-              All one-time LTD purchases are final, no cash refunds, and are covered by the 2-for-1 Hard Bounce Credit Replacement Guarantee. Contact: <a href="mailto:contact@ghostlead.co" className="text-blue-600 underline">contact@ghostlead.co</a>.
+            <p>
+              All Lifetime Deal (LTD) purchases are covered by our 14-Day Satisfaction Guarantee, provided fewer than 100 verification credits have been consumed from your account. Once 100 or more credits are used, digital compute and SMTP verification capacity are deemed delivered and the purchase becomes final, remaining fully protected under our 2-for-1 Hard Bounce Credit Replacement Guarantee.
             </p>
-            <p className="text-xs text-slate-600 mt-2">
-              Because tokens and computational mail verification capacity are provisioned immediately upon transaction, all lifetime deals and credit top-up pack purchases are strictly non-refundable one-time charges. In lieu of cash refunds, GhostLead protects every customer with the 2-for-1 Hard Bounce Credit Replacement Guarantee: if any email verified as deliverable by GhostLead results in a hard bounce during legitimate outreach, 2 replacement credits are automatically provided upon review. Additionally, unverified, risky, or invalid addresses incur zero charges ($0 charged).
+            <p>
+              Done-For-You (DFY) Data Desk monthly retainers are billed in advance on a recurring monthly basis and may be canceled at any time prior to the next billing cycle via email to contact@ghostlead.co. Because DFY deliverables involve custom manual research and immediate data compilation, no partial or retroactive refunds are issued once a monthly lead batch has been delivered.
             </p>
           </div>
 
@@ -147,12 +147,32 @@ export function LegalPolicyView() {
           </div>
 
           {/* 1.7 Third-Party Trademarks */}
-          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2">
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
             <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
               1.7 Third-Party Trademarks
             </h3>
             <p>
               GhostLead operates independently. All third-party product names, logos, and trademarks referenced on the site or in product documentation remain the property of their respective holders and do not indicate endorsement or sponsorship.
+            </p>
+          </div>
+
+          {/* 1.8 Third-Party Platform Compliance (Browser Extension) */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              1.8 Third-Party Platform Compliance (Browser Extension)
+            </h3>
+            <p>
+              GhostLead&apos;s browser extension operates strictly as a user-directed productivity utility. You are solely responsible for complying with the Terms of Service and acceptable use rules of any third-party websites or professional networks (including LinkedIn) you access while using the extension. GhostLead assumes no liability for third-party account warnings or restrictions resulting from user-initiated browsing activity.
+            </p>
+          </div>
+
+          {/* 1.9 Governing Law & Dispute Resolution */}
+          <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2">
+            <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
+              1.9 Governing Law &amp; Dispute Resolution
+            </h3>
+            <p>
+              These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law principles.
             </p>
           </div>
         </section>
@@ -250,22 +270,22 @@ export function LegalPolicyView() {
           </h2>
 
           {/* Notice Box */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/70 border border-amber-200/80 text-amber-950 mb-6 space-y-2">
+          <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/70 border border-blue-200/80 text-slate-900 mb-6 space-y-2">
             <p className="font-semibold text-sm">
-              All one-time LTD purchases are final, no cash refunds, and are covered by the 2-for-1 Hard Bounce Credit Replacement Guarantee. Contact: <a href="mailto:contact@ghostlead.co" className="underline font-bold">contact@ghostlead.co</a>.
+              All Lifetime Deal purchases are covered by our 14-Day Satisfaction Guarantee (&lt;100 credits used) and our 2-for-1 Hard Bounce Credit Replacement Guarantee. Contact: <a href="mailto:contact@ghostlead.co" className="underline font-bold text-blue-600">contact@ghostlead.co</a>.
             </p>
-            <p className="text-xs text-amber-900 leading-relaxed">
-              Because Lifetime Deal purchases provision lifetime capacity with non-expiring tokens and immediate allocation of compute and SMTP validation slots, we do not offer cash refunds, money-back guarantees, or payment chargebacks. Instead, your balance is fully covered by our comprehensive credit-protection guarantees.
+            <p className="text-xs text-slate-700 leading-relaxed">
+              We offer a 14-day refund window on initial Lifetime Deal purchases provided fewer than 100 verification credits have been consumed. If 100 or more credits have been consumed or 14 calendar days have passed, purchases are deemed delivered and non-refundable, remaining fully covered under our 2-for-1 Hard Bounce Credit Replacement Guarantee.
             </p>
           </div>
 
-          {/* 3.1 All One-Time Purchases Are Final */}
+          {/* 3.1 14-Day Limited Refund Window & Final Sale Threshold */}
           <div className="text-[14px] leading-relaxed text-[#424245] font-normal space-y-2 mb-6">
             <h3 className="text-sm font-semibold text-[#1d1d1f] mt-4 mb-1">
-              3.1 No Cash Refunds
+              3.1 14-Day Limited Refund Window &amp; Final Sale Threshold
             </h3>
             <p>
-              All purchases of Lifetime Deal slots (Solo, Pro, Agency) and optional non-expiring credit top-up packs are final sales. Once purchased, credit allocations are credited permanently to your account and never expire. No partial refunds, prorated credits, or cash returns are issued under any circumstance.
+              We offer a 14-day refund window on initial Lifetime Deal (Solo, Pro, Agency) purchases strictly for customers who have used fewer than 100 credits. If you have consumed 100 or more credits, or if 14 calendar days have passed since purchase, all sales are final and non-refundable. Optional credit top-up packs are non-refundable once credited to your ledger. To request an eligible refund under the 100-credit threshold, contact <a href="mailto:contact@ghostlead.co" className="text-blue-600 underline">contact@ghostlead.co</a> with your order ID.
             </p>
           </div>
 
@@ -275,7 +295,7 @@ export function LegalPolicyView() {
               3.2 2-for-1 Hard Bounce Credit Replacement Guarantee
             </h3>
             <p>
-              We stand behind the deliverability of verified emails. In lieu of cash refunds, GhostLead provides a 2-for-1 credit guarantee:
+              We stand behind the deliverability of verified emails. In addition to our satisfaction guarantee, GhostLead provides a 2-for-1 credit guarantee:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-[#424245]">
               <li>
